@@ -192,7 +192,7 @@ function HeroSection() {
           transition={{ delay: 0.2, duration: 0.75, ease: [0.2, 0.9, 0.2, 1] }}
           className="font-headline font-semibold text-white mb-5 max-w-[820px]"
           style={{ 
-            fontSize: "clamp(40px, 7.2vw, 62px)",
+            fontSize: "clamp(44px, 7vw, 58px)",
             lineHeight: 1.08,
             letterSpacing: "-0.022em"
           }}
@@ -233,30 +233,6 @@ function HeroSection() {
           >
             Explore Capabilities
           </motion.button>
-        </motion.div>
-
-        {/* Trusted Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.58, duration: 0.75, ease: [0.2, 0.9, 0.2, 1] }}
-          className="mt-[52px] w-full border-t border-white/5 pt-[28px]"
-        >
-          <span className="block text-[10.5px] font-medium tracking-[0.15em] text-white/30 uppercase mb-[18px]">
-            TRUSTED BY LEADING ENTERPRISES
-          </span>
-          <div className="flex flex-wrap md:flex-nowrap justify-center gap-x-[12px] gap-y-[14px]">
-            {["Microsoft", "IBM", "Siemens", "BCG", "Salesforce"].map((logo) => (
-              <div 
-                key={logo} 
-                className="bg-white/4 border border-white/8 px-3.5 md:px-4 py-[7px] rounded-[5px] shrink-0"
-              >
-                <span className="text-[12px] font-bold text-white/55 tracking-[0.06em]">
-                  {logo}
-                </span>
-              </div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>
