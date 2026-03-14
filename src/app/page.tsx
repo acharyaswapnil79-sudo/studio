@@ -1,20 +1,17 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { cn } from '@/lib/utils';
-
-// Hero Section Only — additional sections to be added incrementally
 
 export default function GreyShacksLanding() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
-  // Navbar scroll handling
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
+      setIsScrolled(window.scrollY > 40);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -51,32 +48,27 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
       initial={{ top: 24 }}
       animate={{ 
         top: isScrolled ? 12 : 24,
-        paddingLeft: isScrolled ? 20 : 0,
-        paddingRight: isScrolled ? 20 : 0,
       }}
       transition={{ type: "spring", stiffness: 400, damping: 40 }}
-      className={cn(
-        "fixed left-0 right-0 z-50 flex justify-center w-full px-4 md:px-8",
-        isScrolled ? "h-[72px]" : "h-[72px]"
-      )}
+      className="fixed left-0 right-0 z-50 flex justify-center w-full px-4 md:px-8"
     >
       <div className={cn(
-        "flex items-center justify-between w-full max-w-[1240px] px-6 md:px-8 transition-all duration-300 rounded-[14px]",
+        "flex items-center justify-between w-full max-w-[1240px] px-6 md:px-8 transition-all duration-300 rounded-[14px] h-[68px] overflow-visible",
         isScrolled ? "bg-[rgba(15,15,15,0.72)] backdrop-blur-[12px] saturate-[180%] border-b border-[rgba(255,255,255,0.07)] border-l border-[rgba(255,255,255,0.04)] border-r border-[rgba(255,255,255,0.04)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" : "bg-transparent border-transparent"
       )}>
         {/* Logo */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2.5 shrink-0">
           <div className="flex items-center justify-center w-8 h-8 bg-[#161616] border border-white/10 rounded-[7px]">
             <span className="font-bold text-[15px] text-white">G</span>
           </div>
           <span className="font-headline font-bold text-lg text-white">GreyShacks</span>
         </div>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden lg:flex items-center gap-[34px]">
+        {/* Navigation Links - Visible on Tablet (768px+) and Desktop */}
+        <div className="hidden md:flex items-center gap-[22px] lg:gap-[34px] mx-4">
           {navLinks.map((link: string) => (
             <div key={link} className="relative group py-2">
-              <button className="text-[13.5px] text-[#888888] tracking-wider hover:text-white transition-colors duration-[0.18s]">
+              <button className="text-[13px] lg:text-[13.5px] text-[#888888] tracking-wider hover:text-white transition-colors duration-[0.18s] whitespace-nowrap">
                 {link}
               </button>
               <motion.div 
@@ -88,20 +80,20 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
           ))}
         </div>
 
-        {/* Desktop CTA */}
-        <div className="hidden lg:block">
+        {/* CTA - Visible on Tablet (768px+) and Desktop */}
+        <div className="hidden md:block shrink-0">
           <motion.button
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 500, damping: 30 }}
-            className="bg-[#0047AB] text-white font-semibold text-[13.5px] px-5 py-2.5 rounded-[7px] shadow-[0_4px_16px_rgba(0,71,171,0.25)] hover:shadow-[0_6px_28px_rgba(0,71,171,0.45)]"
+            className="bg-[#0047AB] text-white font-semibold text-[13.5px] px-5 py-2.5 rounded-[7px] shadow-[0_4px_16px_rgba(0,71,171,0.25)] hover:shadow-[0_6px_28px_rgba(0,71,171,0.45)] whitespace-nowrap"
           >
             Apply for Pilot
           </motion.button>
         </div>
 
-        {/* Mobile controls */}
-        <div className="flex lg:hidden items-center gap-4">
-          <button className="bg-[#0047AB] text-white font-semibold text-[12px] px-4 py-2 rounded-[7px] shadow-lg">
+        {/* Mobile controls - Only below 768px */}
+        <div className="flex md:hidden items-center gap-4">
+          <button className="bg-[#0047AB] text-white font-semibold text-[12px] px-4 py-2 rounded-[7px] shadow-lg whitespace-nowrap">
             Apply
           </button>
           <button 
@@ -176,11 +168,11 @@ function MobileMenuOverlay({ isOpen, onClose, navLinks }: any) {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-[#0A0A0A] flex flex-col items-center pt-[96px] md:pt-[120px] overflow-hidden">
+    <section className="relative min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden box-border px-5 md:px-8 pt-[72px] md:pt-[88px] lg:pt-[96px] pb-[48px] md:pb-[56px] lg:pb-[64px]">
       <ParticleBackground />
       
-      <div className="relative z-10 w-full max-w-[860px] px-6 flex flex-col items-center text-center py-[72px] md:py-[100px]">
-        {/* Eyebrow Tag */}
+      <div className="relative z-10 w-full max-w-[860px] flex flex-col items-center text-center">
+        {/* Eyebrow Tag - Visible on all breakpoints */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -198,8 +190,12 @@ function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.75, ease: [0.2, 0.9, 0.2, 1] }}
-          className="font-headline font-semibold text-[40px] md:text-[62px] leading-[1.08] tracking-[-0.022em] text-white mb-5 max-w-[820px]"
-          style={{ fontSize: "clamp(40px, 6.5vw, 62px)" }}
+          className="font-headline font-semibold text-white mb-5 max-w-[820px]"
+          style={{ 
+            fontSize: "clamp(40px, 7.2vw, 62px)",
+            lineHeight: 1.08,
+            letterSpacing: "-0.022em"
+          }}
         >
           The Architecture of<br />Autonomous Operations
         </motion.h1>
@@ -209,21 +205,21 @@ function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.34, duration: 0.75, ease: [0.2, 0.9, 0.2, 1] }}
-          className="text-[#A0A0A0] text-[15px] md:text-[17px] leading-[1.7] max-w-[560px] mb-[34px]"
+          className="text-[#A0A0A0] text-[15px] md:text-[16px] lg:text-[17px] leading-[1.7] max-w-[560px] md:max-w-[600px] mb-[34px]"
         >
           GreyShacks designs intelligent systems that eliminate manual workflows, driving enterprise efficiency through agentic operational cores.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons - Side by side on 768px+ */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.46, duration: 0.75, ease: [0.2, 0.9, 0.2, 1] }}
-          className="flex flex-col sm:flex-row gap-[11px] w-full sm:w-auto"
+          className="flex flex-col md:flex-row gap-[11px] w-full md:w-auto"
         >
           <motion.button
             whileHover={{ scale: 1.04 }}
-            className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14.5px] px-[30px] py-[14px] rounded-[7px] shadow-[0_8px_28px_rgba(0,71,171,0.32)]"
+            className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14.5px] px-[30px] py-[14px] rounded-[7px] shadow-[0_8px_28px_rgba(0,71,171,0.32)] md:min-w-[180px] whitespace-nowrap"
           >
             Apply for Pilot
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -233,7 +229,7 @@ function HeroSection() {
           
           <motion.button
             whileHover={{ backgroundColor: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.25)" }}
-            className="bg-transparent border border-white/14 text-white/82 font-semibold text-[14.5px] px-[30px] py-[14px] rounded-[7px] transition-colors"
+            className="bg-transparent border border-white/14 text-white/82 font-semibold text-[14.5px] px-[30px] py-[14px] rounded-[7px] transition-colors md:min-w-[180px] whitespace-nowrap"
           >
             Explore Capabilities
           </motion.button>
@@ -249,13 +245,13 @@ function HeroSection() {
           <span className="block text-[10.5px] font-medium tracking-[0.15em] text-white/30 uppercase mb-[18px]">
             TRUSTED BY LEADING ENTERPRISES
           </span>
-          <div className="flex flex-wrap justify-center gap-x-[24px] gap-y-[14px]">
+          <div className="flex flex-wrap md:flex-nowrap justify-center gap-x-[12px] gap-y-[14px]">
             {["Microsoft", "IBM", "Siemens", "BCG", "Salesforce"].map((logo) => (
               <div 
                 key={logo} 
-                className="bg-white/4 border border-white/8 px-4 py-[7px] rounded-[5px]"
+                className="bg-white/4 border border-white/8 px-3.5 md:px-4 py-[7px] rounded-[5px] shrink-0"
               >
-                <span className="text-[12.5px] font-bold text-white/55 tracking-[0.06em]">
+                <span className="text-[12px] font-bold text-white/55 tracking-[0.06em]">
                   {logo}
                 </span>
               </div>
@@ -278,10 +274,10 @@ function MetricsBar() {
   ];
 
   return (
-    <section className="bg-[#0D0D0D] border-t border-white/5 py-[38px] px-6">
+    <section className="bg-[#0D0D0D] border-t border-white/5 py-[38px] px-8 md:px-10">
       <div 
         ref={ref}
-        className="max-w-[960px] mx-auto grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/6"
+        className="max-w-[960px] mx-auto grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/6"
       >
         {metrics.map((metric, i) => (
           <motion.div
@@ -289,9 +285,9 @@ function MetricsBar() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: i * 0.12, duration: 0.6 }}
-            className="flex flex-col items-center text-center py-5 sm:py-2.5 px-6"
+            className="flex flex-col items-center text-center py-5 md:py-2.5 px-6"
           >
-            <span className="font-headline font-bold text-white text-[32px] md:text-[48px]" style={{ fontSize: "clamp(32px, 6vw, 48px)" }}>
+            <span className="font-headline font-bold text-white" style={{ fontSize: "clamp(34px, 5vw, 48px)" }}>
               {metric.value}
             </span>
             <span className="text-[#A0A0A0] text-[13px] mt-2 leading-[1.4]">
