@@ -418,31 +418,10 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
     ];
   }
 
-  const snapshots = [
-    {
-      industry: 'Manufacturing (Anonymized)',
-      title: 'Accounts Reconciliation Agent',
-      points: [
-        'Problem: 72 hour cross-system reconciliation latency',
-        'Intervention: agentic orchestration + OCR document pipeline',
-        'Outcome: reconciliation latency reduced 72h → 3 min; projected annual savings $1.2M'
-      ]
-    },
-    {
-      industry: 'Real Estate (Anonymized)',
-      title: 'Lead-to-Contract Automation',
-      points: [
-        'Problem: 40 hours human screening per property lead',
-        'Intervention: candidate scoring + automated follow-up agent',
-        'Outcome: screening time reduced 40h → 10m; cost per lead cut ~96%'
-      ]
-    }
-  ];
-
   return (
     <section id="operational-impact" className="bg-[#0D0D0D] border-t border-white/5 py-14 md:py-24 px-6 md:px-10">
       <div className="max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-8">
           <div className="lg:col-span-1">
             <h2 className="font-headline text-white text-3xl md:text-4xl mb-6">Operational Impact Benchmarks</h2>
             <p className="text-[#A0A0A0] text-lg leading-relaxed mb-8">
@@ -478,33 +457,6 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
               </motion.div>
             ))}
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {snapshots.map((s, i) => (
-            <motion.div 
-              key={s.title}
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
-              className="p-8 bg-[#0b0b0b] border border-white/6 rounded-xl hover:border-white/10 transition-colors group"
-            >
-              <div className="text-[#A0A0A0] text-xs font-semibold tracking-widest uppercase mb-4 opacity-60">
-                {s.industry}
-              </div>
-              <h3 className="text-white font-headline font-bold text-2xl mb-6 group-hover:text-[#0047AB] transition-colors">
-                {s.title}
-              </h3>
-              <ul className="space-y-4">
-                {s.points.map((p, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-[#B3B3B3] text-[15px] leading-relaxed">
-                    <span className="text-[#0047AB] font-bold shrink-0 mt-0.5">•</span>
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
         </div>
         
         <div className="mt-16 flex flex-col md:flex-row gap-4 justify-center items-center">
