@@ -312,7 +312,7 @@ export default function DeploymentLibraryPage() {
 
       <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
         <div className="max-w-[1240px] mx-auto">
-          &copy; {new Date().getFullYear()} GreyShacks. All data measured and verified.
+          &copy; 2023 GreyShacks. All data measured and verified.
         </div>
       </footer>
 
