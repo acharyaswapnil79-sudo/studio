@@ -5,12 +5,10 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
-import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { INSIGHTS, CATEGORIES } from '@/lib/intelligence-data';
-import { Search, Filter, ArrowRight, Download, Mail, Info } from 'lucide-react';
+import { Search, Filter, ArrowRight, Mail, Info } from 'lucide-react';
 import Link from 'next/link';
-import { FrameworkModal } from '@/components/intelligence/FrameworkModal';
 
 export default function IntelligenceLibrary() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,7 +16,6 @@ export default function IntelligenceLibrary() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-  const [selectedFramework, setSelectedFramework] = useState<string | null>(null);
 
   React.useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
@@ -36,10 +33,16 @@ export default function IntelligenceLibrary() {
   }, [activeCategory, searchQuery]);
 
   const navLinks = [
-    { name: "Field Intelligence", href: "/intelligence" },
-    { name: "Frameworks", href: "/intelligence/frameworks" },
-    { name: "Deployment Library", href: "/deployments" }
+    { name: "Command Center", href: "/#hero" },
+    { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "Capabilities", href: "/capabilities" },
+    { name: "Deployment Library", href: "/deployments" },
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
+
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    // Standard navigation
+  };
 
   return (
     <div className="relative min-h-screen bg-[#0A0A0A] font-sans text-white selection:bg-blue-900/30">
@@ -49,7 +52,7 @@ export default function IntelligenceLibrary() {
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection="intelligence"
-        handleNavClick={() => {}}
+        handleNavClick={handleNavClick}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
@@ -301,45 +304,7 @@ export default function IntelligenceLibrary() {
             </div>
           </section>
 
-          {/* Quarterly Brief + Research Request */}
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-32">
-            <div className="bg-[#0047AB] p-12 rounded-2xl relative overflow-hidden">
-              <Mail className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10" />
-              <div className="relative z-10 space-y-6">
-                <h3 className="font-headline text-3xl font-bold">Quarterly Intelligence Brief</h3>
-                <p className="text-white/80 text-lg">
-                  Deployment observations and operational benchmarks published quarterly.
-                </p>
-                <div className="flex gap-2">
-                  <input 
-                    type="email" 
-                    placeholder="Business email"
-                    className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-sm placeholder:text-white/50 focus:outline-none"
-                  />
-                  <button className="bg-white text-[#0047AB] font-bold text-sm px-6 py-3 rounded-lg">
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-[#111] border border-white/5 p-12 rounded-2xl">
-              <h3 className="font-headline text-3xl font-bold mb-6">Research Request</h3>
-              <p className="text-[#A0A0A0] mb-8">
-                Cannot find a relevant publication? Request a specific operational analysis.
-              </p>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <input type="text" placeholder="Name" className="bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm" />
-                <input type="email" placeholder="Business email" className="bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm" />
-              </div>
-              <input type="text" placeholder="Company" className="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm mb-4" />
-              <button className="w-full bg-white/5 text-white font-bold text-sm py-4 rounded-lg hover:bg-white/10 transition-colors">
-                Submit Research Request
-              </button>
-            </div>
-          </section>
-
-          {/* Final Conversion */}
+          {/* Conversion */}
           <section className="text-center py-24 border-t border-white/5">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="font-headline text-4xl md:text-6xl font-bold leading-tight">
@@ -385,7 +350,7 @@ export default function IntelligenceLibrary() {
         onClose={() => setMobileMenuOpen(false)} 
         navLinks={navLinks} 
         activeSection="intelligence"
-        handleNavClick={() => {}}
+        handleNavClick={handleNavClick}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
