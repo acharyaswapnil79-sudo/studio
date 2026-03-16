@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -376,18 +377,12 @@ export default function IntelligenceLibrary() {
               <p className="text-[#A0A0A0] text-xl leading-relaxed">
                 We begin with a structured operational diagnostic (typically 2–3 weeks) to determine whether a system is the appropriate intervention.
               </p>
-              <div className="flex flex-col md:flex-row gap-4 justify-center">
+              <div className="flex justify-center">
                 <button 
                   onClick={() => setIsIntakeOpen(true)}
                   className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl"
                 >
                   Discuss an Operational Diagnostic
-                </button>
-                <button 
-                  onClick={() => setIsIntakeOpen(true)}
-                  className="bg-transparent border border-white/10 text-white font-bold text-sm px-10 py-4 rounded-lg hover:bg-white/5"
-                >
-                  Scope a Pilot
                 </button>
               </div>
               <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-8">

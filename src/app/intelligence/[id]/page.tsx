@@ -163,6 +163,39 @@ export default function InsightDetailPage() {
               </div>
             </aside>
           </div>
+
+          {/* Final Conversion */}
+          <section className="text-center py-24 border-t border-white/5">
+            <div className="max-w-3xl mx-auto space-y-8">
+              <h2 className="font-headline text-4xl md:text-6xl font-bold leading-tight">
+                Evaluating agentic systems in your operations?
+              </h2>
+              <p className="text-[#A0A0A0] text-xl leading-relaxed">
+                We begin with a structured operational diagnostic (typically 2–3 weeks) to determine whether a system is the appropriate intervention.
+              </p>
+              <div className="flex justify-center">
+                <button 
+                  onClick={() => setIsIntakeOpen(true)}
+                  className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl"
+                >
+                  Discuss an Operational Diagnostic
+                </button>
+              </div>
+              <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+                {[
+                  { label: "Diagnostic", val: "2–3 weeks" },
+                  { label: "Pilot", val: "4–8 weeks" },
+                  { label: "Safety", val: "Production safe" },
+                  { label: "Evidence", val: "Measured baseline" }
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <div className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] mb-1">{stat.label}</div>
+                    <div className="text-sm font-bold">{stat.val}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </div>
       </main>
 
