@@ -66,6 +66,15 @@
     scrollbar-width: thin;
     scrollbar-color: #0047AB transparent;
   }
+
+  /* Professional Scrollbar Hiding */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 section {

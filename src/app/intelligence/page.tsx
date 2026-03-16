@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -7,18 +6,17 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
-import { INSIGHTS, CATEGORIES, Insight } from '@/lib/intelligence-data';
-import { Search, Filter, ArrowRight, Download, Mail, BookOpen, Database, BarChart3, Info } from 'lucide-react';
+import { INSIGHTS, CATEGORIES } from '@/lib/intelligence-data';
+import { Search, Filter, ArrowRight, Download, Mail, Info } from 'lucide-react';
 import Link from 'next/link';
 import { FrameworkModal } from '@/components/intelligence/FrameworkModal';
 
 export default function IntelligenceLibrary() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeCategory, setActiveSection] = useState('All');
+  const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-  const [isMethodologyOpen, setIsMethodologyOpen] = useState(false);
   const [selectedFramework, setSelectedFramework] = useState<string | null>(null);
 
   React.useEffect(() => {
@@ -102,26 +100,35 @@ export default function IntelligenceLibrary() {
           </section>
 
           {/* Category Navigation */}
-          <section className="sticky top-24 z-40 bg-[#0A0A0A]/90 backdrop-blur-md border-y border-white/5 py-4 mb-16 overflow-x-auto whitespace-nowrap scrollbar-hide">
-            <div className="flex gap-8">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.name}
-                  onClick={() => setActiveSection(cat.name)}
-                  className={`text-xs font-mono uppercase tracking-[0.2em] transition-all relative py-2 ${
-                    activeCategory === cat.name ? "text-white" : "text-[#555] hover:text-white"
-                  }`}
-                >
-                  {cat.name}
-                  {activeCategory === cat.name && (
-                    <motion.div 
-                      layoutId="activeCategory"
-                      className="absolute bottom-0 left-0 right-0 h-0.5"
-                      style={{ backgroundColor: cat.color }}
-                    />
-                  )}
-                </button>
-              ))}
+          <section className="sticky top-24 z-40 bg-[#0A0A0A]/90 backdrop-blur-md border-y border-white/5 mb-16">
+            <div className="relative max-w-full">
+              {/* Edge Gradient Fades */}
+              <div className="absolute left-0 top-0 bottom-0 w-10 z-10 bg-gradient-to-r from-[#0A0A0A] to-transparent pointer-events-none md:w-20" />
+              <div className="absolute right-0 top-0 bottom-0 w-10 z-10 bg-gradient-to-l from-[#0A0A0A] to-transparent pointer-events-none md:w-20" />
+              
+              {/* Scrollable Container */}
+              <div className="overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide py-4 px-10 md:px-20 scroll-smooth -webkit-overflow-scrolling-touch">
+                <div className="flex gap-8">
+                  {CATEGORIES.map((cat) => (
+                    <button
+                      key={cat.name}
+                      onClick={() => setActiveCategory(cat.name)}
+                      className={`text-xs font-mono uppercase tracking-[0.2em] transition-all relative py-2 shrink-0 ${
+                        activeCategory === cat.name ? "text-white" : "text-[#555] hover:text-white"
+                      }`}
+                    >
+                      {cat.name}
+                      {activeCategory === cat.name && (
+                        <motion.div 
+                          layoutId="activeCategory"
+                          className="absolute bottom-0 left-0 right-0 h-0.5"
+                          style={{ backgroundColor: cat.color }}
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 
