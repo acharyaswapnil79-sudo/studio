@@ -56,11 +56,8 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
         "flex items-center justify-between w-full max-w-[1240px] px-6 md:px-8 transition-all duration-300 rounded-[14px] h-[68px] overflow-visible",
         isScrolled ? "bg-[rgba(15,15,15,0.72)] backdrop-blur-[12px] saturate-[180%] border-b border-[rgba(255,255,255,0.07)] border-l border-[rgba(255,255,255,0.04)] border-r border-[rgba(255,255,255,0.04)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" : "bg-transparent border-transparent"
       )}>
-        {/* Logo */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          <div className="flex items-center justify-center w-8 h-8 bg-[#161616] border border-white/10 rounded-[7px]">
-            <span className="font-bold text-[15px] text-white">G</span>
-          </div>
+        {/* Logo - Updated to remove the G icon */}
+        <div className="flex items-center shrink-0">
           <span className="font-headline font-bold text-lg text-white">GreyShacks</span>
         </div>
 
