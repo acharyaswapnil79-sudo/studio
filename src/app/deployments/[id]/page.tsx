@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -10,6 +9,7 @@ import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DEPLOYMENTS, Deployment } from '@/lib/deployments-data';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import { ArrowLeft, ArrowRight, CheckCircle2, ChevronRight, Info, FileText, BarChart3, Clock, Lock, Activity } from 'lucide-react';
 import Link from 'next/link';
 
