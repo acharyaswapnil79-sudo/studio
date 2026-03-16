@@ -25,7 +25,7 @@ export default function DeploymentLibraryPage() {
   const [isMethodologyOpen, setIsMethodologyOpen] = useState(false);
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
 
-  // Filters state
+  // Initial states set to show all deployments
   const [industryFilter, setIndustryFilter] = useState<string>('all');
   const [functionFilter, setFunctionFilter] = useState<string>('all');
   const [stageFilter, setStageFilter] = useState<string>('all');
@@ -39,15 +39,48 @@ export default function DeploymentLibraryPage() {
   }, []);
 
   const filteredDeployments = useMemo(() => {
-    return DEPLOYMENTS.filter(d => {
-      const industryMatch = industryFilter === 'all' || d.industry === industryFilter;
-      const functionMatch = functionFilter === 'all' || d.function === functionFilter;
-      const stageMatch = stageFilter === 'all' || d.status.includes(stageFilter);
-      const teamSizeMatch = teamSizeFilter === 'all' || d.teamSize === teamSizeFilter;
-      const methodologyMatch = !methodologyOnly || d.hasMethodology;
-      return industryMatch && functionMatch && stageMatch && teamSizeMatch && methodologyMatch;
+    // Debug logging
+    console.log("TOTAL DEPLOYMENTS:", DEPLOYMENTS.length);
+    
+    const filtered = DEPLOYMENTS.filter(d => {
+      const industryMatch =
+        industryFilter === 'all' ||
+        (d.industry && d.industry.toLowerCase() === industryFilter.toLowerCase());
+
+      const functionMatch =
+        functionFilter === 'all' ||
+        (d.function && d.function.toLowerCase() === functionFilter.toLowerCase());
+
+      const stageMatch =
+        stageFilter === 'all' ||
+        (d.status && d.status.toLowerCase().includes(stageFilter.toLowerCase()));
+
+      const teamSizeMatch =
+        teamSizeFilter === 'all' ||
+        (d.teamSize && d.teamSize === teamSizeFilter);
+
+      const methodologyMatch =
+        !methodologyOnly ||
+        (d.hasMethodology === true);
+
+      return (
+        industryMatch &&
+        functionMatch &&
+        stageMatch &&
+        teamSizeMatch &&
+        methodologyMatch
+      );
     });
-  }, [industryFilter, functionFilter, stageFilter, teamSizeFilter, methodologyOnly]);
+
+    console.log("VISIBLE DEPLOYMENTS:", filtered.length);
+    return filtered;
+  }, [
+    industryFilter,
+    functionFilter,
+    stageFilter,
+    teamSizeFilter,
+    methodologyOnly
+  ]);
 
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
@@ -128,6 +161,24 @@ export default function DeploymentLibraryPage() {
                     <SelectItem value="Insurance">Insurance</SelectItem>
                     <SelectItem value="Technology Services">Technology Services</SelectItem>
                     <SelectItem value="Hospitality">Hospitality</SelectItem>
+                    <SelectItem value="Automotive">Automotive</SelectItem>
+                    <SelectItem value="Agriculture">Agriculture</SelectItem>
+                    <SelectItem value="Media">Media</SelectItem>
+                    <SelectItem value="Telecommunications">Telecommunications</SelectItem>
+                    <SelectItem value="Construction">Construction</SelectItem>
+                    <SelectItem value="NBFC">NBFC</SelectItem>
+                    <SelectItem value="Pharmaceutical">Pharmaceutical</SelectItem>
+                    <SelectItem value="Travel">Travel</SelectItem>
+                    <SelectItem value="Energy">Energy</SelectItem>
+                    <SelectItem value="Food Manufacturing">Food Manufacturing</SelectItem>
+                    <SelectItem value="Legal Services">Legal Services</SelectItem>
+                    <SelectItem value="Immigration">Immigration</SelectItem>
+                    <SelectItem value="Fitness & Wellness">Fitness & Wellness</SelectItem>
+                    <SelectItem value="Event Management">Event Management</SelectItem>
+                    <SelectItem value="Architecture & Engineering">Architecture & Engineering</SelectItem>
+                    <SelectItem value="Textile">Textile</SelectItem>
+                    <SelectItem value="Non-Profit">Non-Profit</SelectItem>
+                    <SelectItem value="Co-working">Co-working</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -140,8 +191,17 @@ export default function DeploymentLibraryPage() {
                     <SelectItem value="Sales Operations">Sales Operations</SelectItem>
                     <SelectItem value="Finance Operations">Finance Operations</SelectItem>
                     <SelectItem value="Customer Operations">Customer Operations</SelectItem>
-                    <SelectItem value="Procurement">Procurement</SelectItem>
-                    <SelectItem value="Reporting">Reporting</SelectItem>
+                    <SelectItem value="Admissions Operations">Admissions Operations</SelectItem>
+                    <SelectItem value="Renewal Operations">Renewal Operations</SelectItem>
+                    <SelectItem value="Lead Operations">Lead Operations</SelectItem>
+                    <SelectItem value="Order Operations">Order Operations</SelectItem>
+                    <SelectItem value="Inventory Operations">Inventory Operations</SelectItem>
+                    <SelectItem value="Reporting Operations">Reporting Operations</SelectItem>
+                    <SelectItem value="Compliance Operations">Compliance Operations</SelectItem>
+                    <SelectItem value="Vendor Coordination">Vendor Coordination</SelectItem>
+                    <SelectItem value="Scheduling Operations">Scheduling Operations</SelectItem>
+                    <SelectItem value="Document Operations">Document Operations</SelectItem>
+                    <SelectItem value="Member Operations">Member Operations</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -183,6 +243,11 @@ export default function DeploymentLibraryPage() {
             </div>
           </section>
 
+          {/* Result Count */}
+          <div className="mb-6 text-sm text-white/50">
+            Showing {filteredDeployments.length} deployments
+          </div>
+
           {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence mode="popLayout">
@@ -210,23 +275,29 @@ export default function DeploymentLibraryPage() {
                     </div>
 
                     <p className="text-sm text-[#A0A0A0] leading-relaxed mb-6 flex-1">
-                      {d.summary || d.clientContext.split('.')[0] + '.'}
+                      {d.summary 
+                        ? d.summary 
+                        : d.clientContext 
+                          ? d.clientContext.split('.')[0] + '.' 
+                          : 'Operational deployment improving efficiency and visibility across core workflows.'}
                     </p>
 
-                    <div className="bg-black/20 border border-white/5 rounded-lg p-4 space-y-4 mb-6">
-                      <div className="text-[10px] font-bold uppercase tracking-widest text-white/60 flex items-center gap-1">
-                        <BarChart className="w-3 h-3" /> Key Outcome
+                    {d.kpis && d.kpis.length > 0 && (
+                      <div className="bg-black/20 border border-white/5 rounded-lg p-4 space-y-4 mb-6">
+                        <div className="text-[10px] font-bold uppercase tracking-widest text-white/60 flex items-center gap-1">
+                          <BarChart className="w-3 h-3" /> Key Outcome
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-white/40">{d.kpis[0].label}</span>
+                          <span className="text-xs font-bold text-[#0047AB]">{d.kpis[0].impact}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-sm font-medium">{d.kpis[0].before}</div>
+                          <ArrowRight className="w-3 h-3 text-white/20" />
+                          <div className="text-sm font-bold text-white">{d.kpis[0].after}</div>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-white/40">{d.kpis[0].label}</span>
-                        <span className="text-xs font-bold text-[#0047AB]">{d.kpis[0].impact}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="text-sm font-medium">{d.kpis[0].before}</div>
-                        <ArrowRight className="w-3 h-3 text-white/20" />
-                        <div className="text-sm font-bold text-white">{d.kpis[0].after}</div>
-                      </div>
-                    </div>
+                    )}
                   </div>
 
                   <div className="border-t border-white/5 p-4 flex gap-2">
