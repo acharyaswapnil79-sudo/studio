@@ -42,7 +42,7 @@ export default function GreyShacksLanding() {
   
   const handleNavClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
-    const id = href.replace('#', '');
+    const id = href.replace('/#', '').replace('#', '');
     const el = document.getElementById(id);
     if (!el) return;
     
@@ -81,11 +81,11 @@ export default function GreyShacksLanding() {
   }, []);
 
   const navLinks = [
-    { name: "Command Center", href: "#hero" },
-    { name: "Operational Impact", href: "#operational-impact" },
-    { name: "Capabilities", href: "#capabilities" },
-    { name: "Case Studies", href: "#case-studies" },
-    { name: "Insights", href: "#insights" }
+    { name: "Command Center", href: "/#hero" },
+    { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "Capabilities", href: "/capabilities" },
+    { name: "Deployment Library", href: "/deployments" },
+    { name: "Insights", href: "/#insights" }
   ];
 
   return (
@@ -105,6 +105,24 @@ export default function GreyShacksLanding() {
         <IndustriesSection />
         <OperationalImpactSection openMethodologyModal={() => setIsMethodologyOpen(true)} />
         <CapabilitiesSection />
+        
+        {/* Case Studies Teaser */}
+        <section id="case-studies" className="py-24 bg-[#0D0D0D] px-6 md:px-10 border-t border-white/5">
+          <div className="max-w-[1240px] mx-auto text-center">
+            <h2 className="font-headline text-3xl md:text-5xl mb-8">Rigorous Operational Evidence</h2>
+            <p className="text-[#A0A0A0] text-lg max-w-2xl mx-auto mb-12">
+              Explore our full deployment library of consulting-grade evidence, anonymized and measured against real operational baselines.
+            </p>
+            <Link href="/deployments">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                className="bg-transparent border border-[#0047AB] text-[#0047AB] font-bold text-sm px-10 py-4 rounded-lg hover:bg-[#0047AB] hover:text-white transition-all"
+              >
+                View Deployment Library
+              </motion.button>
+            </Link>
+          </div>
+        </section>
       </main>
 
       <MobileMenuOverlay 

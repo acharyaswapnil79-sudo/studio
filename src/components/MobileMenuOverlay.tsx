@@ -5,6 +5,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import Link from 'next/link';
 
 interface NavLink {
   name: string;
@@ -41,23 +42,43 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, ha
           
           <div className="flex flex-col items-center w-full px-8">
             {navLinks.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                initial={{ y: 18, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.06 + i * 0.08 }}
-                className={cn(
-                  "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
-                  activeSection === link.href.replace('#', '') ? "text-white" : "text-white/80 hover:text-white"
+              <React.Fragment key={link.href}>
+                {link.href.startsWith('/#') || link.href.startsWith('#') ? (
+                  <motion.a
+                    href={link.href}
+                    initial={{ y: 18, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.06 + i * 0.08 }}
+                    className={cn(
+                      "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
+                      activeSection === link.href.replace('/#', '').replace('#', '') ? "text-white" : "text-white/80 hover:text-white"
+                    )}
+                    onClick={(e) => {
+                      handleNavClick(e, link.href);
+                      onClose();
+                    }}
+                  >
+                    {link.name}
+                  </motion.a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
+                      activeSection === link.href.replace('/', '') ? "text-white" : "text-white/80 hover:text-white"
+                    )}
+                    onClick={onClose}
+                  >
+                    <motion.span
+                      initial={{ y: 18, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.06 + i * 0.08 }}
+                    >
+                      {link.name}
+                    </motion.span>
+                  </Link>
                 )}
-                onClick={(e) => {
-                  handleNavClick(e, link.href);
-                  onClose();
-                }}
-              >
-                {link.name}
-              </motion.a>
+              </React.Fragment>
             ))}
             
             <motion.button
