@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -12,7 +13,7 @@ import { IntakeFormModal } from '@/components/IntakeFormModal';
 import Link from 'next/link';
 
 const SITE_EVIDENCE = {
-  deployments_count: 0,
+  deployments_count: 14,
   pilots_in_flight: 0,
   projected_metrics_based_on: 'baseline-measurements'
 };
@@ -20,16 +21,16 @@ const SITE_EVIDENCE = {
 const NAV_OFFSET = 76;
 
 const CAPABILITIES = [
-  { id: 'screening', icon: Users, name: 'Candidate Screening & Scheduling', description: 'End-to-end hiring pipeline management — resume parsing, role-fit evaluation, shortlisting, and interview coordination handled by the system from application to confirmed slot.' },
-  { id: 'lead-ops', icon: Magnet, name: 'Intelligent Lead Operations', description: 'Inbound lead capture, enrichment, scoring, and routing — the system qualifies, prioritizes, and assigns leads without a human in the loop.' },
-  { id: 'ar-ops', icon: ReceiptText, name: 'Accounts Receivable Operations', description: 'Invoice issuance, payment tracking, follow-up sequencing, dispute flagging, and reconciliation — the system manages the full AR cycle and escalates only genuine exceptions.' },
-  { id: 'finance-close', icon: BarChart3, name: 'Financial Close & Reporting', description: 'Data ingestion, multi-source reconciliation, anomaly detection, and report generation across close cycles — delivered to role-based dashboards with full audit trails.' },
-  { id: 'sales-followup', icon: Repeat, name: 'Autonomous Sales Follow-Up', description: 'Prospect behaviour tracking and response-based outreach sequences handled by the system, ensuring consistent engagement without manual follow-up.' },
-  { id: 'procurement', icon: ShoppingCart, name: 'Procurement & Vendor Operations', description: 'Vendor communication, purchase order tracking, delivery confirmation, and invoice reconciliation handled by the system across procurement cycles.' },
-  { id: 'customer-query', icon: MessageSquare, name: 'Customer Query Resolution', description: 'Customer questions classified, resolved, or routed with full context so your team only handles genuinely complex cases.' },
-  { id: 'ops-reporting', icon: PieChart, name: 'Operations Reporting & Alerting', description: 'Operational data aggregated across systems to generate leadership reports, KPI dashboards, and real-time alerts when thresholds are breached.' },
-  { id: 'contract-intel', icon: FileText, name: 'Contract & Document Intelligence', description: 'Contract ingestion, clause extraction, obligation tracking, and renewal alerts managed by the system across document repositories.' },
-  { id: 'compliance', icon: ShieldCheck, name: 'Compliance & Audit Trail Management', description: 'Every system decision logged with context, timestamp, and decision logic — producing audit-ready operational histories automatically.' }
+  { id: 'screening', icon: Users, name: 'Candidate Screening & Scheduling', description: 'Resume parsing, role-fit evaluation, shortlisting, and interview coordination handled by the system from application to confirmed slot.' },
+  { id: 'lead-ops', icon: Magnet, name: 'Intelligent Lead Operations', description: 'Inbound lead capture, enrichment, scoring, and routing — qualified and assigned without a human in the loop.' },
+  { id: 'ar-ops', icon: ReceiptText, name: 'Accounts Receivable Operations', description: 'Invoice issuance, payment tracking, follow-up sequencing, dispute flagging, and reconciliation handled end-to-end.' },
+  { id: 'finance-close', icon: BarChart3, name: 'Financial Close & Reporting', description: 'Data ingestion, multi-source reconciliation, and report generation — delivered to dashboards with full audit trails.' },
+  { id: 'sales-followup', icon: Repeat, name: 'Autonomous Sales Follow-Up', description: 'Prospect behaviour tracking and response-based outreach sequences handled by the system, ensuring consistent engagement.' },
+  { id: 'procurement', icon: ShoppingCart, name: 'Procurement & Vendor Operations', description: 'Vendor communication, purchase order tracking, delivery confirmation, and invoice reconciliation handled by the system.' },
+  { id: 'customer-query', icon: MessageSquare, name: 'Customer Query Resolution', description: 'Customer questions classified, resolved, or routed with full context handled by the system.' },
+  { id: 'ops-reporting', icon: PieChart, name: 'Operations Reporting & Alerting', description: 'Operational data aggregated across systems to generate leadership reports, dashboards, and real-time alerts.' },
+  { id: 'contract-intel', icon: FileText, name: 'Contract & Document Intelligence', description: 'Contract ingestion, clause extraction, obligation tracking, and renewal alerts managed by the system.' },
+  { id: 'compliance', icon: ShieldCheck, name: 'Compliance & Audit Trail Management', description: 'Every system decision logged with context and decision logic — producing audit-ready histories handled by the system.' }
 ];
 
 export default function GreyShacksLanding() {
@@ -96,15 +97,14 @@ export default function GreyShacksLanding() {
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection={activeSection}
         handleNavClick={handleNavClick}
+        onOpenIntake={() => setIsIntakeOpen(true)}
       />
       
       <main>
-        <HeroSection />
+        <HeroSection onOpenIntake={() => setIsIntakeOpen(true)} />
         <IndustriesSection />
         <OperationalImpactSection openMethodologyModal={() => setIsMethodologyOpen(true)} />
         <CapabilitiesSection />
-        <section id="case-studies" className="py-24 bg-[#0A0A0A]"></section>
-        <section id="insights" className="py-24 bg-[#0A0A0A]"></section>
       </main>
 
       <MobileMenuOverlay 
@@ -113,6 +113,7 @@ export default function GreyShacksLanding() {
         navLinks={navLinks} 
         activeSection={activeSection}
         handleNavClick={handleNavClick}
+        onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
       <MethodologyModal 
@@ -129,7 +130,7 @@ export default function GreyShacksLanding() {
   );
 }
 
-function HeroSection() {
+function HeroSection({ onOpenIntake }: { onOpenIntake: () => void }) {
   return (
     <section 
       id="hero" 
@@ -181,6 +182,7 @@ function HeroSection() {
         >
           <motion.button
             whileHover={{ scale: 1.04 }}
+            onClick={onOpenIntake}
             className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14.5px] px-[30px] py-[14px] rounded-[7px] shadow-[0_8px_28px_rgba(0,71,171,0.32)] md:min-w-[180px] whitespace-nowrap"
           >
             Apply for Pilot
@@ -314,20 +316,6 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
             ))}
           </div>
         </div>
-        
-        <div className="mt-16 flex flex-col md:flex-row gap-4 justify-center items-center">
-          <button 
-            onClick={openMethodologyModal}
-            className="text-white border border-white/10 px-8 py-3.5 rounded-lg hover:bg-white/5 transition-colors text-sm font-semibold w-full md:w-auto"
-          >
-            Request methodology & anonymized logs (NDA)
-          </button>
-          <button 
-            className="bg-[#0047AB] text-white px-8 py-3.5 rounded-lg hover:bg-[#0047AB]/90 transition-colors text-sm font-bold w-full md:w-auto"
-          >
-            Discuss pilot design
-          </button>
-        </div>
       </div>
     </section>
   );
@@ -349,7 +337,6 @@ function CapabilitiesSection() {
             <motion.div
               key={cap.id}
               whileHover={{ scale: 1.03, borderColor: '#0047AB' }}
-              onClick={() => console.log('capabilities_card_click', { card_name: cap.name })}
               className="bg-[#111111] border border-[#1F1F1F] p-5 rounded-[12px] transition-colors cursor-pointer"
             >
               <cap.icon className="w-8 h-8 text-[#0047AB] mb-4" />
@@ -363,7 +350,6 @@ function CapabilitiesSection() {
           <Link href="/capabilities">
             <motion.button
               whileHover={{ scale: 1.05 }}
-              onClick={() => console.log('cta_explore_capabilities')}
               className="bg-[#0047AB] text-white font-bold text-[14.5px] px-8 py-4 rounded-[7px] shadow-lg flex items-center gap-2"
             >
               See How It Works

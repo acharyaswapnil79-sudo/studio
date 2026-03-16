@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -16,9 +17,10 @@ interface MobileMenuOverlayProps {
   navLinks: NavLink[];
   activeSection: string;
   handleNavClick: (e: React.MouseEvent, href: string) => void;
+  onOpenIntake: () => void;
 }
 
-export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, handleNavClick }: MobileMenuOverlayProps) {
+export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, handleNavClick, onOpenIntake }: MobileMenuOverlayProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -62,6 +64,10 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, ha
               initial={{ y: 18, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.46 }}
+              onClick={() => {
+                onOpenIntake();
+                onClose();
+              }}
               className="mt-8 w-full max-w-[280px] bg-[#0047AB] text-white font-bold text-[14.5px] py-3.5 rounded-[7px] shadow-xl"
             >
               Apply for Pilot

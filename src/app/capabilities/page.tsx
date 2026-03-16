@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -8,19 +9,144 @@ import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Magnet, Repeat, Users, ReceiptText, BarChart3, ShoppingCart, MessageSquare, PieChart, FileText, ShieldCheck, Wallet, Activity, HardDrive, Key, Presentation } from 'lucide-react';
 
-const CAPABILITIES_LIST = [
-  { id: 'screening', title: 'Candidate Screening & Scheduling', outcome: '70% reduction in recruitment time', approach: 'End-to-end hiring pipeline management — resume parsing, role-fit evaluation, shortlisting, and interview coordination handled by the system.' },
-  { id: 'leads', title: 'Intelligent Lead Operations', outcome: 'Instant lead qualification at scale', approach: 'Inbound lead capture, enrichment, scoring, and routing — the system qualifies, prioritizes, and assigns leads without a human in the loop.' },
-  { id: 'ar', title: 'Accounts Receivable Operations', outcome: 'DSO reduction by 15-20 days', approach: 'Invoice issuance, payment tracking, follow-up sequencing, dispute flagging, and reconciliation handled end-to-end by the system.' },
-  { id: 'finance', title: 'Financial Close & Reporting', outcome: 'Close cycles reduced by 4 days', approach: 'Data ingestion, multi-source reconciliation, anomaly detection, and report generation delivered to role-based dashboards.' },
-  { id: 'sales', title: 'Autonomous Sales Follow-Up', outcome: '2.5x increase in meeting volume', approach: 'Prospect behaviour tracking and response-based outreach sequences handled by the system for consistent engagement.' },
-  { id: 'procurement', title: 'Procurement & Vendor Operations', outcome: '80% faster PO processing', approach: 'Vendor communication, purchase order tracking, delivery confirmation, and invoice reconciliation handled by the system.' },
-  { id: 'customer', title: 'Customer Query Resolution', outcome: '90% automated resolution rate', approach: 'Customer questions classified, resolved, or routed with full context so your team only handles complex cases.' },
-  { id: 'reporting', title: 'Operations Reporting & Alerting', outcome: 'Real-time KPI visibility', approach: 'Operational data aggregated across systems to generate leadership reports, KPI dashboards, and real-time alerts.' },
-  { id: 'contracts', title: 'Contract & Document Intelligence', outcome: 'Zero missed renewal deadlines', approach: 'Contract ingestion, clause extraction, obligation tracking, and renewal alerts managed by the system.' },
-  { id: 'compliance', title: 'Compliance & Audit Trail Management', outcome: '100% audit readiness', approach: 'Every system decision logged with context, timestamp, and decision logic — producing audit-ready operational histories.' }
+const SYSTEMS_BY_DOMAIN = [
+  {
+    domain: "Sales & Marketing",
+    systems: [
+      { 
+        id: 'leads', 
+        title: 'Intelligent Lead Operations', 
+        icon: Magnet,
+        outcome: 'Inbound→qualified ratio ↑; response time < 5 minutes.', 
+        approach: 'Inbound lead capture, enrichment, scoring and routing handled by the system without human triage.' 
+      },
+      { 
+        id: 'sales', 
+        title: 'Autonomous Sales Follow-Up', 
+        icon: Repeat,
+        outcome: 'Reply→meeting conversion ↑; pipeline coverage ↑.', 
+        approach: 'Behavior-triggered outreach sequences and reply classification; human reps intervene only on high-intent signals.' 
+      },
+      { 
+        id: 'expansion', 
+        title: 'Account Expansion Intelligence', 
+        icon: Activity,
+        outcome: 'Uplift in cross-sell leads; higher account coverage.', 
+        approach: 'Automatically identifies expansion opportunities inside existing accounts and routes contextual recommendations to teams.' 
+      }
+    ]
+  },
+  {
+    domain: "Talent & People Ops",
+    systems: [
+      { 
+        id: 'screening', 
+        title: 'Candidate Screening & Scheduling', 
+        icon: Users,
+        outcome: 'Screening time −70–90%; interview fill rates ↑.', 
+        approach: 'Resume parsing, role-fit scoring, shortlisting and interview coordination handled by the system from application to confirmed slot.' 
+      },
+      { 
+        id: 'onboarding', 
+        title: 'Offer & Onboarding Orchestration', 
+        icon: ShieldCheck,
+        outcome: 'Faster offer acceptance; onboarding completion ↑.', 
+        approach: 'Offer approvals, paperwork and onboarding tasks sequenced and executed by the system with full audit trails.' 
+      }
+    ]
+  },
+  {
+    domain: "Finance & Accounting",
+    systems: [
+      { 
+        id: 'ar', 
+        title: 'Accounts Receivable Operations', 
+        icon: ReceiptText,
+        outcome: 'DSO reduction; collections handled by the system ↑.', 
+        approach: 'Invoice issuance, payment tracking, follow-up sequencing, dispute flagging and reconciliation handled end-to-end.' 
+      },
+      { 
+        id: 'finance', 
+        title: 'Financial Close & Reporting', 
+        icon: BarChart3,
+        outcome: 'Close cycle reduced; audit-ready outputs.', 
+        approach: 'Data ingestion, multi-source reconciliation, anomaly detection and report generation delivered to role-based dashboards.' 
+      },
+      { 
+        id: 'procurement', 
+        title: 'Procurement & Vendor Operations', 
+        icon: ShoppingCart,
+        outcome: 'Fewer PO mismatches; cycle time ↓.', 
+        approach: 'PO lifecycle management, vendor follow-ups and invoice matching handled by the system with exception management.' 
+      }
+    ]
+  },
+  {
+    domain: "Customer Operations",
+    systems: [
+      { 
+        id: 'customer', 
+        title: 'Customer Query Resolution', 
+        icon: MessageSquare,
+        outcome: '90% automated resolution rate; human load ↓.', 
+        approach: 'Customer questions classified, resolved, or routed with full context handled by the system.' 
+      },
+      { 
+        id: 'recovery', 
+        title: 'Self-Service Recovery & Refunds', 
+        icon: Wallet,
+        outcome: 'Faster refund time; policy consistency ↑.', 
+        approach: 'Return/refund workflows managed end-to-end with exception routing by the system.' 
+      }
+    ]
+  },
+  {
+    domain: "Legal & Docs",
+    systems: [
+      { 
+        id: 'contracts', 
+        title: 'Contract & Document Intelligence', 
+        icon: FileText,
+        outcome: 'Zero missed renewal deadlines; review time ↓.', 
+        approach: 'Contract ingestion, clause extraction, obligation tracking, and renewal alerts managed by the system.' 
+      },
+      { 
+        id: 'compliance', 
+        title: 'Compliance & Audit Trail Management', 
+        icon: ShieldCheck,
+        outcome: '100% audit readiness; zero manual logging.', 
+        approach: 'Every system decision logged with context, timestamp, and decision logic — producing audit-ready histories.' 
+      }
+    ]
+  },
+  {
+    domain: "Analytics & IT",
+    systems: [
+      { 
+        id: 'reporting', 
+        title: 'Operations Reporting & Alerting', 
+        icon: PieChart,
+        outcome: 'Real-time KPI visibility; manual assembly removed.', 
+        approach: 'Operational data aggregated across systems to generate leadership reports and real-time alerts.' 
+      },
+      { 
+        id: 'access', 
+        title: 'Access Provisioning', 
+        icon: Key,
+        outcome: 'Access turnaround time ↓; reduced orphan accounts.', 
+        approach: 'Role-based account handoffs handled by the system automatically with audit logs.' 
+      },
+      { 
+        id: 'anomaly', 
+        title: 'Anomaly Detection Assist', 
+        icon: Activity,
+        outcome: 'Faster incident resolution; actionable insights surfaced.', 
+        approach: 'Automated anomaly detection with suggested root-cause hypotheses handled by the system.' 
+      }
+    ]
+  }
 ];
 
 export default function CapabilitiesPage() {
@@ -44,7 +170,7 @@ export default function CapabilitiesPage() {
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
-    // If it's an anchor on the home page, let the default Link behavior handle it or redirect
+    // Navigate normally since we're on a separate page
   };
 
   return (
@@ -71,7 +197,7 @@ export default function CapabilitiesPage() {
 
             <div className="bg-[#111] border border-[#0047AB]/30 p-8 rounded-xl mb-12">
               <p className="text-white text-lg leading-relaxed">
-                GreyShacks builds agentic systems — not scripts, not triggers, not RPA. Our systems observe inputs, reason across context, and act end-to-end. Human intervention is the exception, not the default.
+                GreyShacks builds agentic systems — not scripts, not triggers. Our systems observe inputs, reason across context, and act end-to-end. Human intervention is the exception, not the default.
               </p>
             </div>
 
@@ -95,7 +221,7 @@ export default function CapabilitiesPage() {
               <div className="space-y-4">
                 <div className="text-[#0047AB] font-bold text-lg">Phase 1 — Discovery (2–4 weeks)</div>
                 <p className="text-[#A0A0A0] leading-relaxed">
-                  We map your current operational workflows, identify the highest-impact opportunities, capture KPI baselines, and align with your team on scope and success criteria before a single system is built.
+                  We map your current operational workflows, identify the highest-impact opportunities, capture KPI baselines, and align with your team on scope and success criteria before a single agentic system is built.
                 </p>
               </div>
               <div className="space-y-4">
@@ -107,33 +233,55 @@ export default function CapabilitiesPage() {
               <div className="space-y-4">
                 <div className="text-[#0047AB] font-bold text-lg">Phase 3 — Scale & Govern (ongoing)</div>
                 <p className="text-[#A0A0A0] leading-relaxed">
-                  Phased rollout across processes with continuous monitoring, anomaly alerting, full audit trails, and regular business reviews. Your team retains full visibility and control at every stage.
+                  Phased rollout across processes with continuous monitoring, anomaly alerting, full audit trails, and regular reviews. Your team retains full operational intelligence at every stage.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Core Agentic Systems */}
+          {/* Core Agentic Systems Catalog */}
           <section className="mb-24 border-t border-white/5 pt-16">
             <div className="mb-12">
               <h2 className="font-headline text-3xl md:text-4xl mb-4">Core Agentic Systems</h2>
               <p className="text-[#A0A0A0] text-lg max-w-3xl">
-                These are not workflow triggers or RPA scripts. These are systems that observe, reason, and act — handling end-to-end processes the way a trained operator would, without the bottlenecks.
+                These are not workflow triggers. These are systems that observe, reason, and act — handling end-to-end processes the way a trained operator would, without the bottlenecks.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6">
-              {CAPABILITIES_LIST.map((item) => (
-                <div key={item.id} className="bg-[#111] border border-white/5 p-8 rounded-xl flex flex-col md:flex-row gap-8 items-start md:items-center">
-                  <div className="md:w-1/3">
-                    <h3 className="font-bold text-xl mb-2">{item.title}</h3>
-                    <div className="text-[#0047AB] font-semibold text-sm uppercase tracking-wider">{item.outcome}</div>
-                  </div>
-                  <div className="md:w-2/3 text-[#A0A0A0] leading-relaxed">
-                    {item.approach}
+            <div className="space-y-20">
+              {SYSTEMS_BY_DOMAIN.map((group) => (
+                <div key={group.domain}>
+                  <h3 className="text-white/40 text-sm font-bold uppercase tracking-widest mb-8 border-l-2 border-[#0047AB] pl-4">
+                    {group.domain}
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {group.systems.map((system) => (
+                      <div key={system.id} className="bg-[#111] border border-white/5 p-6 rounded-xl group hover:border-[#0047AB]/50 transition-all">
+                        <system.icon className="w-8 h-8 text-[#0047AB] mb-4" />
+                        <h4 className="font-bold text-xl mb-3">{system.title}</h4>
+                        <div className="text-[#0047AB] font-semibold text-xs uppercase tracking-wider mb-4">
+                          {system.outcome}
+                        </div>
+                        <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                          {system.approach}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-16 pt-12 border-t border-white/5 text-center">
+              <p className="text-[#A0A0A0] text-lg mb-6">
+                Plus 100+ more agentic systems across functions — tell us your process and we’ll show a tailored deployment map.
+              </p>
+              <button 
+                onClick={() => setIsIntakeOpen(true)}
+                className="text-[#0047AB] font-bold underline hover:text-white transition-colors"
+              >
+                Request a tailored systems map
+              </button>
             </div>
           </section>
 
@@ -149,25 +297,25 @@ export default function CapabilitiesPage() {
               <div className="border border-white/10 rounded-xl overflow-hidden">
                 <Table>
                   <TableHeader className="bg-white/5">
-                    <TableRow className="border-white/10">
+                    <TableRow className="border-white/10 hover:bg-transparent">
                       <TableHead className="text-white font-bold">Metric</TableHead>
                       <TableHead className="text-white font-bold">Range</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    <TableRow className="border-white/5">
+                    <TableRow className="border-white/5 hover:bg-white/5">
                       <TableCell className="text-[#A0A0A0]">Manual task reduction</TableCell>
                       <TableCell className="text-white font-medium">50–85% (process dependent)</TableCell>
                     </TableRow>
-                    <TableRow className="border-white/5">
+                    <TableRow className="border-white/5 hover:bg-white/5">
                       <TableCell className="text-[#A0A0A0]">Time to measurable ROI</TableCell>
                       <TableCell className="text-white font-medium">8–14 weeks</TableCell>
                     </TableRow>
-                    <TableRow className="border-white/5">
+                    <TableRow className="border-white/5 hover:bg-white/5">
                       <TableCell className="text-[#A0A0A0]">Pilot duration</TableCell>
                       <TableCell className="text-white font-medium">4–8 weeks</TableCell>
                     </TableRow>
-                    <TableRow className="border-white/5">
+                    <TableRow className="border-white/5 hover:bg-white/5">
                       <TableCell className="text-[#A0A0A0]">Annualized savings</TableCell>
                       <TableCell className="text-white font-medium">varies by process scope</TableCell>
                     </TableRow>

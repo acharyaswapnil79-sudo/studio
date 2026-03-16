@@ -1,29 +1,82 @@
+
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2 } from 'lucide-react';
+import { X, CheckCircle2, ChevronRight, ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useFirestore } from '@/firebase';
+import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 interface IntakeFormModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+type Step = 1 | 2 | 3 | 4 | 5;
+
+const INDUSTRIES = ["Manufacturing", "Real Estate", "Retail", "Logistics", "Food & Beverage", "SaaS", "Financial Services", "Healthcare", "Construction", "Other"];
+const COUNTRIES = ["India", "United States", "Germany", "France", "Spain", "UAE", "Other"];
+const SIZES = ["10–50 employees", "50–200 employees", "200–1000 employees", "1000+"];
+const PROCESSES = ["Lead operations", "Sales follow-up", "Hiring & candidate screening", "Accounts receivable", "Financial reporting", "Procurement & vendor coordination", "Customer query resolution", "Contract/document management", "Compliance tracking", "Other"];
+const TIME_SPENT = ["Under 10 hours", "10–40 hours", "40–100 hours", "100+ hours"];
+const BUDGET_STATUS = ["Budget already allocated", "Budget planned", "Exploring options"];
+const OUTCOMES = ["Revenue growth", "Cost reduction", "Faster operations", "Error reduction", "Compliance", "Team productivity"];
+
 export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
   const isMobile = useIsMobile();
+  const db = useFirestore();
+  const [step, setStep] = useState<Step>(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    company: '',
-    role: '',
-    companySize: '',
+    companyName: '',
     industry: '',
-    useCase: '',
-    ndaAcknowledged: false
+    country: '',
+    companySize: '',
+    operationalProcess: '',
+    weeklyTimeSpent: '',
+    companyRevenueRange: '',
+    estimatedBudgetRange: '',
+    budgetStatus: '',
+    approverRole: '',
+    impactArea: '',
+    fullName: '',
+    businessEmail: '',
+    roleTitle: '',
+    linkedInProfile: '',
+    confirmationOfPilotInterest: false
   });
+
+  const currency = useMemo(() => {
+    switch (formData.country) {
+      case 'India': return 'INR';
+      case 'United States': return 'USD';
+      case 'Germany':
+      case 'France':
+      case 'Spain': return 'EUR';
+      case 'UAE': return 'AED';
+      default: return 'USD';
+    }
+  }, [formData.country]);
+
+  const revenueRanges = useMemo(() => {
+    if (currency === 'INR') return ["Under ₹10 Cr", "₹10 Cr – ₹50 Cr", "₹50 Cr – ₹200 Cr", "₹200 Cr+"];
+    if (currency === 'USD') return ["Under $5M", "$5M – $25M", "$25M – $100M", "$100M+"];
+    if (currency === 'EUR') return ["Under €5M", "€5M – €25M", "€25M – €100M", "€100M+"];
+    if (currency === 'AED') return ["Under 20M AED", "20M – 100M AED", "100M – 400M AED", "400M+ AED"];
+    return ["Under $5M", "$5M – $25M", "$25M – $100M", "$100M+"];
+  }, [currency]);
+
+  const budgetRanges = useMemo(() => {
+    if (currency === 'INR') return ["Under ₹2L", "₹2L – ₹5L", "₹5L – ₹15L", "₹15L+"];
+    if (currency === 'USD') return ["Under $10K", "$10K – $30K", "$30K – $100K", "$100K+"];
+    if (currency === 'EUR') return ["Under €10K", "€10K – €30K", "€30K – €100K", "€100K+"];
+    if (currency === 'AED') return ["Under 40K AED", "40K – 120K AED", "120K – 400K AED", "400K+ AED"];
+    return ["Under $10K", "$10K – $30K", "$30K – $100K", "$100K+"];
+  }, [currency]);
 
   useEffect(() => {
     if (isOpen) {
@@ -37,29 +90,45 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
     }
   }, [isOpen, onClose]);
 
-  const isEmailValid = (email: string) => {
-    const commonPublicDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com'];
-    if (!email.includes('@')) return false;
-    const domain = email.split('@')[1];
-    return domain && !commonPublicDomains.includes(domain.toLowerCase());
+  const nextStep = () => setStep(s => Math.min(s + 1, 5) as Step);
+  const prevStep = () => setStep(s => Math.max(s - 1, 1) as Step);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    try {
+      const pilotRequestsRef = collection(db, 'pilot_requests');
+      const newDocRef = doc(pilotRequestsRef);
+      const payload = {
+        ...formData,
+        id: newDocRef.id,
+        currency,
+        submissionTimestamp: serverTimestamp(),
+      };
+      
+      await setDoc(newDocRef, payload);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error submitting pilot request:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const isFormValid = 
-    formData.fullName && 
-    isEmailValid(formData.email) && 
-    formData.company && 
-    formData.role && 
-    formData.companySize && 
-    formData.industry && 
-    formData.useCase.length > 0 && 
-    formData.ndaAcknowledged;
+  const isStep1Valid = formData.companyName && formData.industry && formData.country && formData.companySize;
+  const isStep2Valid = formData.operationalProcess && formData.weeklyTimeSpent;
+  const isStep3Valid = formData.companyRevenueRange && formData.estimatedBudgetRange;
+  const isStep4Valid = formData.budgetStatus && formData.approverRole && formData.impactArea;
+  const isStep5Valid = formData.fullName && formData.businessEmail && formData.roleTitle && formData.confirmationOfPilotInterest;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isFormValid) {
-      console.log('Form submitted:', { ...formData, request_type: 'methodology_access' });
-      setIsSubmitted(true);
-    }
+  const currentStepValid = () => {
+    if (step === 1) return isStep1Valid;
+    if (step === 2) return isStep2Valid;
+    if (step === 3) return isStep3Valid;
+    if (step === 4) return isStep4Valid;
+    return isStep5Valid;
   };
 
   return (
@@ -91,11 +160,24 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
             {/* Header */}
             <header className="sticky top-0 z-20 bg-[#0A0A0A] border-b border-white/5 px-6 py-5 md:px-8 md:py-6 flex items-center justify-between">
               <div className="space-y-1">
-                <h2 className="font-headline text-xl md:text-2xl text-white">Request Methodology Access</h2>
+                <div className="flex items-center gap-3">
+                  {step > 1 && !isSubmitted && (
+                    <button onClick={prevStep} className="p-1 hover:bg-white/5 rounded-full text-white/60">
+                      <ArrowLeft className="w-4 h-4" />
+                    </button>
+                  )}
+                  <h2 className="font-headline text-lg md:text-xl text-white">
+                    {isSubmitted ? "Assessment Received" : `Step ${step} of 5 — Operational Assessment`}
+                  </h2>
+                </div>
                 {!isSubmitted && (
-                  <p className="text-[#A0A0A0] text-xs md:text-sm">
-                    Access to anonymized operational logs requires a mutual NDA.
-                  </p>
+                  <div className="w-full bg-white/5 h-1 rounded-full mt-2">
+                    <motion.div 
+                      className="bg-[#0047AB] h-full rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${(step / 5) * 100}%` }}
+                    />
+                  </div>
                 )}
               </div>
               <button 
@@ -113,10 +195,9 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                   <div className="w-16 h-16 rounded-full bg-[#0047AB]/20 flex items-center justify-center mb-4">
                     <CheckCircle2 className="w-8 h-8 text-[#0047AB]" />
                   </div>
-                  <h3 className="text-white text-2xl font-bold">Request Received</h3>
+                  <h3 className="text-white text-2xl font-bold">Assessment Received</h3>
                   <p className="text-[#A0A0A0] max-w-sm">
-                    Our team will review your request and respond within 1–2 business days.
-                    If approved, NDA documentation and access instructions will be shared via email.
+                    Our team will review your responses and respond within 48 hours with next steps.
                   </p>
                   <button
                     onClick={onClose}
@@ -126,156 +207,275 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="space-y-1.5">
-                    <label className="text-white text-xs font-semibold uppercase tracking-wider">Full Name</label>
-                    <input
-                      required
-                      type="text"
-                      placeholder="Your full name"
-                      className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB] transition-colors"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-white text-xs font-semibold uppercase tracking-wider">Business Email</label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="name@company.com"
-                      className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB] transition-colors"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    />
-                    {formData.email && !isEmailValid(formData.email) && (
-                      <p className="text-xs text-blue-400">Please provide a valid business email domain.</p>
-                    )}
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-white text-xs font-semibold uppercase tracking-wider">Company Name</label>
-                    <input
-                      required
-                      type="text"
-                      placeholder="Company name"
-                      className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB] transition-colors"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-white text-xs font-semibold uppercase tracking-wider">Role / Title</label>
-                      <select
-                        required
-                        className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] transition-colors appearance-none"
-                        value={formData.role}
-                        onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                      >
-                        <option value="" disabled>Select role</option>
-                        <option>Founder</option>
-                        <option>CEO</option>
-                        <option>COO</option>
-                        <option>CTO</option>
-                        <option>Head of Operations</option>
-                        <option>Head of Finance</option>
-                        <option>Operations Manager</option>
-                        <option>Other</option>
-                      </select>
+                <div className="space-y-8">
+                  {step === 1 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-bold text-white">Tell us about your organization</h3>
+                      <div className="space-y-4">
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Company Name</label>
+                          <input
+                            required
+                            type="text"
+                            placeholder="Official organization name"
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB]"
+                            value={formData.companyName}
+                            onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-1.5">
+                            <label className="text-white text-xs font-semibold uppercase tracking-wider">Industry</label>
+                            <select
+                              required
+                              className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                              value={formData.industry}
+                              onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+                            >
+                              <option value="" disabled>Select industry</option>
+                              {INDUSTRIES.map(i => <option key={i}>{i}</option>)}
+                            </select>
+                          </div>
+                          <div className="space-y-1.5">
+                            <label className="text-white text-xs font-semibold uppercase tracking-wider">Country</label>
+                            <select
+                              required
+                              className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                              value={formData.country}
+                              onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                            >
+                              <option value="" disabled>Select country</option>
+                              {COUNTRIES.map(c => <option key={c}>{c}</option>)}
+                            </select>
+                          </div>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Company Size</label>
+                          <select
+                            required
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                            value={formData.companySize}
+                            onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
+                          >
+                            <option value="" disabled>Select size</option>
+                            {SIZES.map(s => <option key={s}>{s}</option>)}
+                          </select>
+                        </div>
+                      </div>
                     </div>
+                  )}
 
-                    <div className="space-y-1.5">
-                      <label className="text-white text-xs font-semibold uppercase tracking-wider">Company Size</label>
-                      <select
-                        required
-                        className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] transition-colors appearance-none"
-                        value={formData.companySize}
-                        onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
-                      >
-                        <option value="" disabled>Select size</option>
-                        <option>1–10 employees</option>
-                        <option>11–50</option>
-                        <option>51–200</option>
-                        <option>201–1000</option>
-                        <option>1000+</option>
-                      </select>
+                  {step === 2 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-bold text-white">Which operational process is slowing your team down most?</h3>
+                      <div className="space-y-4">
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Critical Process</label>
+                          <select
+                            required
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                            value={formData.operationalProcess}
+                            onChange={(e) => setFormData({ ...formData, operationalProcess: e.target.value })}
+                          >
+                            <option value="" disabled>Select process</option>
+                            {PROCESSES.map(p => <option key={p}>{p}</option>)}
+                          </select>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Weekly Time Spent</label>
+                          <select
+                            required
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                            value={formData.weeklyTimeSpent}
+                            onChange={(e) => setFormData({ ...formData, weeklyTimeSpent: e.target.value })}
+                          >
+                            <option value="" disabled>Select range</option>
+                            {TIME_SPENT.map(t => <option key={t}>{t}</option>)}
+                          </select>
+                          <p className="text-[11px] text-[#A0A0A0]">This helps us estimate potential operational impact.</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="space-y-1.5">
-                    <label className="text-white text-xs font-semibold uppercase tracking-wider">Industry</label>
-                    <select
-                      required
-                      className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] transition-colors appearance-none"
-                      value={formData.industry}
-                      onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-                    >
-                      <option value="" disabled>Select industry</option>
-                      <option>Manufacturing</option>
-                      <option>Real Estate</option>
-                      <option>Retail</option>
-                      <option>Logistics</option>
-                      <option>Healthcare</option>
-                      <option>Financial Services</option>
-                      <option>SaaS</option>
-                      <option>Energy</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-white text-xs font-semibold uppercase tracking-wider">Primary Use Case</label>
-                    <textarea
-                      required
-                      maxLength={300}
-                      placeholder="Briefly describe the operational process you are evaluating agentic systems for."
-                      className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB] transition-colors h-28 resize-none"
-                      value={formData.useCase}
-                      onChange={(e) => setFormData({ ...formData, useCase: e.target.value })}
-                    />
-                    <div className="text-right text-[10px] text-white/30 uppercase tracking-tighter">
-                      {formData.useCase.length}/300
+                  {step === 3 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-bold text-white">Operational context</h3>
+                      <div className="space-y-4">
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Estimated Annual Revenue ({currency})</label>
+                          <select
+                            required
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                            value={formData.companyRevenueRange}
+                            onChange={(e) => setFormData({ ...formData, companyRevenueRange: e.target.value })}
+                          >
+                            <option value="" disabled>Select range</option>
+                            {revenueRanges.map(r => <option key={r}>{r}</option>)}
+                          </select>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Estimated Budget ({currency})</label>
+                          <select
+                            required
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                            value={formData.estimatedBudgetRange}
+                            onChange={(e) => setFormData({ ...formData, estimatedBudgetRange: e.target.value })}
+                          >
+                            <option value="" disabled>Select range</option>
+                            {budgetRanges.map(b => <option key={b}>{b}</option>)}
+                          </select>
+                          <p className="text-[11px] text-[#A0A0A0]">This helps us scope the pilot appropriately.</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="flex items-start gap-3 p-4 bg-white/5 rounded-lg border border-white/5">
-                    <input
-                      required
-                      type="checkbox"
-                      id="nda-check"
-                      className="mt-1 accent-[#0047AB]"
-                      checked={formData.ndaAcknowledged}
-                      onChange={(e) => setFormData({ ...formData, ndaAcknowledged: e.target.checked })}
-                    />
-                    <label htmlFor="nda-check" className="text-[#A0A0A0] text-[13px] leading-relaxed cursor-pointer">
-                      I acknowledge that access to anonymized logs and methodology documentation requires a mutual NDA.
-                    </label>
-                  </div>
-                </form>
+                  {step === 4 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-bold text-white">Decision process</h3>
+                      <div className="space-y-4">
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Budget Status</label>
+                          <select
+                            required
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                            value={formData.budgetStatus}
+                            onChange={(e) => setFormData({ ...formData, budgetStatus: e.target.value })}
+                          >
+                            <option value="" disabled>Select status</option>
+                            {BUDGET_STATUS.map(s => <option key={s}>{s}</option>)}
+                          </select>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Approver Role</label>
+                          <input
+                            required
+                            type="text"
+                            placeholder="Who approves tech initiatives?"
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB]"
+                            value={formData.approverRole}
+                            onChange={(e) => setFormData({ ...formData, approverRole: e.target.value })}
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Critical Outcome</label>
+                          <select
+                            required
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0047AB] appearance-none"
+                            value={formData.impactArea}
+                            onChange={(e) => setFormData({ ...formData, impactArea: e.target.value })}
+                          >
+                            <option value="" disabled>Select outcome</option>
+                            {OUTCOMES.map(o => <option key={o}>{o}</option>)}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {step === 5 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-bold text-white">Where should we send the pilot assessment?</h3>
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-1.5">
+                            <label className="text-white text-xs font-semibold uppercase tracking-wider">Full Name</label>
+                            <input
+                              required
+                              type="text"
+                              className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB]"
+                              value={formData.fullName}
+                              onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                            />
+                          </div>
+                          <div className="space-y-1.5">
+                            <label className="text-white text-xs font-semibold uppercase tracking-wider">Business Email</label>
+                            <input
+                              required
+                              type="email"
+                              className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB]"
+                              value={formData.businessEmail}
+                              onChange={(e) => setFormData({ ...formData, businessEmail: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">Role / Title</label>
+                          <input
+                            required
+                            type="text"
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB]"
+                            value={formData.roleTitle}
+                            onChange={(e) => setFormData({ ...formData, roleTitle: e.target.value })}
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-white text-xs font-semibold uppercase tracking-wider">LinkedIn Profile (optional)</label>
+                          <input
+                            type="url"
+                            className="w-full bg-[#0D0D0D] border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#0047AB]"
+                            value={formData.linkedInProfile}
+                            onChange={(e) => setFormData({ ...formData, linkedInProfile: e.target.value })}
+                          />
+                        </div>
+                        <div className="flex items-start gap-3 p-4 bg-white/5 rounded-lg border border-white/5">
+                          <input
+                            required
+                            type="checkbox"
+                            id="pilot-confirm"
+                            className="mt-1 accent-[#0047AB]"
+                            checked={formData.confirmationOfPilotInterest}
+                            onChange={(e) => setFormData({ ...formData, confirmationOfPilotInterest: e.target.checked })}
+                          />
+                          <label htmlFor="pilot-confirm" className="text-[#A0A0A0] text-[13px] leading-relaxed cursor-pointer">
+                            I confirm this request relates to evaluating a potential operational pilot.
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
 
             {/* Footer */}
             {!isSubmitted && (
-              <footer className="sticky bottom-0 z-20 bg-[#0A0A0A] border-t border-white/5 p-6 md:px-8 md:py-6 text-center">
-                <button
-                  onClick={handleSubmit}
-                  disabled={!isFormValid}
-                  className={cn(
-                    "w-full font-bold text-sm md:text-base py-3.5 rounded-lg transition-all active:scale-[0.98]",
-                    isFormValid 
-                      ? "bg-[#0047AB] text-white shadow-[0_8px_20px_rgba(0,71,171,0.3)] hover:bg-[#0047AB]/90" 
-                      : "bg-white/5 text-white/20 cursor-not-allowed"
+              <footer className="sticky bottom-0 z-20 bg-[#0A0A0A] border-t border-white/5 p-6 md:px-8 md:py-6 flex items-center justify-between">
+                <div className="text-[10px] text-white/30 uppercase tracking-widest hidden md:block">
+                  Secure Enterprise Assessment
+                </div>
+                <div className="flex gap-4 w-full md:w-auto">
+                  {step < 5 ? (
+                    <button
+                      onClick={nextStep}
+                      disabled={!currentStepValid()}
+                      className={cn(
+                        "flex-1 md:flex-none flex items-center justify-center gap-2 font-bold text-sm px-8 py-3.5 rounded-lg transition-all",
+                        currentStepValid() 
+                          ? "bg-[#0047AB] text-white hover:bg-[#0047AB]/90" 
+                          : "bg-white/5 text-white/20 cursor-not-allowed"
+                      )}
+                    >
+                      Next Step
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleSubmit}
+                      disabled={!currentStepValid() || isSubmitting}
+                      className={cn(
+                        "flex-1 md:flex-none flex items-center justify-center gap-2 font-bold text-sm px-8 py-3.5 rounded-lg transition-all",
+                        currentStepValid() && !isSubmitting
+                          ? "bg-[#0047AB] text-white hover:bg-[#0047AB]/90" 
+                          : "bg-white/5 text-white/20 cursor-not-allowed"
+                      )}
+                    >
+                      {isSubmitting ? "Submitting..." : "Request Access"}
+                      {!isSubmitting && <ChevronRight className="w-4 h-4" />}
+                    </button>
                   )}
-                >
-                  Request Access
-                </button>
-                <p className="mt-3 text-[#A0A0A0] text-[10px] uppercase tracking-widest">
-                  All shared operational logs are anonymized and sanitized
-                </p>
+                </div>
               </footer>
             )}
           </motion.div>
