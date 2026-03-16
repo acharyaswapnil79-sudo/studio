@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { cn } from '@/lib/utils';
-import { X } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -13,6 +13,17 @@ import {
   DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 const SITE_EVIDENCE = {
   deployments_count: 0,         // integer - number of real deployments completed
@@ -31,7 +42,8 @@ export default function GreyShacksLanding() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMethodologyOpen, setIsMethodologyOpen] = useState(false);
+  const [isIntakeOpen, setIsIntakeOpen] = useState(false);
   
   const handleNavClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
@@ -95,7 +107,7 @@ export default function GreyShacksLanding() {
       <main>
         <HeroSection />
         <IndustriesSection />
-        <OperationalImpactSection openMethodologyModal={() => setIsModalOpen(true)} />
+        <OperationalImpactSection openMethodologyModal={() => setIsMethodologyOpen(true)} />
         <section id="capabilities" className="py-24 bg-[#0A0A0A]"></section>
         <section id="case-studies" className="py-24 bg-[#0A0A0A]"></section>
         <section id="insights" className="py-24 bg-[#0A0A0A]"></section>
@@ -109,7 +121,16 @@ export default function GreyShacksLanding() {
         handleNavClick={handleNavClick}
       />
 
-      <MethodologyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <MethodologyModal 
+        isOpen={isMethodologyOpen} 
+        onClose={() => setIsMethodologyOpen(false)} 
+        onOpenIntake={() => setIsIntakeOpen(true)}
+      />
+
+      <IntakeFormModal
+        isOpen={isIntakeOpen}
+        onClose={() => setIsIntakeOpen(false)}
+      />
     </div>
   );
 }
@@ -422,7 +443,6 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
     <section id="operational-impact" className="bg-[#0D0D0D] border-t border-white/5 py-14 md:py-24 px-6 md:px-10">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
-          {/* Left: header + meta */}
           <div className="lg:col-span-1">
             <h2 className="font-headline text-white text-3xl md:text-4xl mb-6">Operational Impact Benchmarks</h2>
             <p className="text-[#A0A0A0] text-lg leading-relaxed mb-8">
@@ -439,7 +459,6 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
             </div>
           </div>
 
-          {/* Middle: metrics */}
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {metricsArray.map((m, i) => (
               <motion.div 
@@ -461,7 +480,6 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
           </div>
         </div>
 
-        {/* Snapshots */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {snapshots.map((s, i) => (
             <motion.div 
@@ -493,13 +511,11 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
           <button 
             onClick={openMethodologyModal}
             className="text-white border border-white/10 px-8 py-3.5 rounded-lg hover:bg-white/5 transition-colors text-sm font-semibold w-full md:w-auto"
-            aria-label="Request methodology & anonymized logs"
           >
             Request methodology & anonymized logs (NDA)
           </button>
           <button 
             className="bg-[#0047AB] text-white px-8 py-3.5 rounded-lg hover:bg-[#0047AB]/90 transition-colors text-sm font-bold w-full md:w-auto"
-            aria-label="Discuss pilot design"
           >
             Discuss pilot design
           </button>
@@ -509,7 +525,7 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
   );
 }
 
-function MethodologyModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+function MethodologyModal({ isOpen, onClose, onOpenIntake }: { isOpen: boolean, onClose: () => void, onOpenIntake: () => void }) {
   const steps = [
     {
       title: "Baseline capture",
@@ -532,19 +548,15 @@ function MethodologyModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="p-0 bg-[#0A0A0A] border-white/6 overflow-hidden flex flex-col sm:max-w-[640px] lg:max-w-[720px] sm:max-h-[85vh] lg:max-h-[80vh] w-full max-sm:fixed max-sm:bottom-0 max-sm:top-auto max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-t-[16px] max-sm:h-[90vh] sm:rounded-[12px] shadow-[0_20px_80px_rgba(0,0,0,0.6)] gap-0 [&>button]:hidden">
-        
-        {/* Sticky Header */}
         <div className="sticky top-0 z-20 bg-[#0A0A0A] border-b border-white/6 px-5 py-5 sm:px-8 sm:py-8 flex items-center justify-between">
           <DialogTitle className="font-headline text-xl sm:text-2xl font-bold text-white leading-none">
             Measurement Methodology
           </DialogTitle>
           <DialogClose className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors group">
             <X className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-            <span className="sr-only">Close</span>
           </DialogClose>
         </div>
 
-        {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto">
           <div className="max-w-[600px] mx-auto px-6 py-8 sm:px-8 sm:py-10">
             <DialogDescription className="text-[#A0A0A0] text-base mb-12 text-center">
@@ -552,9 +564,7 @@ function MethodologyModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
             </DialogDescription>
             
             <div className="space-y-10 relative">
-              {/* Timeline Connector Line */}
               <div className="absolute left-[13.5px] top-7 bottom-3 w-[1px] bg-white/10 hidden sm:block" />
-              
               {steps.map((step, index) => (
                 <div key={index} className="flex gap-4 sm:gap-6 relative">
                   <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#0047AB] flex items-center justify-center text-white text-[14px] font-bold z-10">
@@ -570,16 +580,213 @@ function MethodologyModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
           </div>
         </div>
 
-        {/* Sticky Footer CTA */}
         <div className="sticky bottom-0 z-20 bg-[#0A0A0A] border-t border-white/6 p-5 sm:px-8 sm:py-6">
-          <button className="w-full h-12 bg-[#0047AB] hover:bg-[#0047AB]/90 text-white font-bold text-[14px] rounded-[8px] transition-all flex items-center justify-center shadow-lg shadow-[#0047AB]/20">
+          <button 
+            onClick={() => {
+              onClose();
+              onOpenIntake();
+            }}
+            className="w-full h-12 bg-[#0047AB] hover:bg-[#0047AB]/90 text-white font-bold text-[14px] rounded-[8px] transition-all flex items-center justify-center shadow-lg shadow-[#0047AB]/20"
+          >
             Request anonymized logs / methodology
           </button>
           <p className="text-center text-[11px] text-[#A0A0A0] mt-3 uppercase tracking-[0.15em] font-semibold">
             Standard NDA required for document access
           </p>
         </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+  const [submitted, setSubmitted] = useState(false);
+  const [ndaAccepted, setNdaAccepted] = useState(false);
+  const [emailError, setEmailError] = useState('');
+
+  const publicDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const email = e.target.value;
+    const domain = email.split('@')[1];
+    if (domain && publicDomains.includes(domain.toLowerCase())) {
+      setEmailError('Please use your business email address.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="p-0 bg-[#0A0A0A] border-white/6 overflow-hidden flex flex-col sm:max-w-[640px] w-full max-sm:fixed max-sm:bottom-0 max-sm:top-auto max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-t-[16px] max-sm:h-[90vh] sm:rounded-[12px] shadow-[0_20px_80px_rgba(0,0,0,0.6)] gap-0 [&>button]:hidden">
         
+        {!submitted ? (
+          <>
+            <div className="sticky top-0 z-20 bg-[#0A0A0A] border-b border-white/6 px-6 py-6 sm:px-8 sm:py-8 flex items-center justify-between">
+              <div>
+                <DialogTitle className="font-headline text-xl sm:text-2xl font-bold text-white mb-2">
+                  Request Methodology Access
+                </DialogTitle>
+                <DialogDescription className="text-[#A0A0A0] text-sm">
+                  Access to anonymized operational logs and measurement documentation requires a standard NDA.
+                </DialogDescription>
+              </div>
+              <DialogClose className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors group shrink-0 ml-4">
+                <X className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+              </DialogClose>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-6 py-8 sm:px-8">
+              <form id="intake-form" onSubmit={handleSubmit} className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="fullName" className="text-white/80">Full Name</Label>
+                  <Input id="fullName" placeholder="Your full name" required className="bg-white/5 border-white/10 text-white placeholder:text-white/30" />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-white/80">Business Email</Label>
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    placeholder="name@company.com" 
+                    required 
+                    onChange={handleEmailChange}
+                    className={cn(
+                      "bg-white/5 border-white/10 text-white placeholder:text-white/30",
+                      emailError && "border-red-500/50"
+                    )} 
+                  />
+                  {emailError && <p className="text-red-400 text-xs mt-1">{emailError}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="company" className="text-white/80">Company Name</Label>
+                  <Input id="company" placeholder="Company name" required className="bg-white/5 border-white/10 text-white placeholder:text-white/30" />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <Label className="text-white/80">Role / Title</Label>
+                    <Select required>
+                      <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                        <SelectValue placeholder="Select role" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#111] border-white/10 text-white">
+                        <SelectItem value="founder">Founder</SelectItem>
+                        <SelectItem value="ceo">CEO</SelectItem>
+                        <SelectItem value="coo">COO</SelectItem>
+                        <SelectItem value="cto">CTO</SelectItem>
+                        <SelectItem value="head-ops">Head of Operations</SelectItem>
+                        <SelectItem value="head-finance">Head of Finance</SelectItem>
+                        <SelectItem value="ops-manager">Operations Manager</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-white/80">Company Size</Label>
+                    <Select required>
+                      <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                        <SelectValue placeholder="Select size" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#111] border-white/10 text-white">
+                        <SelectItem value="1-10">1–10 employees</SelectItem>
+                        <SelectItem value="11-50">11–50</SelectItem>
+                        <SelectItem value="51-200">51–200</SelectItem>
+                        <SelectItem value="201-1000">201–1000</SelectItem>
+                        <SelectItem value="1000+">1000+</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-white/80">Industry</Label>
+                  <Select required>
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectValue placeholder="Select industry" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#111] border-white/10 text-white">
+                      <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                      <SelectItem value="real-estate">Real Estate</SelectItem>
+                      <SelectItem value="retail">Retail</SelectItem>
+                      <SelectItem value="logistics">Logistics</SelectItem>
+                      <SelectItem value="healthcare">Healthcare</SelectItem>
+                      <SelectItem value="finance">Financial Services</SelectItem>
+                      <SelectItem value="saas">SaaS</SelectItem>
+                      <SelectItem value="energy">Energy</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="useCase" className="text-white/80">Primary Use Case</Label>
+                  <Textarea 
+                    id="useCase" 
+                    placeholder="Briefly describe the operational process you are evaluating automation for." 
+                    maxLength={300}
+                    required
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[100px] resize-none"
+                  />
+                  <p className="text-[10px] text-white/30 text-right">Max 300 characters</p>
+                </div>
+
+                <div className="flex items-start space-x-3 pt-2">
+                  <Checkbox 
+                    id="nda" 
+                    checked={ndaAccepted} 
+                    onCheckedChange={(checked) => setNdaAccepted(checked as boolean)}
+                    className="mt-1 border-white/20 data-[state=checked]:bg-[#0047AB]" 
+                  />
+                  <Label htmlFor="nda" className="text-xs text-white/60 leading-relaxed cursor-pointer">
+                    I acknowledge that access to anonymized logs and methodology documentation requires a mutual NDA.
+                  </Label>
+                </div>
+              </form>
+            </div>
+
+            <div className="sticky bottom-0 z-20 bg-[#0A0A0A] border-t border-white/6 p-6 sm:px-8 sm:py-6">
+              <button 
+                type="submit"
+                form="intake-form"
+                disabled={!ndaAccepted || !!emailError}
+                className="w-full h-12 bg-[#0047AB] hover:bg-[#0047AB]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-[14px] rounded-[8px] transition-all flex items-center justify-center shadow-lg shadow-[#0047AB]/20"
+              >
+                Request Access
+              </button>
+              <p className="text-center text-[11px] text-[#A0A0A0] mt-4">
+                All shared operational logs are anonymized and sanitized before distribution.
+              </p>
+            </div>
+          </>
+        ) : (
+          <div className="p-8 sm:p-12 flex flex-col items-center text-center">
+            <CheckCircle2 className="w-16 h-16 text-[#0047AB] mb-6" />
+            <DialogTitle className="font-headline text-2xl sm:text-3xl font-bold text-white mb-4">
+              Request Received
+            </DialogTitle>
+            <div className="space-y-4 text-[#A0A0A0] text-sm sm:text-base max-w-[400px]">
+              <p>Our team will review your request and respond within 1–2 business days.</p>
+              <p>If approved, NDA documentation and access instructions will be shared via email.</p>
+            </div>
+            <button 
+              onClick={() => {
+                setSubmitted(false);
+                onClose();
+              }}
+              className="mt-10 w-full max-w-[200px] h-12 bg-white/5 hover:bg-white/10 text-white font-bold text-[14px] rounded-[8px] transition-all border border-white/10"
+            >
+              Close
+            </button>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
