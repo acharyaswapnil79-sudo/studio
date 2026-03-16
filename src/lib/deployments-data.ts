@@ -10,7 +10,7 @@ export interface Deployment {
   title: string;
   industry: string;
   function: string;
-  status: 'Pilot Complete' | 'Full Deployment' | 'Production — ongoing' | 'In Deployment';
+  status: 'Pilot Complete' | 'Full Deployment' | 'Production — ongoing' | 'In Deployment' | 'Production';
   teamSize: string;
   hasMethodology: boolean;
   clientContext: string;
@@ -260,7 +260,7 @@ export const DEPLOYMENTS: Deployment[] = [
       { label: 'Policy lapse rate', before: '23%', after: '17%', impact: '26% improvement' },
       { label: 'Confirmation lead time', before: '<48 hrs', after: '9 days', impact: 'Better visibility' }
     ],
-    scopeLimitations: 'Claims-linked renewals remained manual. Health policies excluded from pilot.',
+    scopeLimitation: 'Claims-linked renewals remained manual. Health policies excluded from pilot.',
     businessImpact: 'Team time on renewals reduced from 70% to 38% of capacity.',
     summary: 'Automating the renewal notification and confirmation cycle for motor policies.',
     pilotDuration: '6 weeks',
@@ -340,6 +340,203 @@ export const DEPLOYMENTS: Deployment[] = [
     whatStayedHuman: ['Campaign strategy', 'Advertiser negotiation'],
     whatWeLearned: 'Two analytics platforms lacked API access, forcing manual data import via agents.',
     systemsIntegrated: ['Google Ad Manager', 'Email Scrapers']
+  },
+  {
+    id: "b2b-account-renewal-operations",
+    industry: "Telecommunications",
+    function: "Renewal Operations",
+    title: "B2B Account Renewal Operations",
+    status: "Production",
+    teamSize: "20–100",
+    summary: "Contract renewal monitoring moved identification from 30–60 days before expiry to 120–150 days.",
+    clientContext: "Regional telecommunications provider managing approximately 280 enterprise accounts across leased line and PBX services.",
+    operationalProblem: "Renewals were tracked manually in spreadsheets, limiting upsell preparation and creating last-minute contract renewals.",
+    timeline: "Pilot: 8 weeks. Full deployment: Week 10. Measurement window: 12 weeks.",
+    kpis: [
+      { label: "Renewal identification lead time", before: "30–60 days", after: "120–150 days", impact: "Earlier contract engagement" },
+      { label: "Account manager admin workload", before: "~40%", after: "~14%", impact: "Recovered account management capacity" },
+      { label: "Renewal lapse rate", before: "11%", after: "~7%", impact: "Projected improvement" }
+    ],
+    scopeLimitation: "Public sector contracts were excluded due to procurement compliance processes.",
+    businessImpact: "Account managers shifted capacity from administrative monitoring to strategic client discussions.",
+    whatStayedHuman: ["Contract negotiation", "Pricing", "SLA changes"],
+    whatWeLearned: "Enterprise renewal cycles require earlier engagement triggers than initially assumed.",
+    hasMethodology: true
+  },
+  {
+    id: "subcontractor-coordination-operations",
+    industry: "Construction",
+    function: "Vendor Coordination",
+    title: "Subcontractor Coordination Operations",
+    status: "Production",
+    teamSize: "20–100",
+    summary: "Supervisor coordination time reduced from ~3.5 hours to ~1.2 hours daily.",
+    clientContext: "Construction contractor managing 4–6 concurrent projects with approximately 35–50 subcontractors.",
+    operationalProblem: "Subcontractor scheduling and updates were managed through phone calls and WhatsApp groups without structured tracking.",
+    timeline: "Pilot: 5 weeks. Full deployment: Week 12. Measurement window: 10 weeks.",
+    kpis: [
+      { label: "Delay identification lead time", before: "Reactive", after: "1–2 days before delay", impact: "Earlier intervention" },
+      { label: "Supervisor coordination time", before: "~3.5 hrs/day", after: "~1.2 hrs/day", impact: "Recovered site supervision capacity" },
+      { label: "Invoice verification cycle", before: "8–12 days", after: "4–6 days", impact: "Faster subcontractor payment" }
+    ],
+    scopeLimitation: "38% of subcontractors continued informal communication channels.",
+    businessImpact: "Supervisors gained time for quality inspection and project oversight.",
+    whatStayedHuman: ["Subcontractor selection", "Dispute resolution"],
+    whatWeLearned: "Morning coordination requests significantly increased subcontractor response rates.",
+    hasMethodology: true
+  },
+  {
+    id: "loan-application-preprocessing",
+    industry: "NBFC",
+    function: "Finance Operations",
+    title: "Loan Application Pre-Processing",
+    status: "Production",
+    teamSize: "Under 20",
+    summary: "Incomplete loan files reaching credit teams reduced from ~34% to ~12%.",
+    clientContext: "NBFC processing 180–260 SME loan applications monthly.",
+    operationalProblem: "Manual document checks delayed credit review and caused incomplete applications to reach underwriting teams.",
+    timeline: "Pilot: 6 weeks. Full deployment: Week 9. Measurement window: 12 weeks.",
+    kpis: [
+      { label: "Application to credit review time", before: "3–5 days", after: "1–2 days", impact: "Faster underwriting start" },
+      { label: "Incomplete applications", before: "~34%", after: "~12%", impact: "Reduced rework" },
+      { label: "Processing admin workload", before: "~50%", after: "~18%", impact: "Recovered analyst time" }
+    ],
+    scopeLimitation: "Credit decisions and sanctioning remained outside system scope.",
+    businessImpact: "Credit teams received cleaner application files and reduced review delays.",
+    whatStayedHuman: ["Credit risk analysis", "Loan approval decisions"],
+    whatWeLearned: "Applications submitted by DSAs had significantly higher document gaps.",
+    hasMethodology: true
+  },
+  {
+    id: "pharmaceutical-order-fulfilment",
+    industry: "Pharmaceutical Distribution",
+    function: "Order Operations",
+    title: "Pharmaceutical Order Fulfilment Operations",
+    status: "Production",
+    teamSize: "20–100",
+    summary: "Order entry time reduced from 4–7 minutes to under 1 minute.",
+    clientContext: "Pharmaceutical distributor serving approximately 320 pharmacy and hospital clients.",
+    operationalProblem: "Manual SAP order entry and short-expiry stock monitoring slowed fulfilment operations.",
+    timeline: "Pilot: 4 weeks. Full deployment: Week 6.",
+    kpis: [
+      { label: "Order entry time", before: "4–7 minutes", after: "<1 minute", impact: "Faster order processing" },
+      { label: "Returns processing cycle", before: "5–8 days", after: "3–4 days", impact: "Improved returns handling" },
+      { label: "Order accuracy errors", before: "3–5/week", after: "1–2/week", impact: "Higher fulfilment accuracy" }
+    ],
+    scopeLimitation: "Phone order channel integration was delayed due to telephony constraints.",
+    businessImpact: "Operations teams recovered time for stock planning and supplier coordination.",
+    whatStayedHuman: ["Pricing decisions", "Regulatory compliance verification"],
+    whatWeLearned: "Legacy telephony dependencies must be evaluated during discovery.",
+    hasMethodology: true
+  },
+  {
+    id: "group-booking-operations",
+    industry: "Travel",
+    function: "Operations",
+    title: "Group Booking Operations",
+    status: "Production",
+    teamSize: "Under 20",
+    summary: "Group booking proposal delivery reduced from 4–6 days to 2–3 days.",
+    clientContext: "Travel management company handling corporate and group travel bookings.",
+    operationalProblem: "Supplier coordination across hotels and transport providers was performed manually through email threads.",
+    timeline: "Pilot: 5 weeks. Full deployment: Week 8.",
+    kpis: [
+      { label: "Proposal delivery time", before: "4–6 days", after: "2–3 days", impact: "Faster client response" },
+      { label: "Supplier follow-up workload", before: "~50%", after: "~22%", impact: "Reduced coordination effort" },
+      { label: "Quote errors", before: "~15%", after: "~5%", impact: "Improved proposal accuracy" }
+    ],
+    scopeLimitation: "Airline booking remained manual.",
+    businessImpact: "Operations team handled higher booking volumes during peak periods.",
+    whatStayedHuman: ["Client negotiation", "Itinerary design"],
+    whatWeLearned: "Smaller suppliers lacked standardized quote formats.",
+    hasMethodology: true
+  },
+  {
+    id: "field-service-scheduling",
+    industry: "Energy",
+    function: "Scheduling Operations",
+    title: "Field Service Scheduling Operations",
+    status: "Production",
+    teamSize: "20–100",
+    summary: "Same-day service cancellations reduced from ~17% to ~9%.",
+    clientContext: "Solar installation and maintenance company managing 22 technicians.",
+    operationalProblem: "Manual scheduling created uneven technician workloads and appointment delays.",
+    timeline: "Pilot: 6 weeks. Full deployment: Week 9.",
+    kpis: [
+      { label: "Same-day cancellation rate", before: "~17%", after: "~9%", impact: "Improved reliability" },
+      { label: "Scheduling admin workload", before: "~70%", after: "~38%", impact: "Reduced coordination" },
+      { label: "Technician visits per day", before: "3.1", after: "3.6", impact: "Improved utilisation" }
+    ],
+    scopeLimitation: "Commercial service scheduling excluded.",
+    businessImpact: "Technician workloads became more evenly distributed.",
+    whatStayedHuman: ["Technical diagnostics", "Repair decisions"],
+    whatWeLearned: "Technician skill routing was necessary for scheduling accuracy.",
+    hasMethodology: true
+  },
+  {
+    id: "quality-reporting-operations",
+    industry: "Food Manufacturing",
+    function: "Reporting Operations",
+    title: "Quality Reporting Operations",
+    status: "Production",
+    teamSize: "Under 20",
+    summary: "Quality reporting time reduced from 45–60 minutes per shift to under 8 minutes.",
+    clientContext: "Food manufacturing company operating two production lines.",
+    operationalProblem: "Quality inspection reports were manually transcribed from paper logs.",
+    timeline: "Pilot: 4 weeks. Full deployment: Week 10.",
+    kpis: [
+      { label: "Data transcription time", before: "45–60 mins", after: "<8 mins", impact: "Faster reporting" },
+      { label: "Non-conformance detection", before: "3–5 days", after: "Same shift", impact: "Earlier issue detection" },
+      { label: "Report availability", before: "3–4 days delay", after: "Within 6 hours", impact: "Near real-time reporting" }
+    ],
+    scopeLimitation: "Two inspection stages remained paper-based.",
+    businessImpact: "Management gained faster operational visibility.",
+    whatStayedHuman: ["Root cause analysis", "Production adjustments"],
+    whatWeLearned: "Industrial device requirements must be evaluated earlier.",
+    hasMethodology: true
+  },
+  {
+    id: "legal-matter-intake-operations",
+    industry: "Legal Services",
+    function: "Document Operations",
+    title: "Matter Intake and Document Operations",
+    status: "Production",
+    teamSize: "Under 20",
+    summary: "Legal matter intake reduced from 3–4 hours to under 75 minutes.",
+    clientContext: "Law firm with 18 lawyers handling approximately 40–65 new matters monthly.",
+    operationalProblem: "Manual conflict checks and document preparation slowed new case intake.",
+    timeline: "Pilot: 5 weeks. Full deployment: Week 8.",
+    kpis: [
+      { label: "Matter intake processing", before: "3–4 hours", after: "45–75 mins", impact: "Faster onboarding" },
+      { label: "Document assembly time", before: "1.5–2.5 hrs", after: "20–40 mins", impact: "Reduced admin workload" },
+      { label: "Conflict checks", before: "Manual", after: "Systematic", impact: "Improved compliance" }
+    ],
+    scopeLimitation: "Litigation intake workflows excluded.",
+    businessImpact: "Lawyers spent more time advising clients.",
+    whatStayedHuman: ["Legal advice", "Negotiation"],
+    whatWeLearned: "Conflict rule logic required multiple calibration cycles.",
+    hasMethodology: true
+  },
+  {
+    id: "visa-application-processing",
+    industry: "Immigration Services",
+    function: "Operations",
+    title: "Visa Application Processing Operations",
+    status: "Production",
+    teamSize: "Under 20",
+    summary: "Administrative workload for visa case managers reduced from ~60% to ~28%.",
+    clientContext: "Immigration consultancy managing 280–360 visa applications monthly.",
+    operationalProblem: "Manual document tracking and follow-ups delayed visa application submissions.",
+    timeline: "Pilot: 5 weeks. Full deployment: Week 11.",
+    kpis: [
+      { label: "Administrative workload", before: "~60%", after: "~28%", impact: "Recovered case management time" },
+      { label: "Incomplete submissions", before: "~19%", after: "~9%", impact: "Improved application readiness" },
+      { label: "Client updates", before: "Ad hoc", after: "Weekly updates", impact: "Improved transparency" }
+    ],
+    scopeLimitation: "PR visa cases excluded.",
+    businessImpact: "Case managers focused more on strategic client counselling.",
+    whatStayedHuman: ["Immigration strategy", "Policy interpretation"],
+    whatWeLearned: "Visa policy changes require ongoing rule maintenance.",
+    hasMethodology: true
   }
-  // ... more deployments can be added following this pattern
 ];
