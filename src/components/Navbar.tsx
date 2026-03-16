@@ -59,7 +59,7 @@ export function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen
                   href={link.href}
                   className={cn(
                     "text-[13px] lg:text-[13.5px] tracking-wider transition-colors duration-[0.18s] whitespace-nowrap",
-                    activeSection === link.href.replace('/', '') ? "text-white" : "text-[#888888] hover:text-white"
+                    (activeSection === link.href.replace('/', '') || (activeSection === 'intelligence' && link.href.includes('intelligence'))) ? "text-white" : "text-[#888888] hover:text-white"
                   )}
                 >
                   {link.name}
@@ -68,10 +68,10 @@ export function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen
               <motion.div 
                 className={cn(
                   "absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1px] bg-white w-5 transition-opacity",
-                  (activeSection === link.href.replace('/#', '').replace('#', '') || activeSection === link.href.replace('/', '')) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                  (activeSection === link.href.replace('/#', '').replace('#', '') || activeSection === link.href.replace('/', '') || (activeSection === 'intelligence' && link.href.includes('intelligence'))) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                 )}
                 initial={{ scaleX: 0 }}
-                animate={{ scaleX: (activeSection === link.href.replace('/#', '').replace('#', '') || activeSection === link.href.replace('/', '')) ? 1 : 0 }}
+                animate={{ scaleX: (activeSection === link.href.replace('/#', '').replace('#', '') || activeSection === link.href.replace('/', '') || (activeSection === 'intelligence' && link.href.includes('intelligence'))) ? 1 : 0 }}
                 whileHover={{ scaleX: 1 }}
               />
             </div>

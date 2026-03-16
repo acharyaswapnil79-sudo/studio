@@ -36,11 +36,9 @@ export default function IntelligenceLibrary() {
   }, [activeCategory, searchQuery]);
 
   const navLinks = [
-    { name: "Command Center", href: "/#hero" },
-    { name: "Operational Impact", href: "/#operational-impact" },
-    { name: "Capabilities", href: "/capabilities" },
-    { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" }
+    { name: "Field Intelligence", href: "/intelligence" },
+    { name: "Frameworks", href: "/intelligence/frameworks" },
+    { name: "Deployment Library", href: "/deployments" }
   ];
 
   return (
@@ -90,12 +88,13 @@ export default function IntelligenceLibrary() {
                 >
                   Browse the Library
                 </button>
-                <button 
-                  onClick={() => setSelectedFramework('Operational Diagnostic Framework')}
-                  className="bg-transparent border border-white/10 text-white font-bold text-sm px-8 py-4 rounded-lg hover:bg-white/5 transition-colors"
-                >
-                  Download Research Brief
-                </button>
+                <Link href="/intelligence/frameworks">
+                  <button 
+                    className="bg-transparent border border-white/10 text-white font-bold text-sm px-8 py-4 rounded-lg hover:bg-white/5 transition-colors"
+                  >
+                    View Frameworks Library
+                  </button>
+                </Link>
               </div>
             </div>
           </section>
@@ -103,11 +102,9 @@ export default function IntelligenceLibrary() {
           {/* Category Navigation */}
           <section className="sticky top-24 z-40 bg-[#0A0A0A]/90 backdrop-blur-md border-y border-white/5 mb-16">
             <div className="relative max-w-full">
-              {/* Edge Gradient Fades */}
               <div className="absolute left-0 top-0 bottom-0 w-10 z-10 bg-gradient-to-r from-[#0A0A0A] to-transparent pointer-events-none md:w-20" />
               <div className="absolute right-0 top-0 bottom-0 w-10 z-10 bg-gradient-to-l from-[#0A0A0A] to-transparent pointer-events-none md:w-20" />
               
-              {/* Scrollable Container */}
               <div className="overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide py-4 px-10 md:px-20 scroll-smooth -webkit-overflow-scrolling-touch">
                 <div className="flex gap-8">
                   {CATEGORIES.map((cat) => (
@@ -275,58 +272,32 @@ export default function IntelligenceLibrary() {
             </div>
           </section>
 
-          {/* Deployment Linked Insights */}
-          <section className="mb-32">
-            <div className="bg-[#0F0F0F] border border-white/5 rounded-2xl p-12">
-              <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#0047AB] mb-12 font-bold">
-                From the Deployment Library
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                {[
-                  { title: "AR Operations deployment observations", id: "mfg-ar" },
-                  { title: "Retail tier-1 query deflection", id: "retail-cust-query" },
-                  { title: "Shipment exception handling", id: "log-shipment" }
-                ].map((d) => (
-                  <Link key={d.id} href={`/deployments/${d.id}`} className="group space-y-4">
-                    <h4 className="text-xl font-bold group-hover:text-[#0047AB] transition-colors underline decoration-white/10 underline-offset-8">
-                      {d.title}
-                    </h4>
-                    <div className="flex items-center gap-2 text-[10px] font-mono text-white/30 uppercase tracking-widest">
-                      <span>View deployment evidence</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <div className="mt-16 pt-12 border-t border-white/5 text-center">
-                <Link href="/deployments" className="inline-flex items-center gap-2 text-sm font-bold hover:text-[#0047AB] transition-colors">
-                  View all 35 deployments <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </section>
-
           {/* Practitioner Frameworks */}
           <section className="mb-32">
             <h3 className="font-headline text-3xl font-bold mb-12">Practitioner Frameworks</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               {[
-                "Operational Pilot Framework",
-                "Baseline Measurement Methodology",
-                "Vendor Evaluation Scorecard",
-                "Agentic Governance Framework",
-                "Operational Diagnostic Framework"
+                { id: 1, name: "Operational Pilot Framework" },
+                { id: 2, name: "Baseline Measurement Methodology" },
+                { id: 3, name: "Vendor Evaluation Scorecard" },
+                { id: 4, name: "Agentic Governance Framework" },
+                { id: 13, name: "Operational Diagnostic Framework" }
               ].map((f) => (
-                <button 
-                  key={f}
-                  onClick={() => setSelectedFramework(f)}
+                <Link 
+                  key={f.id}
+                  href={`/intelligence/frameworks?id=${f.id}`}
                   className="bg-[#111] border border-white/5 p-6 rounded-xl text-left hover:border-[#0047AB] transition-all group h-full flex flex-col"
                 >
-                  <Download className="w-5 h-5 text-[#0047AB] mb-6 group-hover:translate-y-1 transition-transform" />
-                  <div className="text-sm font-bold leading-relaxed flex-1">{f}</div>
-                  <div className="mt-4 text-[10px] font-mono text-white/30 uppercase tracking-widest">Download .PDF</div>
-                </button>
+                  <ArrowRight className="w-5 h-5 text-[#0047AB] mb-6 group-hover:translate-x-1 transition-transform" />
+                  <div className="text-sm font-bold leading-relaxed flex-1">{f.name}</div>
+                  <div className="mt-4 text-[10px] font-mono text-white/30 uppercase tracking-widest">Read Framework →</div>
+                </Link>
               ))}
+            </div>
+            <div className="mt-12 text-center">
+              <Link href="/intelligence/frameworks" className="inline-flex items-center gap-2 text-sm font-bold hover:text-[#0047AB] transition-colors">
+                Browse all 16 frameworks <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </section>
 
@@ -421,12 +392,6 @@ export default function IntelligenceLibrary() {
       <IntakeFormModal
         isOpen={isIntakeOpen}
         onClose={() => setIsIntakeOpen(false)}
-      />
-
-      <FrameworkModal 
-        isOpen={!!selectedFramework}
-        frameworkName={selectedFramework || ''}
-        onClose={() => setSelectedFramework(null)}
       />
     </div>
   );

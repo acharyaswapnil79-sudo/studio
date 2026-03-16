@@ -65,7 +65,7 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, ha
                     href={link.href}
                     className={cn(
                       "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
-                      activeSection === link.href.replace('/', '') ? "text-white" : "text-white/80 hover:text-white"
+                      (activeSection === link.href.replace('/', '') || (activeSection === 'intelligence' && link.href.includes('intelligence'))) ? "text-white" : "text-white/80 hover:text-white"
                     )}
                     onClick={onClose}
                   >
