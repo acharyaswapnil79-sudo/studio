@@ -1,14 +1,14 @@
-
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { INSIGHTS, CATEGORIES } from '@/lib/intelligence-data';
-import { ArrowLeft, ArrowRight, Clock, Calendar, Database, ShieldCheck, Info, FileText, Share2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, Calendar, ShieldCheck, Info, FileText, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function InsightDetailPage() {
   const params = useParams();
@@ -18,7 +18,7 @@ export default function InsightDetailPage() {
 
   const insight = INSIGHTS.find(i => i.id === params.id);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -51,10 +51,10 @@ export default function InsightDetailPage() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] mb-12">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <ArrowRight className="w-3 h-3" />
+            <ChevronRight className="w-3 h-3" />
             <Link href="/intelligence" className="hover:text-white transition-colors">Intelligence</Link>
-            <ArrowRight className="w-3 h-3" />
-            <span className="text-white/60">{insight.category}</span>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-white/60">{insight.type === 'framework' ? 'Practitioner Framework' : insight.category}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-10 gap-16">
@@ -63,9 +63,9 @@ export default function InsightDetailPage() {
               <header className="space-y-8">
                 <div 
                   className="inline-block text-[10px] font-mono uppercase tracking-[0.3em] font-bold px-3 py-1 border border-current rounded"
-                  style={{ color: CATEGORIES.find(c => c.name === insight.category)?.color }}
+                  style={{ color: CATEGORIES.find(c => c.name === insight.category || (c.name === 'Practitioner Frameworks' && insight.type === 'framework'))?.color || '#3B82F6' }}
                 >
-                  {insight.category}
+                  {insight.type === 'framework' ? 'Practitioner Framework' : insight.category}
                 </div>
                 <h1 className="font-headline text-4xl md:text-6xl font-bold leading-tight">
                   {insight.title}
@@ -82,45 +82,122 @@ export default function InsightDetailPage() {
                 </div>
               </header>
 
-              <article className="space-y-12 text-lg leading-relaxed text-[#A0A0A0]">
-                {insight.content.map((p, i) => (
-                  <div key={i} className="space-y-6">
-                    {i === 1 && (
-                      <div className="bg-[#0F0F0F] border-l-2 border-[#0047AB] p-8 my-12 italic text-white/80">
-                        "{insight.summary}"
-                      </div>
-                    )}
-                    <p>{p}</p>
-                  </div>
-                ))}
-              </article>
+              <article className="space-y-12">
+                <p className="text-xl leading-relaxed text-white/90 font-sans font-light">
+                  {insight.openingParagraph}
+                </p>
 
-              <div className="pt-16 border-t border-white/5 space-y-12">
-                <h3 className="font-headline text-3xl font-bold">Related Intelligence</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {INSIGHTS.filter(i => i.id !== insight.id).slice(0, 2).map((related) => (
-                    <Link key={related.id} href={`/intelligence/${related.id}`} className="bg-[#111] border border-white/5 p-8 rounded-xl hover:border-[#0047AB]/30 transition-all">
-                      <div className="text-[9px] font-mono uppercase tracking-widest text-[#0047AB] mb-4">{related.category}</div>
-                      <h4 className="text-xl font-bold mb-4">{related.title}</h4>
-                      <ArrowRight className="w-4 h-4 text-white/30" />
-                    </Link>
+                {insight.pullQuote && (
+                  <div className="bg-[#0F0F0F] border-l-2 border-[#0047AB] p-8 my-12 italic text-white/80 text-2xl font-headline leading-relaxed">
+                    "{insight.pullQuote}"
+                  </div>
+                )}
+
+                {insight.diagram && (
+                  <div className="bg-[#111] border border-white/5 rounded-xl p-8 my-12 overflow-x-auto">
+                    <div className="flex items-center justify-between min-w-[600px] gap-4">
+                      {insight.diagram.map((step, i) => (
+                        <React.Fragment key={step}>
+                          <div className="flex-1 text-center p-4 bg-white/5 border border-white/10 rounded-lg text-[10px] font-mono uppercase tracking-widest text-white/60">
+                            {step}
+                          </div>
+                          {i < insight.diagram!.length - 1 && (
+                            <ArrowRight className="w-4 h-4 text-white/20 shrink-0" />
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                    <div className="mt-4 text-[10px] font-mono text-white/30 text-center uppercase tracking-widest">Operational Flow Architecture</div>
+                  </div>
+                )}
+
+                <div className="space-y-16 text-[#A0A0A0] leading-relaxed text-lg font-sans">
+                  {insight.sections.map((section, idx) => (
+                    <section key={idx} className="space-y-6">
+                      <h2 className="text-2xl font-headline font-bold text-white border-b border-white/5 pb-4">{section.heading}</h2>
+                      <div className="space-y-6">
+                        <p>{section.content}</p>
+                        {section.callout && (
+                          <div className="bg-[#060B10] border-l-4 border-[#0047AB] p-8 my-8 flex gap-8 items-start rounded-r-lg">
+                            <div className="text-5xl font-headline font-bold text-[#0047AB] leading-none">{section.callout.number}</div>
+                            <div className="text-sm italic leading-relaxed text-white/60">{section.callout.label}</div>
+                          </div>
+                        )}
+                      </div>
+                    </section>
                   ))}
                 </div>
-              </div>
+
+                {insight.charts && (
+                  <div className="bg-[#111] border border-white/5 rounded-xl p-10 my-16 space-y-10">
+                    <h3 className="text-sm font-mono uppercase tracking-widest text-white/40 mb-8">Performance Exhibits</h3>
+                    {insight.charts.map((chart, idx) => (
+                      <div key={idx} className="space-y-4">
+                        <div className="flex justify-between items-end">
+                          <span className="text-sm font-bold">{chart.label}</span>
+                          <span className="text-[#0047AB] font-mono text-xs font-bold uppercase">{chart.impact}</span>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                          <div className="space-y-2">
+                            <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest">Pre-Deployment</div>
+                            <div className="text-lg font-bold text-white/60">{chart.before}</div>
+                            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                              <div className="h-full bg-white/10 w-full" />
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="text-[10px] font-mono text-[#0047AB] uppercase tracking-widest font-bold">Post-Deployment</div>
+                            <div className="text-lg font-bold text-white">{chart.after}</div>
+                            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                              <motion.div 
+                                initial={{ width: 0 }}
+                                whileInView={{ width: '100%' }}
+                                transition={{ duration: 1, ease: "easeOut" }}
+                                className="h-full bg-[#0047AB]"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <p className="text-[10px] text-white/30 italic text-center pt-4 border-t border-white/5">
+                      Baseline captured over 4 weeks pre-deployment. Performance measured during first full quarter post-deployment.
+                    </p>
+                  </div>
+                )}
+
+                <div className="pt-16 border-t border-white/5 space-y-12">
+                  <h3 className="font-headline text-3xl font-bold">Related Intelligence</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {INSIGHTS.filter(i => i.id !== insight.id && i.category === insight.category).slice(0, 2).map((related) => (
+                      <Link key={related.id} href={`/intelligence/${related.id}`} className="bg-[#111] border border-white/5 p-8 rounded-xl hover:border-[#0047AB]/30 transition-all">
+                        <div className="text-[9px] font-mono uppercase tracking-widest text-[#0047AB] mb-4">{related.type === 'framework' ? 'Practitioner Framework' : related.category}</div>
+                        <h4 className="text-xl font-bold mb-4">{related.title}</h4>
+                        <ArrowRight className="w-4 h-4 text-white/30" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </article>
             </div>
 
             {/* Sidebar */}
             <aside className="lg:col-span-3">
               <div className="sticky top-32 space-y-8">
-                <div className="bg-[#111] border border-white/5 p-8 rounded-xl space-y-8">
+                <div className="bg-[#111] border border-white/5 p-8 rounded-xl space-y-8 shadow-xl">
                   <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/30 font-bold pb-4 border-b border-white/5">
                     Publication Metadata
                   </h3>
                   
                   <div className="space-y-6">
                     <div>
+                      <div className="text-[9px] font-mono uppercase tracking-widest text-white/20 mb-2">Category</div>
+                      <div className="text-sm font-bold text-white">{insight.type === 'framework' ? 'Practitioner Framework' : insight.category}</div>
+                    </div>
+
+                    <div>
                       <div className="text-[9px] font-mono uppercase tracking-widest text-white/20 mb-2">Data Window</div>
-                      <div className="text-sm font-bold">{insight.dataWindow}</div>
+                      <div className="text-sm font-bold text-white">{insight.dataWindow}</div>
                     </div>
                     
                     {insight.deploymentRef && (
@@ -140,15 +217,15 @@ export default function InsightDetailPage() {
                       </div>
                     </div>
 
-                    <div className="pt-6 border-t border-white/5">
+                    <div className="pt-6 border-t border-white/5 space-y-4">
                       <p className="text-[10px] text-[#A0A0A0] leading-relaxed italic">
-                        Methodology note: All observations are verified against raw system logs and anonymized before publication.
+                        {insight.methodologyNote || "All observations are verified against raw system logs and anonymized before publication."}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-[#0047AB] p-8 rounded-xl space-y-6">
+                <div className="bg-[#0047AB] p-8 rounded-xl space-y-6 shadow-2xl">
                   <h4 className="text-xl font-bold leading-tight">Discuss these findings with an operator</h4>
                   <p className="text-white/80 text-sm leading-relaxed">
                     We can run an operational diagnostic on your processes to validate these benchmarks against your baseline.
@@ -165,7 +242,7 @@ export default function InsightDetailPage() {
           </div>
 
           {/* Final Conversion */}
-          <section className="text-center py-24 border-t border-white/5">
+          <section className="text-center py-24 border-t border-white/5 mt-24">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="font-headline text-4xl md:text-6xl font-bold leading-tight">
                 Evaluating agentic systems in your operations?

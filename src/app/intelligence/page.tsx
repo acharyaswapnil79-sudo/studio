@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -7,7 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { INSIGHTS, CATEGORIES } from '@/lib/intelligence-data';
-import { Search, Filter, ArrowRight, Mail, Info } from 'lucide-react';
+import { Search, Filter, ArrowRight, Info } from 'lucide-react';
 import Link from 'next/link';
 
 export default function IntelligenceLibrary() {
@@ -25,7 +24,8 @@ export default function IntelligenceLibrary() {
 
   const filteredInsights = useMemo(() => {
     return INSIGHTS.filter(i => {
-      const categoryMatch = activeCategory === 'All' || i.category === activeCategory;
+      const catName = activeCategory === 'Practitioner Frameworks' ? 'Practitioner Framework' : activeCategory;
+      const categoryMatch = activeCategory === 'All' || i.category === catName || (activeCategory === 'Practitioner Frameworks' && i.type === 'framework');
       const searchMatch = i.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           i.summary.toLowerCase().includes(searchQuery.toLowerCase());
       return categoryMatch && searchMatch;
@@ -40,10 +40,6 @@ export default function IntelligenceLibrary() {
     { name: "Field Intelligence", href: "/intelligence" }
   ];
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    // Standard navigation
-  };
-
   return (
     <div className="relative min-h-screen bg-[#0A0A0A] font-sans text-white selection:bg-blue-900/30">
       <Navbar 
@@ -52,7 +48,7 @@ export default function IntelligenceLibrary() {
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection="intelligence"
-        handleNavClick={handleNavClick}
+        handleNavClick={() => {}}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
@@ -79,8 +75,9 @@ export default function IntelligenceLibrary() {
               </p>
 
               <div className="bg-[#0F0F0F] border-l-2 border-[#0047AB] p-8 mb-12 max-w-3xl">
+                <p className="text-white/80 text-lg leading-relaxed font-mono text-[11px] uppercase tracking-widest mb-2">Editorial Standard</p>
                 <p className="text-white/80 text-lg leading-relaxed">
-                  These publications are grounded in deployment observation, pilot measurement data, and structured operational analysis. Where figures appear, we explain how they were measured and the limitations of the data.
+                  These publications are grounded in deployment observation, pilot measurement data, and structured operational analysis. Every piece references a specific operational context or measurement dataset.
                 </p>
               </div>
 
@@ -103,12 +100,12 @@ export default function IntelligenceLibrary() {
           </section>
 
           {/* Category Navigation */}
-          <section className="sticky top-24 z-40 bg-[#0A0A0A]/90 backdrop-blur-md border-y border-white/5 mb-16">
+          <section className="sticky top-24 z-40 bg-[#0A0A0A]/90 backdrop-blur-md border-y border-white/5 mb-16 overflow-hidden">
             <div className="relative max-w-full">
               <div className="absolute left-0 top-0 bottom-0 w-10 z-10 bg-gradient-to-r from-[#0A0A0A] to-transparent pointer-events-none md:w-20" />
               <div className="absolute right-0 top-0 bottom-0 w-10 z-10 bg-gradient-to-l from-[#0A0A0A] to-transparent pointer-events-none md:w-20" />
               
-              <div className="overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide py-4 px-10 md:px-20 scroll-smooth -webkit-overflow-scrolling-touch">
+              <div className="overflow-x-auto scrollbar-hide py-4 px-10 md:px-20 scroll-smooth -webkit-overflow-scrolling-touch">
                 <div className="flex gap-8">
                   {CATEGORIES.map((cat) => (
                     <button
@@ -176,10 +173,10 @@ export default function IntelligenceLibrary() {
                   </li>
                 </ul>
                 <div className="flex gap-4 pt-4">
-                  <button className="bg-[#0047AB] text-white font-bold text-sm px-8 py-4 rounded-lg">
+                  <button onClick={() => setIsIntakeOpen(true)} className="bg-[#0047AB] text-white font-bold text-sm px-8 py-4 rounded-lg">
                     Download Research Brief
                   </button>
-                  <button className="text-white/60 font-bold text-sm hover:text-white underline decoration-[#0047AB]">
+                  <button onClick={() => setIsIntakeOpen(true)} className="text-white/60 font-bold text-sm hover:text-white underline decoration-[#0047AB]">
                     Request full dataset (NDA)
                   </button>
                 </div>
@@ -228,20 +225,17 @@ export default function IntelligenceLibrary() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <AnimatePresence mode="popLayout">
                 {filteredInsights.map((insight) => (
-                  <motion.div
-                    key={insight.id}
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                  <Link 
+                    key={insight.id} 
+                    href={`/intelligence/${insight.id}`}
                     className="group bg-[#111] border border-white/5 p-8 rounded-xl flex flex-col hover:border-[#0047AB]/30 transition-all"
                   >
                     <div className="flex justify-between items-start mb-6">
                       <div 
                         className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 border border-current rounded"
-                        style={{ color: CATEGORIES.find(c => c.name === insight.category)?.color }}
+                        style={{ color: CATEGORIES.find(c => c.name === insight.category || (c.name === 'Practitioner Frameworks' && insight.type === 'framework'))?.color || '#3B82F6' }}
                       >
-                        {insight.category}
+                        {insight.type === 'framework' ? 'Practitioner Framework' : insight.category}
                       </div>
                       <div className="text-[10px] font-mono text-white/30">{insight.date}</div>
                     </div>
@@ -265,34 +259,28 @@ export default function IntelligenceLibrary() {
                         <div className="w-1 h-1 rounded-full bg-white/10" />
                         <span>{insight.dataWindow}</span>
                       </div>
-                      <Link href={`/intelligence/${insight.id}`} className="text-white hover:text-[#0047AB] transition-colors">
+                      <span className="text-white hover:text-[#0047AB] transition-colors">
                         <ArrowRight className="w-4 h-4" />
-                      </Link>
+                      </span>
                     </div>
-                  </motion.div>
+                  </Link>
                 ))}
               </AnimatePresence>
             </div>
           </section>
 
-          {/* Practitioner Frameworks */}
+          {/* Practitioner Frameworks CTA Block */}
           <section className="mb-32">
             <h3 className="font-headline text-3xl font-bold mb-12">Practitioner Frameworks</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-              {[
-                { id: 1, name: "Operational Pilot Framework" },
-                { id: 2, name: "Baseline Measurement Methodology" },
-                { id: 3, name: "Vendor Evaluation Scorecard" },
-                { id: 4, name: "Agentic Governance Framework" },
-                { id: 13, name: "Operational Diagnostic Framework" }
-              ].map((f) => (
+              {INSIGHTS.filter(i => i.type === 'framework').slice(0, 5).map((f) => (
                 <Link 
                   key={f.id}
-                  href={`/intelligence/frameworks?id=${f.id}`}
+                  href={`/intelligence/${f.id}`}
                   className="bg-[#111] border border-white/5 p-6 rounded-xl text-left hover:border-[#0047AB] transition-all group h-full flex flex-col"
                 >
                   <ArrowRight className="w-5 h-5 text-[#0047AB] mb-6 group-hover:translate-x-1 transition-transform" />
-                  <div className="text-sm font-bold leading-relaxed flex-1">{f.name}</div>
+                  <div className="text-sm font-bold leading-relaxed flex-1">{f.title}</div>
                   <div className="mt-4 text-[10px] font-mono text-white/30 uppercase tracking-widest">Read Framework →</div>
                 </Link>
               ))}
@@ -304,7 +292,7 @@ export default function IntelligenceLibrary() {
             </div>
           </section>
 
-          {/* Conversion */}
+          {/* Final Conversion */}
           <section className="text-center py-24 border-t border-white/5">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="font-headline text-4xl md:text-6xl font-bold leading-tight">
@@ -350,7 +338,7 @@ export default function IntelligenceLibrary() {
         onClose={() => setMobileMenuOpen(false)} 
         navLinks={navLinks} 
         activeSection="intelligence"
-        handleNavClick={handleNavClick}
+        handleNavClick={() => {}}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
