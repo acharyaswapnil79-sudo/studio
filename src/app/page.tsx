@@ -13,7 +13,7 @@ import { IntakeFormModal } from '@/components/IntakeFormModal';
 import Link from 'next/link';
 
 const SITE_EVIDENCE = {
-  deployments_count: 14,
+  deployments_count: 35,
   pilots_in_flight: 0,
   projected_metrics_based_on: 'baseline-measurements'
 };
@@ -272,11 +272,11 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
   let metricsArray = [];
   
   if (SITE_EVIDENCE.deployments_count >= 2) {
-    subheadline = `Results from our first ${SITE_EVIDENCE.deployments_count} operational deployments (2024–2025). Outcomes below are conservative, measured changes recorded during pilot and early production runs.`;
+    subheadline = `Results from our first 30+ operational deployments (From 2023). Outcomes below are conservative, measured changes recorded during pilot and early production runs.`;
     metricsArray = [
-      { key: 'workflows', value: '+120', label: 'Workflows Automated', hint: `Measured across ${SITE_EVIDENCE.deployments_count} deployments (2024–2025)` },
+      { key: 'workflows', value: '+190', label: 'Workflows Automated', hint: 'Measured across 30+ deployments (From 2023)' },
       { key: 'savings', value: '$8M+', label: 'Annual Client Savings', hint: 'Aggregated annualized savings across measured deployments' },
-      { key: 'roi', value: '3–6 Mo.', label: 'Average ROI Period', hint: 'Median time-to-payback observed in deployments' }
+      { key: 'roi', value: '3–6 Mo.', label: 'ROI Period', hint: 'Median time-to-payback observed in deployments' }
     ];
   } else if (SITE_EVIDENCE.pilots_in_flight > 0) {
     subheadline = `Projected outcomes from pilots currently in deployment. Projections based on baseline measurements completed in weeks 1–4.`;
