@@ -51,6 +51,23 @@
   }
 }
 
+@layer utilities {
+  .modal-scroll-area::-webkit-scrollbar {
+    width: 6px;
+  }
+  .modal-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .modal-scroll-area::-webkit-scrollbar-thumb {
+    background: #0047AB;
+    border-radius: 10px;
+  }
+  .modal-scroll-area {
+    scrollbar-width: thin;
+    scrollbar-color: #0047AB transparent;
+  }
+}
+
 section {
   scroll-margin-top: calc(var(--nav-offset) + 8px);
 }

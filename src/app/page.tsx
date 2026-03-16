@@ -557,7 +557,7 @@ function MethodologyModal({ isOpen, onClose, onOpenIntake }: { isOpen: boolean, 
           </DialogClose>
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto modal-scroll-area">
           <div className="max-w-[600px] mx-auto px-6 py-8 sm:px-8 sm:py-10">
             <DialogDescription className="text-[#A0A0A0] text-base mb-12 text-center">
               Our benchmarks are calculated through a rigorous 4-step process.
@@ -623,7 +623,7 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="p-0 bg-[#0A0A0A] border-white/6 overflow-hidden flex flex-col sm:max-w-[640px] w-full max-sm:fixed max-sm:bottom-0 max-sm:top-auto max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-t-[16px] max-sm:h-[90vh] sm:rounded-[12px] shadow-[0_20px_80px_rgba(0,0,0,0.6)] gap-0 [&>button]:hidden">
+      <DialogContent className="p-0 bg-[#0A0A0A] border-white/6 overflow-hidden flex flex-col sm:max-w-[640px] lg:max-w-[760px] w-full max-sm:fixed max-sm:bottom-0 max-sm:top-auto max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-t-[16px] max-sm:h-[90vh] md:max-h-[85vh] sm:rounded-[12px] shadow-[0_24px_60px_rgba(0,0,0,0.6)] gap-0 [&>button]:hidden">
         
         {!submitted ? (
           <>
@@ -632,7 +632,7 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
                 <DialogTitle className="font-headline text-xl sm:text-2xl font-bold text-white mb-2">
                   Request Methodology Access
                 </DialogTitle>
-                <DialogDescription className="text-[#A0A0A0] text-sm">
+                <DialogDescription className="text-[#A0A0A0] text-sm max-w-xl">
                   Access to anonymized operational logs and measurement documentation requires a standard NDA.
                 </DialogDescription>
               </div>
@@ -641,11 +641,11 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
               </DialogClose>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 py-8 sm:px-8">
-              <form id="intake-form" onSubmit={handleSubmit} className="space-y-5">
+            <div className="flex-1 overflow-y-auto modal-scroll-area px-6 py-8 sm:px-8">
+              <form id="intake-form" onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="text-white/80">Full Name</Label>
-                  <Input id="fullName" placeholder="Your full name" required className="bg-white/5 border-white/10 text-white placeholder:text-white/30" />
+                  <Input id="fullName" placeholder="Your full name" required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12" />
                 </div>
 
                 <div className="space-y-2">
@@ -657,7 +657,7 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
                     required 
                     onChange={handleEmailChange}
                     className={cn(
-                      "bg-white/5 border-white/10 text-white placeholder:text-white/30",
+                      "bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12",
                       emailError && "border-red-500/50"
                     )} 
                   />
@@ -666,14 +666,14 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
 
                 <div className="space-y-2">
                   <Label htmlFor="company" className="text-white/80">Company Name</Label>
-                  <Input id="company" placeholder="Company name" required className="bg-white/5 border-white/10 text-white placeholder:text-white/30" />
+                  <Input id="company" placeholder="Company name" required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <Label className="text-white/80">Role / Title</Label>
                     <Select required>
-                      <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectTrigger className="bg-white/5 border-white/10 text-white h-12">
                         <SelectValue placeholder="Select role" />
                       </SelectTrigger>
                       <SelectContent className="bg-[#111] border-white/10 text-white">
@@ -692,7 +692,7 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
                   <div className="space-y-2">
                     <Label className="text-white/80">Company Size</Label>
                     <Select required>
-                      <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectTrigger className="bg-white/5 border-white/10 text-white h-12">
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
                       <SelectContent className="bg-[#111] border-white/10 text-white">
@@ -709,7 +709,7 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
                 <div className="space-y-2">
                   <Label className="text-white/80">Industry</Label>
                   <Select required>
-                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white h-12">
                       <SelectValue placeholder="Select industry" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#111] border-white/10 text-white">
@@ -733,7 +733,7 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
                     placeholder="Briefly describe the operational process you are evaluating automation for." 
                     maxLength={300}
                     required
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[100px] resize-none"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[100px] resize-none focus:ring-2 focus:ring-[#0047AB]"
                   />
                   <p className="text-[10px] text-white/30 text-right">Max 300 characters</p>
                 </div>
@@ -752,15 +752,23 @@ function IntakeFormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
               </form>
             </div>
 
-            <div className="sticky bottom-0 z-20 bg-[#0A0A0A] border-t border-white/6 p-6 sm:px-8 sm:py-6">
-              <button 
-                type="submit"
-                form="intake-form"
-                disabled={!ndaAccepted || !!emailError}
-                className="w-full h-12 bg-[#0047AB] hover:bg-[#0047AB]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-[14px] rounded-[8px] transition-all flex items-center justify-center shadow-lg shadow-[#0047AB]/20"
-              >
-                Request Access
-              </button>
+            <div className="sticky bottom-0 z-20 bg-[#0A0A0A] border-t border-white/6 p-6 sm:px-8 sm:py-6 flex flex-col items-center">
+              <div className="flex items-center justify-end gap-3 w-full">
+                <button 
+                  onClick={onClose}
+                  className="bg-transparent text-white border border-white/10 px-6 py-3 rounded-[8px] hover:bg-white/5 transition-all font-semibold text-sm h-12"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  form="intake-form"
+                  disabled={!ndaAccepted || !!emailError}
+                  className="flex-1 bg-[#0047AB] hover:bg-[#0047AB]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-[14px] rounded-[8px] transition-all flex items-center justify-center shadow-lg shadow-[#0047AB]/20 h-12"
+                >
+                  Request Access
+                </button>
+              </div>
               <p className="text-center text-[11px] text-[#A0A0A0] mt-4">
                 All shared operational logs are anonymized and sanitized before distribution.
               </p>
