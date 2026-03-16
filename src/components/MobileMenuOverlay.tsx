@@ -64,7 +64,7 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, ha
               transition={{ delay: 0.46 }}
               className="mt-8 w-full max-w-[280px] bg-[#0047AB] text-white font-bold text-[14.5px] py-3.5 rounded-[7px] shadow-xl"
             >
-              Apply for Pilot
+              Pilot
             </motion.button>
           </div>
         </motion.div>

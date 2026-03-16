@@ -183,7 +183,7 @@ function HeroSection() {
             whileHover={{ scale: 1.04 }}
             className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14.5px] px-[30px] py-[14px] rounded-[7px] shadow-[0_8px_28px_rgba(0,71,171,0.32)] md:min-w-[180px] whitespace-nowrap"
           >
-            Apply for Pilot
+            Pilot
             <ArrowRight className="w-4 h-4" />
           </motion.button>
           
