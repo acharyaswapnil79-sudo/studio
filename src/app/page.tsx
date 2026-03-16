@@ -4,12 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogClose,
 } from "@/components/ui/dialog";
 
 const SITE_EVIDENCE = {
@@ -508,55 +510,76 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
 }
 
 function MethodologyModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+  const steps = [
+    {
+      title: "Baseline capture",
+      description: "Measure existing process for 1–4 weeks (time, error rate, headcount cost) to establish the control."
+    },
+    {
+      title: "Pilot deployment",
+      description: "Compare pilot performance week-by-week against the baseline using the same KPIs and variables."
+    },
+    {
+      title: "Annualization",
+      description: "Convert observed pilot delta to annualized savings using conservative multipliers and volume projections."
+    },
+    {
+      title: "Audit",
+      description: "Full, anonymized logs and sample exports are available for review under a standard NDA."
+    }
+  ];
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-[#0D0D0D] border-white/10 text-white sm:max-w-[540px]">
-        <DialogHeader>
-          <DialogTitle className="font-headline text-2xl">Measurement Methodology</DialogTitle>
-          <DialogDescription className="text-[#A0A0A0] text-base pt-2">
-            Our benchmarks are calculated through a rigorous 4-step process.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="py-6 space-y-6">
-          <div className="space-y-4">
-            <div className="flex gap-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">1</div>
-              <div>
-                <h4 className="font-bold text-white mb-1">Baseline capture</h4>
-                <p className="text-sm text-[#B3B3B3]">Measure existing process for 1–4 weeks (time, error rate, headcount cost) to establish the control.</p>
-              </div>
+      <DialogContent className="p-0 bg-[#0A0A0A] border-white/6 overflow-hidden flex flex-col sm:max-w-[640px] lg:max-w-[720px] sm:max-h-[85vh] lg:max-h-[80vh] w-full max-sm:fixed max-sm:bottom-0 max-sm:top-auto max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-t-[16px] max-sm:h-[90vh] sm:rounded-[12px] shadow-[0_20px_80px_rgba(0,0,0,0.6)] gap-0 [&>button]:hidden">
+        
+        {/* Sticky Header */}
+        <div className="sticky top-0 z-20 bg-[#0A0A0A] border-b border-white/6 px-5 py-5 sm:px-8 sm:py-8 flex items-center justify-between">
+          <DialogTitle className="font-headline text-xl sm:text-2xl font-bold text-white leading-none">
+            Measurement Methodology
+          </DialogTitle>
+          <DialogClose className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors group">
+            <X className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+        </div>
+
+        {/* Scrollable Content Area */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-[600px] mx-auto px-6 py-8 sm:px-8 sm:py-10">
+            <DialogDescription className="text-[#A0A0A0] text-base mb-12 text-center">
+              Our benchmarks are calculated through a rigorous 4-step process.
+            </DialogDescription>
+            
+            <div className="space-y-10 relative">
+              {/* Timeline Connector Line */}
+              <div className="absolute left-[13.5px] top-7 bottom-3 w-[1px] bg-white/10 hidden sm:block" />
+              
+              {steps.map((step, index) => (
+                <div key={index} className="flex gap-4 sm:gap-6 relative">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#0047AB] flex items-center justify-center text-white text-[14px] font-bold z-10">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white text-[16px] mb-1.5">{step.title}</h4>
+                    <p className="text-[14px] text-[#A0A0A0] leading-[1.6]">{step.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="flex gap-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">2</div>
-              <div>
-                <h4 className="font-bold text-white mb-1">Pilot deployment</h4>
-                <p className="text-sm text-[#B3B3B3]">Compare pilot performance week-by-week against the baseline using the same KPIs and variables.</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">3</div>
-              <div>
-                <h4 className="font-bold text-white mb-1">Annualization</h4>
-                <p className="text-sm text-[#B3B3B3]">Convert observed pilot delta to annualized savings using conservative multipliers and volume projections.</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">4</div>
-              <div>
-                <h4 className="font-bold text-white mb-1">Audit</h4>
-                <p className="text-sm text-[#B3B3B3]">Full, anonymized logs and sample exports are available for review under a standard NDA.</p>
-              </div>
-            </div>
-          </div>
-          <div className="pt-6 border-t border-white/10">
-            <button className="w-full bg-[#0047AB] text-white font-bold py-3.5 rounded-lg hover:bg-[#0047AB]/90 transition-colors">
-              Request anonymized logs / methodology
-            </button>
-            <p className="text-center text-[11px] text-[#8e8e8e] mt-4 uppercase tracking-widest">
-              Standard NDA required for document access
-            </p>
           </div>
         </div>
+
+        {/* Sticky Footer CTA */}
+        <div className="sticky bottom-0 z-20 bg-[#0A0A0A] border-t border-white/6 p-5 sm:px-8 sm:py-6">
+          <button className="w-full h-12 bg-[#0047AB] hover:bg-[#0047AB]/90 text-white font-bold text-[14px] rounded-[8px] transition-all flex items-center justify-center shadow-lg shadow-[#0047AB]/20">
+            Request anonymized logs / methodology
+          </button>
+          <p className="text-center text-[11px] text-[#A0A0A0] mt-3 uppercase tracking-[0.15em] font-semibold">
+            Standard NDA required for document access
+          </p>
+        </div>
+        
       </DialogContent>
     </Dialog>
   );
