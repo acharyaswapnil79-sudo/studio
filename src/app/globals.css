@@ -32,10 +32,13 @@
     --input: 0 0% 15%;
     --ring: 215 100% 34%;
     --radius: 0.5rem;
+
+    --nav-offset: 76px;
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-offset);
   }
 }
 
@@ -46,6 +49,10 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+section {
+  scroll-margin-top: calc(var(--nav-offset) + 8px);
 }
 
 @keyframes industry-marquee {

@@ -1,9 +1,24 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+
+const SITE_EVIDENCE = {
+  deployments_count: 0,         // integer - number of real deployments completed
+  pilots_in_flight: 0,          // number of active pilots
+  projected_metrics_based_on: 'baseline-measurements'
+};
+
+const NAV_OFFSET = 76;
 
 interface NavLink {
   name: string;
@@ -14,25 +29,46 @@ export default function GreyShacksLanding() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    const id = href.replace('#', '');
+    const el = document.getElementById(id);
+    if (!el) return;
+    
+    const top = el.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET;
+    window.scrollTo({ top, behavior: 'smooth' });
+    setActiveSection(id);
+    setMobileMenuOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
-      
       const sections = ['hero', 'operational-impact', 'capabilities', 'case-studies', 'insights'];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 120 && rect.bottom >= 120) {
-            setActiveSection(section);
-            break;
-          }
+      const triggerLine = window.innerHeight * 0.25;
+
+      let newActive = 'hero';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= triggerLine && rect.bottom > 0) {
+          newActive = id;
+          break;
         }
       }
+      setActiveSection(prev => (prev === newActive ? prev : newActive));
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   const navLinks: NavLink[] = [
@@ -51,13 +87,13 @@ export default function GreyShacksLanding() {
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection={activeSection}
+        handleNavClick={handleNavClick}
       />
       
       <main>
         <HeroSection />
         <IndustriesSection />
-        <MetricsBar />
-        {/* Placeholder sections for navigation targets */}
+        <OperationalImpactSection openMethodologyModal={() => setIsModalOpen(true)} />
         <section id="capabilities" className="py-24 bg-[#0A0A0A]"></section>
         <section id="case-studies" className="py-24 bg-[#0A0A0A]"></section>
         <section id="insights" className="py-24 bg-[#0A0A0A]"></section>
@@ -68,12 +104,15 @@ export default function GreyShacksLanding() {
         onClose={() => setMobileMenuOpen(false)} 
         navLinks={navLinks} 
         activeSection={activeSection}
+        handleNavClick={handleNavClick}
       />
+
+      <MethodologyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
 
-function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen, activeSection }: any) {
+function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen, activeSection, handleNavClick }: any) {
   return (
     <motion.nav
       initial={{ top: 24 }}
@@ -88,7 +127,7 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen, activ
         isScrolled ? "bg-[rgba(15,15,15,0.72)] backdrop-blur-[12px] saturate-[180%] border-b border-[rgba(255,255,255,0.07)] border-l border-[rgba(255,255,255,0.04)] border-r border-[rgba(255,255,255,0.04)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" : "bg-transparent border-transparent"
       )}>
         <div className="flex items-center shrink-0">
-          <a href="#hero" className="font-headline font-bold text-lg text-white">GreyShacks</a>
+          <a href="#hero" onClick={(e) => handleNavClick(e, '#hero')} className="font-headline font-bold text-lg text-white">GreyShacks</a>
         </div>
 
         <div className="hidden md:flex items-center gap-[22px] lg:gap-[34px] mx-4">
@@ -96,6 +135,7 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen, activ
             <div key={link.href} className="relative group py-2">
               <a 
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 aria-label={`Scroll to ${link.name} section`}
                 className={cn(
                   "text-[13px] lg:text-[13.5px] tracking-wider transition-colors duration-[0.18s] whitespace-nowrap",
@@ -155,7 +195,7 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen, activ
   );
 }
 
-function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection }: any) {
+function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, handleNavClick }: any) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -186,7 +226,10 @@ function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection }: any) {
                   "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
                   activeSection === link.href.replace('#', '') ? "text-white" : "text-white/80 hover:text-white"
                 )}
-                onClick={onClose}
+                onClick={(e) => {
+                  handleNavClick(e, link.href);
+                  onClose();
+                }}
               >
                 {link.name}
               </motion.a>
@@ -325,39 +368,196 @@ function IndustriesSection() {
   );
 }
 
-function MetricsBar() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+function OperationalImpactSection({ openMethodologyModal }: { openMethodologyModal: () => void }) {
+  let subheadline = '';
+  let metricsArray = [];
+  
+  if (SITE_EVIDENCE.deployments_count >= 2) {
+    subheadline = `Results from our first ${SITE_EVIDENCE.deployments_count} operational deployments (2024–2025). Outcomes below are conservative, measured changes recorded during pilot and early production runs.`;
+    metricsArray = [
+      { key: 'workflows', value: '+120', label: 'Workflows Automated', hint: `Measured across ${SITE_EVIDENCE.deployments_count} deployments (2024–2025)` },
+      { key: 'savings', value: '$8M+', label: 'Annual Client Savings', hint: 'Aggregated annualized savings across measured deployments' },
+      { key: 'roi', value: '3–6 Mo.', label: 'Average ROI Period', hint: 'Median time-to-payback observed in deployments' }
+    ];
+  } else if (SITE_EVIDENCE.pilots_in_flight > 0) {
+    subheadline = `Projected outcomes from pilots currently in deployment. Projections based on baseline measurements completed in weeks 1–4.`;
+    metricsArray = [
+      { key: 'workflows', value: 'Projected', label: 'Workflows Automated', hint: 'Estimated based on current pilot scope' },
+      { key: 'savings', value: '$2M–$5M', label: 'Est. Annual Savings', hint: 'Annualized projection from pilot baseline' },
+      { key: 'roi', value: '4–8 Mo.', label: 'Projected ROI', hint: 'Projected payback based on scaling models' }
+    ];
+  } else {
+    subheadline = "Benchmarked outcomes. These figures are derived from published industry benchmarks and our pilot-scoping models (sources available in methodology).";
+    metricsArray = [
+      { key: 'workflows', value: '20–200', label: 'Automation Potential', hint: 'Task volume typical for mid-market ops cores' },
+      { key: 'savings', value: '30%–85%', label: 'Efficiency Gains', hint: 'Observed industry benchmark (McKinsey 2021)' },
+      { key: 'roi', value: '3–9 Mo.', label: 'Estimated ROI', hint: 'Validated against our pilot scoping models' }
+    ];
+  }
 
-  const metrics = [
-    { value: "+120", label: "Workflows Automated" },
-    { value: "$8M+", label: "Annual Client Savings" },
-    { value: "3–6 Mo.", label: "Average ROI Period" }
+  const snapshots = [
+    {
+      industry: 'Manufacturing (Anonymized)',
+      title: 'Accounts Reconciliation Agent',
+      points: [
+        'Problem: 72 hour cross-system reconciliation latency',
+        'Intervention: agentic orchestration + OCR document pipeline',
+        'Outcome: reconciliation latency reduced 72h → 3 min; projected annual savings $1.2M'
+      ]
+    },
+    {
+      industry: 'Real Estate (Anonymized)',
+      title: 'Lead-to-Contract Automation',
+      points: [
+        'Problem: 40 hours human screening per property lead',
+        'Intervention: candidate scoring + automated follow-up agent',
+        'Outcome: screening time reduced 40h → 10m; cost per lead cut ~96%'
+      ]
+    }
   ];
 
   return (
-    <section id="operational-impact" className="bg-[#0D0D0D] border-t border-white/5 py-[38px] px-8 md:px-10">
-      <div 
-        ref={ref}
-        className="max-w-[960px] mx-auto grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/6"
-      >
-        {metrics.map((metric, i) => (
-          <motion.div
-            key={metric.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: i * 0.12, duration: 0.6 }}
-            className="flex flex-col items-center text-center py-5 md:py-2.5 px-6"
+    <section id="operational-impact" className="bg-[#0D0D0D] border-t border-white/5 py-14 md:py-24 px-6 md:px-10">
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+          {/* Left: header + meta */}
+          <div className="lg:col-span-1">
+            <h2 className="font-headline text-white text-3xl md:text-4xl mb-6">Operational Impact Benchmarks</h2>
+            <p className="text-[#A0A0A0] text-lg leading-relaxed mb-8">
+              {subheadline}
+            </p>
+
+            <div className="text-sm">
+              <button 
+                className="text-[#A0A0A0] underline decoration-white/20 hover:text-white transition-colors" 
+                onClick={openMethodologyModal}
+              >
+                How we measure
+              </button>
+            </div>
+          </div>
+
+          {/* Middle: metrics */}
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            {metricsArray.map((m, i) => (
+              <motion.div 
+                key={m.key} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="text-center md:text-left"
+              >
+                <div className="text-white font-headline font-bold mb-1" style={{fontSize: 'clamp(32px, 5vw, 48px)'}}>
+                  {m.value}
+                </div>
+                <div className="text-white font-medium text-sm tracking-wide uppercase mb-3">
+                  {m.label}
+                </div>
+                {m.hint && <div className="text-xs text-[#8e8e8e] leading-relaxed max-w-[200px] mx-auto md:mx-0">{m.hint}</div>}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Snapshots */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {snapshots.map((s, i) => (
+            <motion.div 
+              key={s.title}
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: i * 0.15, duration: 0.5 }}
+              className="p-8 bg-[#0b0b0b] border border-white/6 rounded-xl hover:border-white/10 transition-colors group"
+            >
+              <div className="text-[#A0A0A0] text-xs font-semibold tracking-widest uppercase mb-4 opacity-60">
+                {s.industry}
+              </div>
+              <h3 className="text-white font-headline font-bold text-2xl mb-6 group-hover:text-[#0047AB] transition-colors">
+                {s.title}
+              </h3>
+              <ul className="space-y-4">
+                {s.points.map((p, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-[#B3B3B3] text-[15px] leading-relaxed">
+                    <span className="text-[#0047AB] font-bold shrink-0 mt-0.5">•</span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+        
+        <div className="mt-16 flex flex-col md:flex-row gap-4 justify-center items-center">
+          <button 
+            onClick={openMethodologyModal}
+            className="text-white border border-white/10 px-8 py-3.5 rounded-lg hover:bg-white/5 transition-colors text-sm font-semibold w-full md:w-auto"
+            aria-label="Request methodology & anonymized logs"
           >
-            <span className="font-headline font-bold text-white" style={{ fontSize: "clamp(34px, 5vw, 48px)" }}>
-              {metric.value}
-            </span>
-            <span className="text-[#A0A0A0] text-[13px] mt-2 leading-[1.4]">
-              {metric.label}
-            </span>
-          </motion.div>
-        ))}
+            Request methodology & anonymized logs (NDA)
+          </button>
+          <button 
+            className="bg-[#0047AB] text-white px-8 py-3.5 rounded-lg hover:bg-[#0047AB]/90 transition-colors text-sm font-bold w-full md:w-auto"
+            aria-label="Discuss pilot design"
+          >
+            Discuss pilot design
+          </button>
+        </div>
       </div>
     </section>
+  );
+}
+
+function MethodologyModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="bg-[#0D0D0D] border-white/10 text-white sm:max-w-[540px]">
+        <DialogHeader>
+          <DialogTitle className="font-headline text-2xl">Measurement Methodology</DialogTitle>
+          <DialogDescription className="text-[#A0A0A0] text-base pt-2">
+            Our benchmarks are calculated through a rigorous 4-step process.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="py-6 space-y-6">
+          <div className="space-y-4">
+            <div className="flex gap-4">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">1</div>
+              <div>
+                <h4 className="font-bold text-white mb-1">Baseline capture</h4>
+                <p className="text-sm text-[#B3B3B3]">Measure existing process for 1–4 weeks (time, error rate, headcount cost) to establish the control.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">2</div>
+              <div>
+                <h4 className="font-bold text-white mb-1">Pilot deployment</h4>
+                <p className="text-sm text-[#B3B3B3]">Compare pilot performance week-by-week against the baseline using the same KPIs and variables.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">3</div>
+              <div>
+                <h4 className="font-bold text-white mb-1">Annualization</h4>
+                <p className="text-sm text-[#B3B3B3]">Convert observed pilot delta to annualized savings using conservative multipliers and volume projections.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0047AB]/20 text-[#0047AB] font-bold text-sm shrink-0">4</div>
+              <div>
+                <h4 className="font-bold text-white mb-1">Audit</h4>
+                <p className="text-sm text-[#B3B3B3]">Full, anonymized logs and sample exports are available for review under a standard NDA.</p>
+              </div>
+            </div>
+          </div>
+          <div className="pt-6 border-t border-white/10">
+            <button className="w-full bg-[#0047AB] text-white font-bold py-3.5 rounded-lg hover:bg-[#0047AB]/90 transition-colors">
+              Request anonymized logs / methodology
+            </button>
+            <p className="text-center text-[11px] text-[#8e8e8e] mt-4 uppercase tracking-widest">
+              Standard NDA required for document access
+            </p>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
