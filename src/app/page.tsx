@@ -5,19 +5,43 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { cn } from '@/lib/utils';
 
+interface NavLink {
+  name: string;
+  href: string;
+}
+
 export default function GreyShacksLanding() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
+      
+      const sections = ['hero', 'operational-impact', 'capabilities', 'case-studies', 'insights'];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 120 && rect.bottom >= 120) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = ["Command Center", "Capabilities", "Case Studies", "Insights"];
+  const navLinks: NavLink[] = [
+    { name: "Command Center", href: "#hero" },
+    { name: "Operational Impact", href: "#operational-impact" },
+    { name: "Capabilities", href: "#capabilities" },
+    { name: "Case Studies", href: "#case-studies" },
+    { name: "Insights", href: "#insights" }
+  ];
 
   return (
     <div className="relative min-h-screen font-body overflow-x-hidden">
@@ -26,24 +50,30 @@ export default function GreyShacksLanding() {
         navLinks={navLinks} 
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
+        activeSection={activeSection}
       />
       
       <main>
         <HeroSection />
         <IndustriesSection />
         <MetricsBar />
+        {/* Placeholder sections for navigation targets */}
+        <section id="capabilities" className="py-24 bg-[#0A0A0A]"></section>
+        <section id="case-studies" className="py-24 bg-[#0A0A0A]"></section>
+        <section id="insights" className="py-24 bg-[#0A0A0A]"></section>
       </main>
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 
         onClose={() => setMobileMenuOpen(false)} 
         navLinks={navLinks} 
+        activeSection={activeSection}
       />
     </div>
   );
 }
 
-function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any) {
+function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen, activeSection }: any) {
   return (
     <motion.nav
       initial={{ top: 24 }}
@@ -58,18 +88,29 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
         isScrolled ? "bg-[rgba(15,15,15,0.72)] backdrop-blur-[12px] saturate-[180%] border-b border-[rgba(255,255,255,0.07)] border-l border-[rgba(255,255,255,0.04)] border-r border-[rgba(255,255,255,0.04)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" : "bg-transparent border-transparent"
       )}>
         <div className="flex items-center shrink-0">
-          <span className="font-headline font-bold text-lg text-white">GreyShacks</span>
+          <a href="#hero" className="font-headline font-bold text-lg text-white">GreyShacks</a>
         </div>
 
         <div className="hidden md:flex items-center gap-[22px] lg:gap-[34px] mx-4">
-          {navLinks.map((link: string) => (
-            <div key={link} className="relative group py-2">
-              <button className="text-[13px] lg:text-[13.5px] text-[#888888] tracking-wider hover:text-white transition-colors duration-[0.18s] whitespace-nowrap">
-                {link}
-              </button>
+          {navLinks.map((link: NavLink) => (
+            <div key={link.href} className="relative group py-2">
+              <a 
+                href={link.href}
+                aria-label={`Scroll to ${link.name} section`}
+                className={cn(
+                  "text-[13px] lg:text-[13.5px] tracking-wider transition-colors duration-[0.18s] whitespace-nowrap",
+                  activeSection === link.href.replace('#', '') ? "text-white" : "text-[#888888] hover:text-white"
+                )}
+              >
+                {link.name}
+              </a>
               <motion.div 
-                className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1px] bg-white opacity-0 group-hover:opacity-100 w-5"
+                className={cn(
+                  "absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1px] bg-white w-5 transition-opacity",
+                  activeSection === link.href.replace('#', '') ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                )}
                 initial={{ scaleX: 0 }}
+                animate={{ scaleX: activeSection === link.href.replace('#', '') ? 1 : 0 }}
                 whileHover={{ scaleX: 1 }}
               />
             </div>
@@ -93,6 +134,7 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="flex flex-col justify-center gap-[5px] w-[32px] h-[32px] items-end"
+            aria-label="Toggle mobile menu"
           >
             <motion.div 
               animate={mobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
@@ -113,7 +155,7 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
   );
 }
 
-function MobileMenuOverlay({ isOpen, onClose, navLinks }: any) {
+function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection }: any) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -127,28 +169,33 @@ function MobileMenuOverlay({ isOpen, onClose, navLinks }: any) {
           <button 
             onClick={onClose}
             className="absolute top-6 right-6 w-11 h-11 flex items-center justify-center text-white/70"
+            aria-label="Close mobile menu"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
           
           <div className="flex flex-col items-center w-full px-8">
-            {navLinks.map((link: string, i: number) => (
-              <motion.button
-                key={link}
+            {navLinks.map((link: NavLink, i: number) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
                 initial={{ y: 18, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.06 + i * 0.08 }}
-                className="w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] text-white/80 hover:text-white transition-colors"
+                className={cn(
+                  "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
+                  activeSection === link.href.replace('#', '') ? "text-white" : "text-white/80 hover:text-white"
+                )}
                 onClick={onClose}
               >
-                {link}
-              </motion.button>
+                {link.name}
+              </motion.a>
             ))}
             
             <motion.button
               initial={{ y: 18, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.38 }}
+              transition={{ delay: 0.46 }}
               className="mt-8 w-full max-w-[280px] bg-[#0047AB] text-white font-bold text-[14.5px] py-3.5 rounded-[7px] shadow-xl"
             >
               Apply for Pilot
@@ -162,7 +209,10 @@ function MobileMenuOverlay({ isOpen, onClose, navLinks }: any) {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden box-border px-5 md:px-8 pt-[72px] md:pt-[88px] lg:pt-[96px] pb-[48px] md:pb-[56px] lg:pb-[64px]">
+    <section 
+      id="hero" 
+      className="relative min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden box-border px-5 md:px-8 pt-[88px] md:pt-[96px] pb-[56px] md:pb-[64px]"
+    >
       <ParticleBackground />
       
       <div className="relative z-10 w-full max-w-[860px] flex flex-col items-center text-center">
@@ -286,7 +336,7 @@ function MetricsBar() {
   ];
 
   return (
-    <section className="bg-[#0D0D0D] border-t border-white/5 py-[38px] px-8 md:px-10">
+    <section id="operational-impact" className="bg-[#0D0D0D] border-t border-white/5 py-[38px] px-8 md:px-10">
       <div 
         ref={ref}
         className="max-w-[960px] mx-auto grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/6"

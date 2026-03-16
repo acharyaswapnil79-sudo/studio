@@ -33,6 +33,10 @@
     --ring: 215 100% 34%;
     --radius: 0.5rem;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer base {
@@ -55,4 +59,8 @@
 
 .animate-industry-marquee {
   animation: industry-marquee 30s linear infinite;
+}
+
+[id] {
+  scroll-margin-top: 100px;
 }
