@@ -7,7 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
-import { DEPLOYMENTS, Deployment } from '@/lib/deployments-data';
+import { DEPLOYMENTS } from '@/lib/deployments-data';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Info, Filter, FileText, BarChart } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DeploymentLibraryPage() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -268,11 +269,12 @@ export default function DeploymentLibraryPage() {
                     >
                       Scope a Pilot
                     </button>
-                    <button 
-                      className="flex-1 bg-white/5 text-white/60 text-[11px] font-bold py-2.5 rounded-md hover:bg-white/10 hover:text-white transition-colors"
+                    <Link 
+                      href={`/deployments/${d.id}`}
+                      className="flex-1 bg-white/5 text-center text-white/60 text-[11px] font-bold py-2.5 rounded-md hover:bg-white/10 hover:text-white transition-colors"
                     >
                       View Details
-                    </button>
+                    </Link>
                   </div>
                 </motion.div>
               ))}
