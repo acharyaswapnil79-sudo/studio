@@ -1,0 +1,161 @@
+{
+  "entities": {
+    "PilotRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PilotRequest",
+      "type": "object",
+      "description": "Represents a potential client's application for a pilot program, collected through a guided qualification funnel. This entity captures comprehensive information about the organization, its operational challenges, business context, decision processes, and contact details.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the PilotRequest entity."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "The official name of the organization applying for the pilot program."
+        },
+        "industry": {
+          "type": "string",
+          "description": "The primary industry sector in which the applicant's organization operates.",
+          "format": "enum",
+          "items": {
+            "type": "string"
+          }
+        },
+        "country": {
+          "type": "string",
+          "description": "The primary country of operation for the organization, allowing for specific selections or a custom 'Other' entry."
+        },
+        "companySize": {
+          "type": "string",
+          "description": "The estimated number of employees within the organization.",
+          "format": "enum",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operationalProcess": {
+          "type": "string",
+          "description": "The specific operational process identified as the most significant bottleneck or area for improvement within the organization.",
+          "format": "enum",
+          "items": {
+            "type": "string"
+          }
+        },
+        "weeklyTimeSpent": {
+          "type": "string",
+          "description": "The approximate number of hours per week the team spends on the identified critical operational process.",
+          "format": "enum",
+          "items": {
+            "type": "string"
+          }
+        },
+        "companyRevenueRange": {
+          "type": "string",
+          "description": "The estimated annual revenue range of the company, dynamically presented based on the selected country's currency."
+        },
+        "estimatedBudgetRange": {
+          "type": "string",
+          "description": "The estimated budget range allocated or planned by the organization for solving the identified operational problem, presented in the appropriate currency."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency code (e.g., USD, EUR, INR, AED) used for the company revenue and estimated budget ranges, determined by the selected country."
+        },
+        "budgetStatus": {
+          "type": "string",
+          "description": "The current status of the budget designated for this operational initiative.",
+          "format": "enum",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approverRole": {
+          "type": "string",
+          "description": "The role or title of the individual typically responsible for approving operational technology initiatives within the organization."
+        },
+        "impactArea": {
+          "type": "string",
+          "description": "The primary business outcome or objective that is most critical to the organization for this initiative.",
+          "format": "enum",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fullName": {
+          "type": "string",
+          "description": "The full name of the contact person submitting the pilot request."
+        },
+        "businessEmail": {
+          "type": "string",
+          "description": "The professional business email address of the contact person.",
+          "format": "email"
+        },
+        "roleTitle": {
+          "type": "string",
+          "description": "The professional role or title of the contact person within their organization."
+        },
+        "linkedInProfile": {
+          "type": "string",
+          "description": "The URL to the contact person's LinkedIn profile. This field is optional.",
+          "format": "uri"
+        },
+        "confirmationOfPilotInterest": {
+          "type": "boolean",
+          "description": "A boolean flag indicating that the user has confirmed their request relates to evaluating a potential operational pilot."
+        },
+        "submissionTimestamp": {
+          "type": "string",
+          "description": "The precise date and time when the pilot request was successfully submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "companyName",
+        "industry",
+        "country",
+        "companySize",
+        "operationalProcess",
+        "weeklyTimeSpent",
+        "companyRevenueRange",
+        "estimatedBudgetRange",
+        "currency",
+        "budgetStatus",
+        "approverRole",
+        "impactArea",
+        "fullName",
+        "businessEmail",
+        "confirmationOfPilotInterest",
+        "submissionTimestamp"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/pilot_requests/{pilotRequestId}",
+        "definition": {
+          "entityName": "PilotRequest",
+          "schema": {
+            "$ref": "#/backend/entities/PilotRequest"
+          },
+          "description": "Stores individual applications submitted by potential clients for the pilot program. Each document represents a complete intake funnel submission, containing all qualification data (company profile, operational challenge, business context, decision process, and contact details). This collection is configured for public write access (anyone can submit a new request) and restricted read access (only internal authorized staff can view or list submissions), ensuring Authorization Independence and supporting Query As Predicates (QAPs) for internal review.",
+          "params": [
+            {
+              "name": "pilotRequestId",
+              "description": "The unique identifier for a specific pilot request document. This typically corresponds to the 'id' field within the document."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure for the GreyShacks Pilot Intake Funnel is designed following the core principles of Authorization Independence, Clarity of Intent, DBAC (Database Access Control), QAPs (Query As Predicates), and Invariants. The primary entity is `PilotRequest`, representing a submission from a potential client.\n\n**Authorization Independence via Denormalization:** The `PilotRequest` entity is stored in a top-level collection, `/pilot_requests/{pilotRequestId}`. Each document in this collection is self-contained and does not rely on hierarchical dependencies for its authorization. This means security rules will not need to perform `get()` operations on parent documents, ensuring atomic rule evaluation and simplifying debugging. For creating a `PilotRequest`, no prior authorization context is required, as it's an intake funnel open to all. For managing (reading, listing, updating, deleting) these requests by internal staff, authorization will be based on the requesting user's UID against a separate, independent 'admin' role collection (e.g., `/roles_admin/{uid}`). This explicit separation prevents brittle authorization dependencies.\n\n**QAPs (Rules are not Filters):** This structure inherently supports QAPs for both public submission and internal review. All documents within `/pilot_requests` share a homogeneous security posture: public `create` access, and restricted `read`, `list`, `update`, `delete` access. \n- **For Public Submission:** Any user (authenticated or unauthenticated) can `create` a `PilotRequest` document. This operation does not require any filtering. \n- **For Internal Review:** Access to `read` and `list` all `PilotRequest` documents is granted only to users explicitly designated as 'admins'. This is achieved by checking for the existence of the requesting user's UID in the `roles_admin` collection. This design allows authorized internal staff to perform `list` queries on `/pilot_requests` without needing client-side filters or complex rule logic, as the security rules themselves define the predicate for access ('is an admin'). This guarantees that list operations will only return authorized data and will not function as filters over unauthorized data.\n\n**DBAC Implementation (Implicit):** While the `firestorePaths` section strictly adheres to provided `backend.entities`, the secure processing of `PilotRequest` documents by GreyShacks' internal team necessitates a Database Access Control (DBAC) model. This would typically involve a dedicated collection, such as `/roles_admin/{userId}`, where the mere existence of a document for a given `userId` grants administrative privileges for managing pilot requests. This approach leverages `request.auth.uid` and `exists()` checks in security rules, avoiding custom claims and keeping roles explicitly stored in the database. This critical component of the security model ensures that only authorized personnel can access sensitive application data.\n\n**Structural Segregation & Predictability:** All documents in `/pilot_requests` represent the same `PilotRequest` entity with a consistent schema, ensuring homogeneous security requirements. The use of clear and semantic path parameters (e.g., `{pilotRequestId}`) and explicit field names from the `PilotRequest` schema contribute to data clarity and predictability, simplifying rule writing and data management."
+  }
+}

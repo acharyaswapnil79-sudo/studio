@@ -1,0 +1,94 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * GREYSHACKS PILOT INTAKE SECURITY RULES
+     *
+     * Core Philosophy:
+     * This ruleset implements a "Public Intake / Restricted Management" model. It allows any user 
+     * (including unauthenticated visitors) to submit high-quality "Pilot Requests" via the consulting 
+     * funnel, while strictly restricting the viewing and management of these requests to internal 
+     * authorized staff.
+     *
+     * Data Structure:
+     * - /pilot_requests/{pilotRequestId}: Flat collection of intake submissions.
+     * - /roles_admin/{userId}: A lookup collection where the existence of a document grants 
+     *   administrative privileges over the intake data.
+     *
+     * Key Security Decisions:
+     * 1. Public Submission: The 'create' operation on pilot_requests is open to all to minimize 
+     *    friction for prospects, following the "Enterprise Intake" requirement.
+     * 2. DBAC (Database Access Control): Admin permissions are managed via a dedicated 
+     *    'roles_admin' collection. This avoids custom claims and allows for real-time 
+     *    permission updates.
+     * 3. Relational Integrity: On creation, we enforce that the 'id' field within the 
+     *    document matches the Firestore Document ID to ensure consistency for future lookups.
+     */
+
+    // --- GLOBAL HELPER FUNCTIONS ---
+
+    /**
+     * @description Checks if the request is from a signed-in user.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * @description Checks if the requesting user is an authorized administrator
+     * by looking up their UID in the roles_admin collection.
+     */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+    }
+
+    /**
+     * @description Checks if the current user owns the document specified by the userId.
+     */
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    /**
+     * @description Verifies ownership and ensures the document exists before allowing destructive actions.
+     */
+    function isExistingAdmin() {
+      return isAdmin() && resource != null;
+    }
+
+    // --- COLLECTION RULES ---
+
+    /**
+     * @description Stores administrative role assignments.
+     * @path /roles_admin/{userId}
+     * @allow (get) if the user is checking their own admin status.
+     * @deny (list, create, update, delete) prevented to keep role management restricted to Admin SDK/Console.
+     * @principle Database-level Access Control (DBAC).
+     */
+    match /roles_admin/{userId} {
+      allow get: if isOwner(userId);
+      allow list, create, update, delete: if false;
+    }
+
+    /**
+     * @description Stores pilot program applications from the consulting funnel.
+     * @path /pilot_requests/{pilotRequestId}
+     * @allow (create) if the submitted ID matches the document path (Public Intake).
+     * @allow (get, list, update, delete) only if the user is an authorized admin.
+     * @deny (get, list) for public users to protect sensitive prospect lead data.
+     * @principle Public Write with Admin-Only Reads & Management.
+     */
+    match /pilot_requests/{pilotRequestId} {
+      
+      // Public intake: Anyone can submit a request.
+      // We only validate that the internal 'id' field matches the Firestore path.
+      allow create: if request.resource.data.id == pilotRequestId;
+
+      // Internal Management: Only admins can view, list, or modify submissions.
+      allow get, list: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+  }
+}
