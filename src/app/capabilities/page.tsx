@@ -8,7 +8,7 @@ import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Shield, Zap, Search, Target, LayoutDashboard, Database, RefreshCw, FileText, CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 
 const CAPABILITIES_LIST = [
   { id: 'screening', title: 'Candidate Screening & Scheduling', outcome: '70% reduction in recruitment time', approach: 'End-to-end hiring pipeline management — resume parsing, role-fit evaluation, shortlisting, and interview coordination handled by the system.' },
@@ -44,8 +44,7 @@ export default function CapabilitiesPage() {
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
-    // If on same page and anchor, smooth scroll. 
-    // For now, since it's a separate page, we let default behavior or simple redirect handle it.
+    // If it's an anchor on the home page, let the default Link behavior handle it or redirect
   };
 
   return (
@@ -76,9 +75,12 @@ export default function CapabilitiesPage() {
               </p>
             </div>
 
-            <p className="text-[#A0A0A0] text-lg mb-8 italic">
-              We don’t build generic software. Every engagement is scoped to a specific operational problem, measured against your baseline, and designed to run in your existing systems stack.
-            </p>
+            <div className="mb-12">
+              <h3 className="font-bold text-lg mb-4">What We Don't Do</h3>
+              <p className="text-[#A0A0A0] text-lg leading-relaxed">
+                We don’t build generic software. Every engagement is scoped to a specific operational problem, measured against your baseline, and designed to run in your existing systems stack.
+              </p>
+            </div>
 
             <div className="inline-flex items-center gap-2 text-white/60 font-medium">
               <CheckCircle2 className="w-5 h-5 text-[#0047AB]" />
@@ -174,27 +176,7 @@ export default function CapabilitiesPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <div className="bg-[#111] p-8 rounded-xl border border-white/5">
-                <h3 className="font-bold text-lg mb-4">Systems Compatibility</h3>
-                <p className="text-[#A0A0A0] leading-relaxed">
-                  Our systems are built to operate within your existing stack. Current integrations include Zoho, HubSpot, LeadSquared, and custom API environments. No platform migration required.
-                </p>
-              </div>
-              <div 
-                className="bg-[#111] p-8 rounded-xl border border-[#0047AB]/20"
-                onMouseEnter={() => console.log('pilot_cost_signal_view')}
-              >
-                <h3 className="font-bold text-lg mb-4">Pilot Cost Signal</h3>
-                <p className="text-[#A0A0A0] leading-relaxed mb-4">
-                  Pilots are scoped to a single process and priced to recover cost within the engagement.
-                </p>
-                <div className="text-white font-bold text-lg">Typical pilot investment: ₹2.5L–₹5L</div>
-                <div className="text-[#A0A0A0] text-sm mt-1">depending on process complexity and systems landscape</div>
-              </div>
-            </div>
-
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-12">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 onClick={() => setIsIntakeOpen(true)}
