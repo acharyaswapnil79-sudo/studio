@@ -164,9 +164,9 @@ export default function CapabilitiesPage() {
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
-    { name: "Capabilities", href: "/#capabilities" },
-    { name: "Case Studies", href: "/#case-studies" },
-    { name: "Insights", href: "/#insights" }
+    { name: "Capabilities", href: "/capabilities" },
+    { name: "Deployment Library", href: "/deployments" },
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
@@ -182,6 +182,7 @@ export default function CapabilitiesPage() {
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection="capabilities"
         handleNavClick={handleNavClick}
+        onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
       <main className="pt-32 pb-24 px-6 md:px-10">
@@ -350,6 +351,7 @@ export default function CapabilitiesPage() {
         navLinks={navLinks} 
         activeSection="capabilities"
         handleNavClick={handleNavClick}
+        onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
       <MethodologyModal 

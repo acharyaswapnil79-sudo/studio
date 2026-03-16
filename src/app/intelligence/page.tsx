@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -40,7 +41,7 @@ export default function IntelligenceLibrary() {
     { name: "Operational Impact", href: "/#operational-impact" },
     { name: "Capabilities", href: "/capabilities" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Intelligence", href: "/intelligence" }
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   return (

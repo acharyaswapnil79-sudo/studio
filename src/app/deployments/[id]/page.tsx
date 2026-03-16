@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -44,7 +45,7 @@ export default function CaseStudyPage() {
     { name: "Operational Impact", href: "/#operational-impact" },
     { name: "Capabilities", href: "/capabilities" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Insights", href: "/#insights" }
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   return (
