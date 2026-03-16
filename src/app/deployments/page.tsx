@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -17,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Info, Filter, FileText, BarChart } from 'lucide-react';
+import { ArrowRight, Info, Filter, FileText, BarChart, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DeploymentLibraryPage() {
@@ -79,14 +78,29 @@ export default function DeploymentLibraryPage() {
             </h1>
             <div className="max-w-3xl space-y-6 text-[#A0A0A0] text-lg md:text-xl leading-relaxed">
               <p>
-                Each deployment below began with a structured diagnostic followed by a time-boxed pilot. Outcomes are measured against a defined pre-deployment baseline.
+                Each deployment began with a structured diagnostic and a time-boxed pilot. Outcomes are measured against a defined baseline. Client identities remain anonymized. Deployment data is available under NDA.
               </p>
               <div className="bg-[#111] border-l-2 border-[#0047AB] p-6 rounded-r-lg">
                 <p className="text-white text-base">
-                  Client identities remain anonymized. Deployment data is available under NDA. Not every deployment produced the outcomes projected at scoping. Where results differed from pilot projections, we note it.
+                  Not every deployment produced the outcomes projected at scoping. Where results differed from pilot expectations, we note it.
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Benchmarks Ticker */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {[
+              { label: 'Avg Pilot Duration', value: '4–8 Weeks' },
+              { label: 'Avg Manual Reduction', value: '50–85%' },
+              { label: 'ROI Benchmark', value: '3–6 Months' },
+              { label: 'Measurement Census', value: '100%' },
+            ].map((stat, i) => (
+              <div key={i} className="bg-[#111] border border-white/5 p-4 rounded-lg">
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">{stat.label}</div>
+                <div className="text-xl font-bold text-white">{stat.value}</div>
+              </div>
+            ))}
           </div>
 
           {/* Filter Bar */}
@@ -110,8 +124,9 @@ export default function DeploymentLibraryPage() {
                     <SelectItem value="Healthcare">Healthcare</SelectItem>
                     <SelectItem value="Logistics">Logistics</SelectItem>
                     <SelectItem value="Finance">Finance</SelectItem>
+                    <SelectItem value="Education">Education</SelectItem>
+                    <SelectItem value="Insurance">Insurance</SelectItem>
                     <SelectItem value="Technology Services">Technology Services</SelectItem>
-                    <SelectItem value="Professional Services">Professional Services</SelectItem>
                     <SelectItem value="Hospitality">Hospitality</SelectItem>
                   </SelectContent>
                 </Select>
@@ -126,9 +141,7 @@ export default function DeploymentLibraryPage() {
                     <SelectItem value="Finance Operations">Finance Operations</SelectItem>
                     <SelectItem value="Customer Operations">Customer Operations</SelectItem>
                     <SelectItem value="Procurement">Procurement</SelectItem>
-                    <SelectItem value="Compliance">Compliance</SelectItem>
                     <SelectItem value="Reporting">Reporting</SelectItem>
-                    <SelectItem value="Logistics">Logistics</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -139,7 +152,7 @@ export default function DeploymentLibraryPage() {
                   <SelectContent className="bg-[#111] border-white/10 text-white">
                     <SelectItem value="all">All Stages</SelectItem>
                     <SelectItem value="Pilot Complete">Pilot Complete</SelectItem>
-                    <SelectItem value="Full Deployment">Full Deployment</SelectItem>
+                    <SelectItem value="In Deployment">In Deployment</SelectItem>
                     <SelectItem value="Production">Ongoing</SelectItem>
                   </SelectContent>
                 </Select>
@@ -149,7 +162,7 @@ export default function DeploymentLibraryPage() {
                     <SelectValue placeholder="Team Size" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#111] border-white/10 text-white">
-                    <SelectItem value="all">All Team Sizes</SelectItem>
+                    <SelectItem value="all">All Sizes</SelectItem>
                     <SelectItem value="Under 20">Under 20</SelectItem>
                     <SelectItem value="20–100">20–100</SelectItem>
                     <SelectItem value="100+">100+</SelectItem>
@@ -189,75 +202,29 @@ export default function DeploymentLibraryPage() {
                         <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0047AB]">
                           {d.industry}
                         </div>
-                        <h3 className="font-bold text-xl leading-tight">{d.title}</h3>
+                        <h3 className="font-bold text-lg leading-tight">{d.title}</h3>
                       </div>
-                      <Badge variant="secondary" className="bg-white/5 text-[10px] border-none text-white/40">
+                      <Badge variant="secondary" className="bg-white/5 text-[9px] border-none text-white/40">
                         {d.status}
                       </Badge>
                     </div>
 
-                    <div className="space-y-6 flex-1">
-                      {/* Context & Problem */}
-                      <div className="grid grid-cols-1 gap-4">
-                        <div className="space-y-1">
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1">
-                            <Info className="w-3 h-3" /> Client Context
-                          </span>
-                          <p className="text-sm text-[#A0A0A0] leading-relaxed">{d.clientContext}</p>
-                        </div>
-                        <div className="space-y-1">
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1">
-                            <FileText className="w-3 h-3" /> Operational Problem
-                          </span>
-                          <p className="text-sm text-[#A0A0A0] leading-relaxed">{d.operationalProblem}</p>
-                        </div>
-                      </div>
+                    <p className="text-sm text-[#A0A0A0] leading-relaxed mb-6 flex-1">
+                      {d.summary || d.clientContext.split('.')[0] + '.'}
+                    </p>
 
-                      {/* KPI Exhibit */}
-                      <div className="bg-black/20 border border-white/5 rounded-lg p-4 space-y-4">
-                        <div className="text-[10px] font-bold uppercase tracking-widest text-white/60 flex items-center gap-1">
-                          <BarChart className="w-3 h-3" /> KPI Exhibit
-                        </div>
-                        <div className="space-y-3">
-                          {d.kpis.map((kpi, idx) => (
-                            <div key={idx} className="space-y-1">
-                              <div className="flex justify-between items-baseline">
-                                <span className="text-xs text-white/40">{kpi.label}</span>
-                                <span className="text-xs font-bold text-[#0047AB]">{kpi.impact}</span>
-                              </div>
-                              <div className="flex items-center gap-3">
-                                <div className="text-sm font-medium">{kpi.before}</div>
-                                <ArrowRight className="w-3 h-3 text-white/20" />
-                                <div className="text-sm font-bold text-white">{kpi.after}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="pt-2 border-t border-white/5">
-                          <p className="text-[9px] text-white/30 italic leading-tight">
-                            Measured during the first full quarter post-deployment against a four-week pre-deployment baseline.
-                          </p>
-                        </div>
+                    <div className="bg-black/20 border border-white/5 rounded-lg p-4 space-y-4 mb-6">
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-white/60 flex items-center gap-1">
+                        <BarChart className="w-3 h-3" /> Key Outcome
                       </div>
-
-                      {/* Scope & Impact */}
-                      <div className="space-y-3">
-                        {d.scopeLimitation && (
-                          <div className="bg-[#1a1111]/30 border border-red-900/10 rounded-lg p-3">
-                            <span className="text-[9px] font-bold uppercase tracking-widest text-red-400/60 block mb-1">
-                              Scope Limitation
-                            </span>
-                            <p className="text-xs text-[#A0A0A0]">{d.scopeLimitation}</p>
-                          </div>
-                        )}
-                        {d.businessImpact && (
-                          <div className="bg-[#111a11]/30 border border-green-900/10 rounded-lg p-3">
-                            <span className="text-[9px] font-bold uppercase tracking-widest text-green-400/60 block mb-1">
-                              Business Impact
-                            </span>
-                            <p className="text-xs text-[#A0A0A0]">{d.businessImpact}</p>
-                          </div>
-                        )}
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-white/40">{d.kpis[0].label}</span>
+                        <span className="text-xs font-bold text-[#0047AB]">{d.kpis[0].impact}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="text-sm font-medium">{d.kpis[0].before}</div>
+                        <ArrowRight className="w-3 h-3 text-white/20" />
+                        <div className="text-sm font-bold text-white">{d.kpis[0].after}</div>
                       </div>
                     </div>
                   </div>
@@ -312,7 +279,7 @@ export default function DeploymentLibraryPage() {
 
       <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
         <div className="max-w-[1240px] mx-auto">
-          &copy; 2023 GreyShacks. All data measured and verified.
+          &copy; 2023 GreyShacks. All decisions logged and audit-ready.
         </div>
       </footer>
 

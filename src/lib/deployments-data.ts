@@ -10,7 +10,7 @@ export interface Deployment {
   title: string;
   industry: string;
   function: string;
-  status: 'Pilot Complete' | 'Full Deployment' | 'Production — ongoing';
+  status: 'Pilot Complete' | 'Full Deployment' | 'Production — ongoing' | 'In Deployment';
   teamSize: string;
   hasMethodology: boolean;
   clientContext: string;
@@ -221,210 +221,125 @@ export const DEPLOYMENTS: Deployment[] = [
     relatedDeploymentIds: ['health-claims', 'retail-cust-query']
   },
   {
-    id: 'saas-triage',
-    title: 'Customer Support Triage',
-    industry: 'Technology Services',
-    function: 'Customer Operations',
-    status: 'Full Deployment',
-    teamSize: '20–100',
-    hasMethodology: true,
-    clientContext: 'Growth-stage SaaS provider. Global user base.',
-    operationalProblem: 'Manual triaging of technical vs billing queries was slow.',
-    timeline: 'Pilot: 5 weeks.',
-    kpis: [
-      { label: 'Triage Accuracy', before: '78%', after: '94%', impact: 'Higher precision' },
-      { label: 'Mean Time to Assign', before: '45 min', after: '2 min', impact: '95% reduction' }
-    ],
-    scopeLimitation: 'Enterprise custom-tier accounts bypassed auto-triage.',
-    businessImpact: 'Technical resources focused exclusively on engineering tickets.',
-    summary: 'Automated triage agent for global SaaS support operations.',
-    pilotDuration: '5 weeks',
-    measurementWindow: '10 weeks',
-    systemsIntegrated: ['Intercom', 'Jira Service Management'],
-    relatedDeploymentIds: ['retail-cust-query', 'ps-proposal']
-  },
-  {
-    id: 'log-invoice',
-    title: 'Vendor Invoice Reconciliation',
-    industry: 'Logistics',
-    function: 'Procurement',
-    status: 'Pilot Complete',
-    teamSize: '20–100',
-    hasMethodology: true,
-    clientContext: 'Regional freight forwarder. ₹120 Cr annual logistics spend.',
-    operationalProblem: 'High variance between quoted vendor rates and final invoices.',
-    timeline: 'Pilot: 8 weeks.',
-    kpis: [
-      { label: 'Variance Detection', before: '12 days', after: 'real-time', impact: 'Instant visibility' },
-      { label: 'Overcharge recovery', before: 'Baseline', after: '+18%', impact: 'Significant ROI' }
-    ],
-    scopeLimitation: 'Fuel surcharge variances required manual review.',
-    businessImpact: 'Strengthened vendor negotiation leverage.',
-    summary: 'Systematizing invoice matching against quote data for regional freight operations.',
-    pilotDuration: '8 weeks',
-    measurementWindow: '16 weeks',
-    systemsIntegrated: ['SAP Business One', 'Custom Vendor Portal'],
-    relatedDeploymentIds: ['mfg-po', 'log-shipment']
-  },
-  {
-    id: 'hosp-lead',
-    title: 'Lead Qualification',
-    industry: 'Hospitality',
+    id: 'edu-admissions',
+    title: 'Student Admissions Operations',
+    industry: 'Education',
     function: 'Sales Operations',
-    status: 'Full Deployment',
-    teamSize: 'Under 20',
-    hasMethodology: false,
-    clientContext: 'Luxury hotel group. Events and corporate bookings division.',
-    operationalProblem: 'Low-quality event inquiries were overwhelming sales coordinators.',
-    timeline: 'Pilot: 6 weeks.',
-    kpis: [
-      { label: 'Lead Scoring Speed', before: '24 hours', after: 'instant', impact: 'Real-time triage' },
-      { label: 'Sales Meeting Rate', before: '12%', after: '26%', impact: 'Doubled conversion' }
-    ],
-    scopeLimitation: 'Walk-in wedding inquiries remained manual.',
-    businessImpact: 'Coordinators prioritized high-value corporate contracts.',
-    summary: 'Intelligent lead qualification for hospitality event sales.',
-    pilotDuration: '6 weeks',
-    measurementWindow: '12 weeks',
-    systemsIntegrated: ['Opera PMS', 'HubSpot'],
-    relatedDeploymentIds: ['re-leads', 'ps-proposal']
-  },
-  {
-    id: 'mfg-po',
-    title: 'Procurement Order Tracking',
-    industry: 'Manufacturing',
-    function: 'Procurement',
-    status: 'Full Deployment',
-    teamSize: '100+',
-    hasMethodology: true,
-    clientContext: 'Automotive components tier-1 supplier. 400+ active vendors.',
-    operationalProblem: 'No real-time visibility into PO delivery status across vendors.',
-    timeline: 'Pilot: 8 weeks.',
-    kpis: [
-      { label: 'Tracking visibility', before: '15%', after: '92%', impact: 'Full transparency' },
-      { label: 'Manual follow-ups', before: '40 hrs/week', after: '5 hrs/week', impact: '87% reduction' }
-    ],
-    scopeLimitation: 'International ocean freight excluded from pilot.',
-    businessImpact: 'Reduced line-stoppage risk due to material shortages.',
-    summary: 'Vendor-facing agentic workflows for real-time procurement visibility.',
-    pilotDuration: '8 weeks',
-    measurementWindow: '12 weeks',
-    systemsIntegrated: ['Oracle ERP', 'Email'],
-    relatedDeploymentIds: ['log-invoice', 'mfg-ar']
-  },
-  {
-    id: 'retail-inv',
-    title: 'Inventory Reporting',
-    industry: 'Retail',
-    function: 'Reporting',
-    status: 'Full Deployment',
-    teamSize: '20–100',
-    hasMethodology: true,
-    clientContext: 'Multi-store apparel retailer. 14 locations.',
-    operationalProblem: 'Inventory stock-outs occurring due to 48-hour reporting lag.',
-    timeline: 'Pilot: 4 weeks.',
-    kpis: [
-      { label: 'Data Latency', before: '48 hours', after: '2 hours', impact: 'Near real-time' },
-      { label: 'Stock-out incidence', before: '14%', after: '4%', impact: '71% improvement' }
-    ],
-    scopeLimitation: 'Warehouse-to-store transit inventory was estimated.',
-    businessImpact: 'Increased sales through better cross-store stock visibility.',
-    summary: 'Automated reporting agent for multi-store retail inventory synchronization.',
-    pilotDuration: '4 weeks',
-    measurementWindow: '8 weeks',
-    systemsIntegrated: ['Ginesys', 'Power BI'],
-    relatedDeploymentIds: ['finance-close', 'retail-cust-query']
-  },
-  {
-    id: 'finance-comp',
-    title: 'Compliance Monitoring',
-    industry: 'Finance',
-    function: 'Compliance',
     status: 'Production — ongoing',
     teamSize: 'Under 20',
     hasMethodology: true,
-    clientContext: 'Regional fintech lender. High volume of small business loans.',
-    operationalProblem: 'Manual audit of loan documentation for regulatory compliance.',
-    timeline: 'Pilot: 12 weeks.',
+    clientContext: 'Private K–12 school group operating four schools. Admissions team of 6.',
+    operationalProblem: 'Applications arrived across four channels with no unified queue. Average time to first contact was 2-3 days.',
+    timeline: 'Pilot: 5 weeks (web + WhatsApp). Week 8 Full Deployment.',
     kpis: [
-      { label: 'Audit Coverage', before: '10% sample', after: '100% census', impact: 'Zero gaps' },
-      { label: 'Review time per file', before: '35 min', after: '4 min', impact: '88% faster' }
+      { label: 'Application to first contact', before: '2–3 days', after: 'under 3 hours', impact: '95% reduction' },
+      { label: 'Doc completion rate', before: '61%', after: '78%', impact: '28% improvement' }
     ],
-    scopeLimitation: 'Physical document archives not digitized.',
-    businessImpact: 'Passed regulatory audit with zero major findings.',
-    summary: 'Automating regulatory compliance audits for lending portfolios.',
-    pilotDuration: '12 weeks',
-    measurementWindow: '24 weeks',
-    systemsIntegrated: ['Custom Loan Management System', 'AWS Textract'],
-    relatedDeploymentIds: ['finance-close', 'ps-proposal']
+    scopeLimitation: 'Education portal API integration was not implemented. Scholarship eligibility decisions remained human managed.',
+    businessImpact: 'Counsellors redirected 33% of their time from triage to family consultations.',
+    summary: 'Centralizing admissions inquiries and handling document verification end-to-end.',
+    pilotDuration: '5 weeks',
+    measurementWindow: '8 weeks',
+    whatStayedHuman: ['Interview scheduling', 'Scholarship decisions', 'Final admissions'],
+    whatWeLearned: 'WhatsApp conversations initially lacked structure. Standardized documentation prompts were introduced in week 3.',
+    systemsIntegrated: ['WhatsApp Business API', 'Custom CRM'],
+    relatedDeploymentIds: ['re-leads', 'hosp-lead']
   },
   {
-    id: 're-broker',
-    title: 'Broker Communication Workflow',
-    industry: 'Real Estate',
-    function: 'Sales Operations',
-    status: 'Full Deployment',
-    teamSize: '20–100',
-    hasMethodology: false,
-    clientContext: 'Commercial real estate brokerage. 80+ active agents.',
-    operationalProblem: 'Delayed broker commissions due to manual document verification.',
-    timeline: 'Pilot: 6 weeks.',
-    kpis: [
-      { label: 'Processing time', before: '14 days', after: '3 days', impact: '78% faster' },
-      { label: 'Agent inquiries', before: '25/week', after: 'under 5/week', impact: 'Significant noise reduction' }
-    ],
-    scopeLimitation: 'Referral fees from external brokers remained manual.',
-    businessImpact: 'Higher agent retention and faster capital recycling.',
-    summary: 'Orchestrating broker-facing communication and document verification.',
-    pilotDuration: '6 weeks',
-    measurementWindow: '12 weeks',
-    systemsIntegrated: ['Zillow Premier Agent', 'Docusign'],
-    relatedDeploymentIds: ['re-leads', 'finance-close']
-  },
-  {
-    id: 'health-claims',
-    title: 'Claims Processing Review',
-    industry: 'Healthcare',
+    id: 'ins-renewals',
+    title: 'Policy Renewal Operations',
+    industry: 'Insurance',
     function: 'Finance Operations',
     status: 'Production — ongoing',
-    teamSize: '100+',
-    hasMethodology: true,
-    clientContext: 'Private health insurance administrator. 15,000+ monthly claims.',
-    operationalProblem: 'High rejection rate due to minor data entry errors by providers.',
-    timeline: 'Pilot: 10 weeks.',
-    kpis: [
-      { label: 'First-pass acceptance', before: '68%', after: '91%', impact: 'Major throughput gain' },
-      { label: 'Manual claim review', before: '100%', after: '22%', impact: '78% system handling' }
-    ],
-    scopeLimitation: 'Dental claims handled on a legacy system excluded.',
-    businessImpact: 'Reduced operational overhead and faster provider payments.',
-    summary: 'Automated first-pass review for healthcare claims processing.',
-    pilotDuration: '10 weeks',
-    measurementWindow: '20 weeks',
-    systemsIntegrated: ['Epic Systems', 'Internal Claims Portal'],
-    relatedDeploymentIds: ['health-sched', 'finance-comp']
-  },
-  {
-    id: 'ps-proposal',
-    title: 'Proposal Generation Workflow',
-    industry: 'Professional Services',
-    function: 'Sales Operations',
-    status: 'Full Deployment',
     teamSize: 'Under 20',
     hasMethodology: true,
-    clientContext: 'Specialized structural engineering firm. 200+ bids annually.',
-    operationalProblem: 'Engineers spending 8–10 hours drafting standard proposals.',
-    timeline: 'Pilot: 4 weeks.',
+    clientContext: 'Insurance intermediary managing ~4,200 active policies.',
+    operationalProblem: 'Renewals tracked manually in spreadsheets. Lapse rate averaged 23%.',
+    timeline: 'Pilot: 6 weeks. Full Deployment: Week 10.',
     kpis: [
-      { label: 'Drafting time', before: '9 hours', after: '1.5 hours', impact: '83% reduction' },
-      { label: 'Bid throughput', before: 'Baseline', after: '+35%', impact: 'Higher pipeline capacity' }
+      { label: 'Policy lapse rate', before: '23%', after: '17%', impact: '26% improvement' },
+      { label: 'Confirmation lead time', before: '<48 hrs', after: '9 days', impact: 'Better visibility' }
     ],
-    scopeLimitation: 'Complex public sector tenders remained manual.',
-    businessImpact: 'Senior engineers regained 25+ hours monthly for billable work.',
-    summary: 'Automating high-volume proposal generation for professional services.',
+    scopeLimitations: 'Claims-linked renewals remained manual. Health policies excluded from pilot.',
+    businessImpact: 'Team time on renewals reduced from 70% to 38% of capacity.',
+    summary: 'Automating the renewal notification and confirmation cycle for motor policies.',
+    pilotDuration: '6 weeks',
+    measurementWindow: '12 weeks',
+    whatStayedHuman: ['Policy endorsements', 'Claims-related renewals', 'Client negotiations'],
+    whatWeLearned: 'Older policyholders responded poorly to WhatsApp. SMS + phone escalation introduced week 11.',
+    systemsIntegrated: ['Microsoft Dynamics', 'BulkSMS Gateway']
+  },
+  {
+    id: 'auto-leads',
+    title: 'Lead-to-Showroom Operations',
+    industry: 'Hospitality',
+    function: 'Sales Operations',
+    status: 'Production — ongoing',
+    teamSize: 'Under 20',
+    hasMethodology: true,
+    clientContext: 'Multi-brand dealership group with three showrooms and 18 sales executives.',
+    operationalProblem: 'Digital leads required manual CRM import and assignment. Average time was 4-5 hours.',
+    timeline: 'Pilot: 4 weeks. Week 7 Full Deployment.',
+    kpis: [
+      { label: 'Lead-to-assignment', before: '4–5 hours', after: '25 minutes', impact: '90% reduction' },
+      { label: 'Uncontacted leads >24h', before: '18%', after: '4%', impact: 'Major recovery' }
+    ],
+    scopeLimitation: 'Dealer CRM API rate limits forced batch processing. Walk-ins stayed manual.',
+    businessImpact: 'Admin workload per sales executive reduced from 2 hours to 30 minutes daily.',
+    summary: 'Agentic lead capture and intelligent assignment based on consultant availability.',
     pilotDuration: '4 weeks',
+    measurementWindow: '10 weeks',
+    whatStayedHuman: ['Test drive scheduling', 'Financing discussions', 'Negotiation'],
+    whatWeLearned: 'OEM lead data formats varied across brands, requiring custom parsing.',
+    systemsIntegrated: ['Salesforce', 'Meta Lead Forms']
+  },
+  {
+    id: 'agri-dist',
+    title: 'Order & Inventory Operations',
+    industry: 'Logistics',
+    function: 'Procurement',
+    status: 'In Deployment',
+    teamSize: '20–100',
+    hasMethodology: true,
+    clientContext: 'Regional agricultural distributor serving 180 retail partners.',
+    operationalProblem: 'Orders manually transcribed into ERP. Inventory visibility updated only once daily.',
+    timeline: 'Pilot: 5 weeks (WhatsApp). Phone orders week 14.',
+    kpis: [
+      { label: 'Transcription errors', before: '2–3/week', after: '0–1/week', impact: 'Error reduction' },
+      { label: 'Out-of-stock orders', before: '11%', after: '4%', impact: '63% improvement' }
+    ],
+    scopeLimitation: 'Phone channel integration delayed due to IVR complexity.',
+    businessImpact: 'Operations time on order entry reduced from 65% to 32%.',
+    summary: 'Near real-time inventory sync and automated order transcription core.',
+    pilotDuration: '5 weeks',
+    measurementWindow: '10 weeks',
+    whatStayedHuman: ['Credit decisions', 'Bulk order negotiations'],
+    whatWeLearned: 'Approximately one-third of retail partners lacked digital ordering capability.',
+    systemsIntegrated: ['SAP ERP', 'WhatsApp Business API']
+  },
+  {
+    id: 'media-ops',
+    title: 'Advertiser Operations',
+    industry: 'Technology Services',
+    function: 'Reporting',
+    status: 'Production — ongoing',
+    teamSize: 'Under 20',
+    hasMethodology: true,
+    clientContext: 'Regional digital media company running 35–55 campaigns monthly.',
+    operationalProblem: 'Creative collection and reporting managed manually across emails.',
+    timeline: 'Pilot: 6 weeks. Week 11 Full Deployment.',
+    kpis: [
+      { label: 'Creative compliance', before: '54%', after: '79%', impact: 'Consistency gain' },
+      { label: 'Report prep time', before: '2–3 hours', after: '25–40 min', impact: '75% reduction' }
+    ],
+    scopeLimitation: 'Programmatic ad operations excluded.',
+    businessImpact: 'Campaign delays from creative submission reduced from 22% to 9%.',
+    summary: 'Handling advertiser creative intake and campaign reporting end-to-end.',
+    pilotDuration: '6 weeks',
     measurementWindow: '8 weeks',
-    systemsIntegrated: ['PandaDoc', 'Slack'],
-    relatedDeploymentIds: ['hosp-lead', 'saas-triage']
+    whatStayedHuman: ['Campaign strategy', 'Advertiser negotiation'],
+    whatWeLearned: 'Two analytics platforms lacked API access, forcing manual data import via agents.',
+    systemsIntegrated: ['Google Ad Manager', 'Email Scrapers']
   }
+  // ... more deployments can be added following this pattern
 ];
