@@ -1,0 +1,430 @@
+"use client"
+
+import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Navbar } from '@/components/Navbar';
+import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
+import { MethodologyModal } from '@/components/MethodologyModal';
+import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { INSIGHTS, CATEGORIES, Insight } from '@/lib/intelligence-data';
+import { Search, Filter, ArrowRight, Download, Mail, BookOpen, Database, BarChart3, Info } from 'lucide-react';
+import Link from 'next/link';
+import { FrameworkModal } from '@/components/intelligence/FrameworkModal';
+
+export default function IntelligenceLibrary() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeCategory, setActiveSection] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isIntakeOpen, setIsIntakeOpen] = useState(false);
+  const [isMethodologyOpen, setIsMethodologyOpen] = useState(false);
+  const [selectedFramework, setSelectedFramework] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const filteredInsights = useMemo(() => {
+    return INSIGHTS.filter(i => {
+      const categoryMatch = activeCategory === 'All' || i.category === activeCategory;
+      const searchMatch = i.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          i.summary.toLowerCase().includes(searchQuery.toLowerCase());
+      return categoryMatch && searchMatch;
+    });
+  }, [activeCategory, searchQuery]);
+
+  const navLinks = [
+    { name: "Command Center", href: "/#hero" },
+    { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "Capabilities", href: "/capabilities" },
+    { name: "Deployment Library", href: "/deployments" },
+    { name: "Intelligence", href: "/intelligence" }
+  ];
+
+  return (
+    <div className="relative min-h-screen bg-[#0A0A0A] font-sans text-white selection:bg-blue-900/30">
+      <Navbar 
+        isScrolled={isScrolled} 
+        navLinks={navLinks} 
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+        activeSection="intelligence"
+        handleNavClick={() => {}}
+        onOpenIntake={() => setIsIntakeOpen(true)}
+      />
+
+      <main className="pt-32 pb-24 px-6 md:px-10">
+        <div className="max-w-[1240px] mx-auto">
+          {/* Hero Section */}
+          <section id="hero" className="mb-24">
+            <div className="max-w-4xl">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="inline-flex items-center gap-2 bg-[#0047AB]/10 border border-[#0047AB]/20 px-3 py-1.5 rounded-full mb-8"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-[#0047AB] animate-pulse" />
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#0047AB]">Updated Quarterly</span>
+              </motion.div>
+              
+              <h1 className="font-headline font-bold text-5xl md:text-7xl mb-8 leading-tight">
+                Field Intelligence
+              </h1>
+              
+              <p className="text-[#A0A0A0] text-xl md:text-2xl leading-relaxed mb-10 max-w-3xl">
+                Deployment observations, measurement data, and practitioner analysis from agentic systems operating inside real businesses.
+              </p>
+
+              <div className="bg-[#0F0F0F] border-l-2 border-[#0047AB] p-8 mb-12 max-w-3xl">
+                <p className="text-white/80 text-lg leading-relaxed">
+                  These publications are grounded in deployment observation, pilot measurement data, and structured operational analysis. Where figures appear, we explain how they were measured and the limitations of the data.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <button 
+                  onClick={() => document.getElementById('grid')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-[#0047AB] text-white font-bold text-sm px-8 py-4 rounded-lg hover:bg-[#0047AB]/90 transition-colors"
+                >
+                  Browse the Library
+                </button>
+                <button 
+                  onClick={() => setSelectedFramework('Operational Diagnostic Framework')}
+                  className="bg-transparent border border-white/10 text-white font-bold text-sm px-8 py-4 rounded-lg hover:bg-white/5 transition-colors"
+                >
+                  Download Research Brief
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* Category Navigation */}
+          <section className="sticky top-24 z-40 bg-[#0A0A0A]/90 backdrop-blur-md border-y border-white/5 py-4 mb-16 overflow-x-auto whitespace-nowrap scrollbar-hide">
+            <div className="flex gap-8">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.name}
+                  onClick={() => setActiveSection(cat.name)}
+                  className={`text-xs font-mono uppercase tracking-[0.2em] transition-all relative py-2 ${
+                    activeCategory === cat.name ? "text-white" : "text-[#555] hover:text-white"
+                  }`}
+                >
+                  {cat.name}
+                  {activeCategory === cat.name && (
+                    <motion.div 
+                      layoutId="activeCategory"
+                      className="absolute bottom-0 left-0 right-0 h-0.5"
+                      style={{ backgroundColor: cat.color }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Search + Filter */}
+          <section className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-16">
+            <div className="lg:col-span-3 relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+              <input 
+                type="text"
+                placeholder="Search intelligence library"
+                className="w-full bg-[#111] border border-white/5 rounded-lg pl-12 pr-4 py-4 text-sm focus:outline-none focus:border-[#0047AB]/50"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-4 bg-[#111] border border-white/5 rounded-lg px-4">
+              <Filter className="w-4 h-4 text-white/30" />
+              <span className="text-xs font-mono uppercase tracking-widest text-white/50">Filters</span>
+            </div>
+          </section>
+
+          {/* Featured Research */}
+          <section className="mb-32 bg-[#0F0F0F] border border-white/5 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="p-12 lg:p-16 space-y-8">
+                <div className="text-[#0047AB] font-mono text-[10px] uppercase tracking-[0.3em] font-bold">
+                  Featured Publication — Q1 2025
+                </div>
+                <h2 className="font-headline text-4xl md:text-5xl font-bold leading-tight">
+                  Operational Capacity Loss in Mid-Market Businesses
+                </h2>
+                <ul className="space-y-4 text-[#A0A0A0] text-lg">
+                  <li className="flex gap-3">
+                    <span className="text-[#0047AB]">•</span> Where operational capacity is lost
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#0047AB]">•</span> Common manual workflows
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#0047AB]">•</span> Automation benchmarks
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#0047AB]">•</span> Deployment ROI timelines
+                  </li>
+                </ul>
+                <div className="flex gap-4 pt-4">
+                  <button className="bg-[#0047AB] text-white font-bold text-sm px-8 py-4 rounded-lg">
+                    Download Research Brief
+                  </button>
+                  <button className="text-white/60 font-bold text-sm hover:text-white underline decoration-[#0047AB]">
+                    Request full dataset (NDA)
+                  </button>
+                </div>
+              </div>
+              <div className="bg-[#111] p-12 lg:p-16 flex flex-col justify-center border-l border-white/5">
+                <div className="space-y-8">
+                  {[
+                    { label: "Finance Operations", value: 85 },
+                    { label: "Lead Operations", value: 72 },
+                    { label: "Customer Support", value: 64 },
+                    { label: "Procurement", value: 58 },
+                    { label: "Reporting", value: 45 }
+                  ].map((item) => (
+                    <div key={item.label} className="space-y-2">
+                      <div className="flex justify-between text-[10px] font-mono uppercase tracking-widest text-white/40">
+                        <span>{item.label}</span>
+                        <span>{item.value}% Manual</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${item.value}%` }}
+                          transition={{ duration: 1, ease: "easeOut" }}
+                          className="h-full bg-[#0047AB]"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8 text-[10px] font-mono text-white/30 italic">
+                  Manual hour distribution by operational function — pre-deployment observation data.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Intelligence Grid */}
+          <section id="grid" className="mb-32">
+            <div className="flex justify-between items-end mb-12">
+              <div>
+                <h3 className="font-headline text-3xl font-bold mb-4">Latest Research</h3>
+                <div className="text-sm text-[#A0A0A0]">Showing {filteredInsights.length} publications</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <AnimatePresence mode="popLayout">
+                {filteredInsights.map((insight) => (
+                  <motion.div
+                    key={insight.id}
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="group bg-[#111] border border-white/5 p-8 rounded-xl flex flex-col hover:border-[#0047AB]/30 transition-all"
+                  >
+                    <div className="flex justify-between items-start mb-6">
+                      <div 
+                        className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 border border-current rounded"
+                        style={{ color: CATEGORIES.find(c => c.name === insight.category)?.color }}
+                      >
+                        {insight.category}
+                      </div>
+                      <div className="text-[10px] font-mono text-white/30">{insight.date}</div>
+                    </div>
+                    
+                    <h4 className="font-headline text-2xl font-bold mb-4 leading-tight group-hover:text-[#0047AB] transition-colors">
+                      {insight.title}
+                    </h4>
+                    
+                    <div className="text-[10px] font-mono text-[#0047AB] mb-4 flex items-center gap-2">
+                      <Info className="w-3 h-3" />
+                      {insight.provenance}
+                    </div>
+                    
+                    <p className="text-[#A0A0A0] text-sm leading-relaxed mb-8 flex-1">
+                      {insight.summary}
+                    </p>
+
+                    <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                      <div className="flex items-center gap-4 text-[10px] font-mono text-white/30 uppercase tracking-widest">
+                        <span>{insight.readingTime}</span>
+                        <div className="w-1 h-1 rounded-full bg-white/10" />
+                        <span>{insight.dataWindow}</span>
+                      </div>
+                      <Link href={`/intelligence/${insight.id}`} className="text-white hover:text-[#0047AB] transition-colors">
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </section>
+
+          {/* Deployment Linked Insights */}
+          <section className="mb-32">
+            <div className="bg-[#0F0F0F] border border-white/5 rounded-2xl p-12">
+              <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#0047AB] mb-12 font-bold">
+                From the Deployment Library
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                {[
+                  { title: "AR Operations deployment observations", id: "mfg-ar" },
+                  { title: "Retail tier-1 query deflection", id: "retail-cust-query" },
+                  { title: "Shipment exception handling", id: "log-shipment" }
+                ].map((d) => (
+                  <Link key={d.id} href={`/deployments/${d.id}`} className="group space-y-4">
+                    <h4 className="text-xl font-bold group-hover:text-[#0047AB] transition-colors underline decoration-white/10 underline-offset-8">
+                      {d.title}
+                    </h4>
+                    <div className="flex items-center gap-2 text-[10px] font-mono text-white/30 uppercase tracking-widest">
+                      <span>View deployment evidence</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-16 pt-12 border-t border-white/5 text-center">
+                <Link href="/deployments" className="inline-flex items-center gap-2 text-sm font-bold hover:text-[#0047AB] transition-colors">
+                  View all 35 deployments <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Practitioner Frameworks */}
+          <section className="mb-32">
+            <h3 className="font-headline text-3xl font-bold mb-12">Practitioner Frameworks</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              {[
+                "Operational Pilot Framework",
+                "Baseline Measurement Methodology",
+                "Vendor Evaluation Scorecard",
+                "Agentic Governance Framework",
+                "Operational Diagnostic Framework"
+              ].map((f) => (
+                <button 
+                  key={f}
+                  onClick={() => setSelectedFramework(f)}
+                  className="bg-[#111] border border-white/5 p-6 rounded-xl text-left hover:border-[#0047AB] transition-all group h-full flex flex-col"
+                >
+                  <Download className="w-5 h-5 text-[#0047AB] mb-6 group-hover:translate-y-1 transition-transform" />
+                  <div className="text-sm font-bold leading-relaxed flex-1">{f}</div>
+                  <div className="mt-4 text-[10px] font-mono text-white/30 uppercase tracking-widest">Download .PDF</div>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Quarterly Brief + Research Request */}
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-32">
+            <div className="bg-[#0047AB] p-12 rounded-2xl relative overflow-hidden">
+              <Mail className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10" />
+              <div className="relative z-10 space-y-6">
+                <h3 className="font-headline text-3xl font-bold">Quarterly Intelligence Brief</h3>
+                <p className="text-white/80 text-lg">
+                  Deployment observations and operational benchmarks published quarterly.
+                </p>
+                <div className="flex gap-2">
+                  <input 
+                    type="email" 
+                    placeholder="Business email"
+                    className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-sm placeholder:text-white/50 focus:outline-none"
+                  />
+                  <button className="bg-white text-[#0047AB] font-bold text-sm px-6 py-3 rounded-lg">
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#111] border border-white/5 p-12 rounded-2xl">
+              <h3 className="font-headline text-3xl font-bold mb-6">Research Request</h3>
+              <p className="text-[#A0A0A0] mb-8">
+                Cannot find a relevant publication? Request a specific operational analysis.
+              </p>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <input type="text" placeholder="Name" className="bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm" />
+                <input type="email" placeholder="Business email" className="bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm" />
+              </div>
+              <input type="text" placeholder="Company" className="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm mb-4" />
+              <button className="w-full bg-white/5 text-white font-bold text-sm py-4 rounded-lg hover:bg-white/10 transition-colors">
+                Submit Research Request
+              </button>
+            </div>
+          </section>
+
+          {/* Final Conversion */}
+          <section className="text-center py-24 border-t border-white/5">
+            <div className="max-w-3xl mx-auto space-y-8">
+              <h2 className="font-headline text-4xl md:text-6xl font-bold leading-tight">
+                Evaluating agentic systems in your operations?
+              </h2>
+              <p className="text-[#A0A0A0] text-xl leading-relaxed">
+                We begin with a structured operational diagnostic (typically 2–3 weeks) to determine whether a system is the appropriate intervention.
+              </p>
+              <div className="flex flex-col md:flex-row gap-4 justify-center">
+                <button 
+                  onClick={() => setIsIntakeOpen(true)}
+                  className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl"
+                >
+                  Discuss an Operational Diagnostic
+                </button>
+                <button 
+                  onClick={() => setIsIntakeOpen(true)}
+                  className="bg-transparent border border-white/10 text-white font-bold text-sm px-10 py-4 rounded-lg hover:bg-white/5"
+                >
+                  Scope a Pilot
+                </button>
+              </div>
+              <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+                {[
+                  { label: "Diagnostic", val: "2–3 weeks" },
+                  { label: "Pilot", val: "4–8 weeks" },
+                  { label: "Safety", val: "Production safe" },
+                  { label: "Evidence", val: "Measured baseline" }
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <div className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] mb-1">{stat.label}</div>
+                    <div className="text-sm font-bold">{stat.val}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
+        <div className="max-w-[1240px] mx-auto">
+          &copy; 2023 GreyShacks. All research observations grounded in deployment data.
+        </div>
+      </footer>
+
+      <MobileMenuOverlay 
+        isOpen={mobileMenuOpen} 
+        onClose={() => setMobileMenuOpen(false)} 
+        navLinks={navLinks} 
+        activeSection="intelligence"
+        handleNavClick={() => {}}
+        onOpenIntake={() => setIsIntakeOpen(true)}
+      />
+
+      <IntakeFormModal
+        isOpen={isIntakeOpen}
+        onClose={() => setIsIntakeOpen(false)}
+      />
+
+      <FrameworkModal 
+        isOpen={!!selectedFramework}
+        frameworkName={selectedFramework || ''}
+        onClose={() => setSelectedFramework(null)}
+      />
+    </div>
+  );
+}
