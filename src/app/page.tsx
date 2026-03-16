@@ -30,6 +30,7 @@ export default function GreyShacksLanding() {
       
       <main>
         <HeroSection />
+        <IndustriesSection />
         <MetricsBar />
       </main>
 
@@ -56,12 +57,10 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
         "flex items-center justify-between w-full max-w-[1240px] px-6 md:px-8 transition-all duration-300 rounded-[14px] h-[68px] overflow-visible",
         isScrolled ? "bg-[rgba(15,15,15,0.72)] backdrop-blur-[12px] saturate-[180%] border-b border-[rgba(255,255,255,0.07)] border-l border-[rgba(255,255,255,0.04)] border-r border-[rgba(255,255,255,0.04)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" : "bg-transparent border-transparent"
       )}>
-        {/* Logo - Updated to remove the G icon */}
         <div className="flex items-center shrink-0">
           <span className="font-headline font-bold text-lg text-white">GreyShacks</span>
         </div>
 
-        {/* Navigation Links - Visible on Tablet (768px+) and Desktop */}
         <div className="hidden md:flex items-center gap-[22px] lg:gap-[34px] mx-4">
           {navLinks.map((link: string) => (
             <div key={link} className="relative group py-2">
@@ -77,7 +76,6 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
           ))}
         </div>
 
-        {/* CTA - Visible on Tablet (768px+) and Desktop */}
         <div className="hidden md:block shrink-0">
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -88,7 +86,6 @@ function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen }: any
           </motion.button>
         </div>
 
-        {/* Mobile controls - Only below 768px */}
         <div className="flex md:hidden items-center gap-4">
           <button className="bg-[#0047AB] text-white font-semibold text-[12px] px-4 py-2 rounded-[7px] shadow-lg whitespace-nowrap">
             Apply
@@ -169,7 +166,6 @@ function HeroSection() {
       <ParticleBackground />
       
       <div className="relative z-10 w-full max-w-[860px] flex flex-col items-center text-center">
-        {/* Eyebrow Tag - Visible on all breakpoints */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -182,7 +178,6 @@ function HeroSection() {
           </span>
         </motion.div>
 
-        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -197,7 +192,6 @@ function HeroSection() {
           The Architecture of<br />Autonomous Operations
         </motion.h1>
 
-        {/* Subtext */}
         <motion.p
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -207,7 +201,6 @@ function HeroSection() {
           GreyShacks designs intelligent systems that eliminate manual workflows, driving enterprise efficiency through agentic operational cores.
         </motion.p>
 
-        {/* CTA Buttons - Side by side on 768px+ */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -231,6 +224,52 @@ function HeroSection() {
             Explore Capabilities
           </motion.button>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function IndustriesSection() {
+  const industries = [
+    "Manufacturing", "Real Estate", "Retail", "Logistics", 
+    "Food & Beverage", "Healthcare", "SaaS", "Financial Services", 
+    "Telecommunications", "Energy", "Supply Chain", "E-commerce", 
+    "Construction", "Professional Services"
+  ];
+
+  return (
+    <section className="bg-[#0A0A0A] border-t border-white/6 py-16 md:py-24 overflow-hidden relative">
+      <div className="flex flex-col items-center">
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="font-body text-[13px] tracking-[0.1em] text-[#A0A0A0] uppercase mb-10 text-center"
+        >
+          Trusted by enterprise teams across industries
+        </motion.p>
+
+        <div className="w-full relative overflow-hidden whitespace-nowrap">
+          <div className="flex animate-industry-marquee w-max">
+            {[...industries, ...industries].map((industry, i) => (
+              <div key={i} className="flex items-center">
+                <span className="font-headline text-[20px] md:text-[28px] text-white/70 px-[30px] leading-none">
+                  {industry}
+                </span>
+                <div className="w-[1px] h-[24px] bg-white/15" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <motion.p 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="mt-10 px-6 font-body text-[16px] text-[#A0A0A0] text-center max-w-[640px] leading-[1.7]"
+        >
+          GreyShacks builds operational systems for organizations where efficiency, speed, and accuracy directly impact revenue.
+        </motion.p>
       </div>
     </section>
   );
