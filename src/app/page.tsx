@@ -10,6 +10,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { EngagementModel } from '@/components/EngagementModel';
 import Link from 'next/link';
 
 const SITE_EVIDENCE = {
@@ -55,7 +56,7 @@ export default function GreyShacksLanding() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
-      const sections = ['hero', 'operational-impact', 'capabilities', 'case-studies', 'insights'];
+      const sections = ['hero', 'operational-impact', 'capabilities', 'engagement-model', 'case-studies', 'insights'];
       const triggerLine = window.innerHeight * 0.25;
 
       let newActive = 'hero';
@@ -84,6 +85,7 @@ export default function GreyShacksLanding() {
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
     { name: "Capabilities", href: "/capabilities" },
+    { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
     { name: "Field Intelligence", href: "/intelligence" }
   ];
@@ -105,6 +107,7 @@ export default function GreyShacksLanding() {
         <IndustriesSection />
         <OperationalImpactSection openMethodologyModal={() => setIsMethodologyOpen(true)} />
         <CapabilitiesSection />
+        <EngagementModel onOpenIntake={() => setIsIntakeOpen(true)} />
         
         {/* Case Studies Teaser */}
         <section id="case-studies" className="py-24 bg-[#0D0D0D] px-6 md:px-10 border-t border-white/5">
