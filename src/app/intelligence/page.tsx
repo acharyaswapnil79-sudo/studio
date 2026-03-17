@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
-import { INSIGHTS, CATEGORIES, Category, Insight } from '@/lib/intelligence-data';
+import { INSIGHTS, CATEGORY_NAMES, Category, Insight } from '@/lib/intelligence-data';
 import { Clock, ArrowRight, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -29,9 +29,14 @@ export default function OperationalIntelligencePage() {
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
     { name: "Capabilities", href: "/capabilities" },
+    { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
     { name: "Field Intelligence", href: "/intelligence" }
   ];
+
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    // Navigate normally for anchors or stay on page
+  };
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-blue-900/30 font-sans">
@@ -41,7 +46,7 @@ export default function OperationalIntelligencePage() {
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection="intelligence"
-        handleNavClick={() => {}}
+        handleNavClick={handleNavClick}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
@@ -83,7 +88,7 @@ export default function OperationalIntelligencePage() {
               
               <div className="overflow-x-auto scrollbar-hide py-4 px-6">
                 <div className="flex gap-10 whitespace-nowrap min-w-max">
-                  {CATEGORIES.map((category) => (
+                  {CATEGORY_NAMES.map((category) => (
                     <button
                       key={category}
                       onClick={() => setActiveCategory(category)}
@@ -122,15 +127,42 @@ export default function OperationalIntelligencePage() {
               </div>
             )}
           </section>
+
+          {/* Final Conversion Section */}
+          <section className="mt-24 pt-24 border-t border-white/5 text-center">
+            <div className="max-w-3xl mx-auto space-y-8">
+              <h2 className="font-headline text-3xl md:text-5xl font-semibold leading-tight">
+                If your team is managing a similar operational problem, we scope a pilot in 2–3 weeks.
+              </h2>
+              <p className="text-[#A0A0A0] text-lg md:text-xl font-body">
+                The pilot is production-safe and measured against your operational baseline.
+              </p>
+              <div className="flex justify-center">
+                <button 
+                  onClick={() => setIsIntakeOpen(true)}
+                  className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2 font-body"
+                >
+                  Discuss an Operational Diagnostic
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
+
+      <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
+        <div className="max-w-[1240px] mx-auto">
+          &copy; {new Date().getFullYear()} GreyShacks. All decisions logged and audit-ready.
+        </div>
+      </footer>
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 
         onClose={() => setMobileMenuOpen(false)} 
         navLinks={navLinks} 
         activeSection="intelligence"
-        handleNavClick={() => {}}
+        handleNavClick={handleNavClick}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
@@ -149,7 +181,8 @@ function InsightCard({ item }: { item: Insight }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      className="group bg-[#0A0A0A] p-10 flex flex-col h-full hover:bg-[#0D0D0D] transition-colors"
+      className="group bg-[#0A0A0A] p-10 flex flex-col h-full hover:bg-[#0D0D0D] transition-colors cursor-pointer"
+      onClick={() => window.location.href = `/intelligence/${item.id}`}
     >
       <div className="flex justify-between items-start mb-8">
         <div className="text-[10px] font-mono uppercase tracking-widest text-[#0047AB] font-bold border border-[#0047AB]/20 px-2 py-0.5 rounded">
