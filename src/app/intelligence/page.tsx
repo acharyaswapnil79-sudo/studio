@@ -8,8 +8,10 @@ import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { INSIGHTS, CATEGORY_NAMES, Category, Insight } from '@/lib/intelligence-data';
 import { Clock, ArrowRight, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 export default function OperationalIntelligencePage() {
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<Category>('All');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -35,7 +37,7 @@ export default function OperationalIntelligencePage() {
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
-    // Navigate normally for anchors or stay on page
+    // Navigate normally
   };
 
   return (
@@ -116,7 +118,11 @@ export default function OperationalIntelligencePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1px bg-white/5 border border-white/5 rounded-xl overflow-hidden">
               <AnimatePresence mode="popLayout">
                 {filteredInsights.map((item) => (
-                  <InsightCard key={item.id} item={item} />
+                  <InsightCard 
+                    key={item.id} 
+                    item={item} 
+                    onClick={() => router.push(`/intelligence/framework/${item.id}`)}
+                  />
                 ))}
               </AnimatePresence>
             </div>
@@ -129,7 +135,7 @@ export default function OperationalIntelligencePage() {
           </section>
 
           {/* Final Conversion Section */}
-          <section className="mt-24 pt-24 border-t border-white/5 text-center">
+          <section className="mt-24 pt-24 border-t border-white/5 text-center flex flex-col items-center">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="font-headline text-3xl md:text-5xl font-semibold leading-tight">
                 If your team is managing a similar operational problem, we scope a pilot in 2–3 weeks.
@@ -174,7 +180,7 @@ export default function OperationalIntelligencePage() {
   );
 }
 
-function InsightCard({ item }: { item: Insight }) {
+function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) {
   return (
     <motion.article
       layout
@@ -182,7 +188,7 @@ function InsightCard({ item }: { item: Insight }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       className="group bg-[#0A0A0A] p-10 flex flex-col h-full hover:bg-[#0D0D0D] transition-colors cursor-pointer"
-      onClick={() => window.location.href = `/intelligence/${item.id}`}
+      onClick={onClick}
     >
       <div className="flex justify-between items-start mb-8">
         <div className="text-[10px] font-mono uppercase tracking-widest text-[#0047AB] font-bold border border-[#0047AB]/20 px-2 py-0.5 rounded">
