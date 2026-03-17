@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -8,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { Footer } from '@/components/Footer';
 import { DEPLOYMENTS } from '@/lib/deployments-data';
 import { OperationalFlow } from "@/components/deployments/OperationalFlow";
 import { KPIExhibit } from "@/components/deployments/KPIExhibit";
@@ -33,9 +33,9 @@ export default function CaseStudyPage() {
 
   if (!deployment) {
     return (
-      <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center text-white">
+      <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center text-white font-body">
         <h1 className="text-4xl font-headline mb-4">Deployment Not Found</h1>
-        <Link href="/deployments" className="text-[#0047AB] underline font-body">Return to Library</Link>
+        <Link href="/deployments" className="text-[#0047AB] underline">Return to Library</Link>
       </div>
     );
   }
@@ -329,11 +329,7 @@ export default function CaseStudyPage() {
         </div>
       </main>
 
-      <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm font-body">
-        <div className="max-w-[1240px] mx-auto">
-          &copy; 2023 GreyShacks. All operational evidence measured and verified.
-        </div>
-      </footer>
+      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 

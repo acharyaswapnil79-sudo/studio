@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { Footer } from '@/components/Footer';
 import { INSIGHTS, CATEGORY_NAMES, Category, Insight } from '@/lib/intelligence-data';
 import { Clock, ArrowRight, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -138,10 +139,10 @@ export default function OperationalIntelligencePage() {
           <section className="mt-24 pt-24 border-t border-white/5 text-center flex flex-col items-center">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="font-headline text-3xl md:text-5xl font-semibold leading-tight">
-                If your team is managing a similar operational problem, we scope a pilot in 2–3 weeks.
+                Evaluating agentic systems in your operations?
               </h2>
               <p className="text-[#A0A0A0] text-lg md:text-xl font-body">
-                The pilot is production-safe and measured against your operational baseline.
+                We begin with a structured operational diagnostic (typically 2–3 weeks) to determine whether a system is the appropriate intervention.
               </p>
               <div className="flex justify-center">
                 <button 
@@ -157,11 +158,7 @@ export default function OperationalIntelligencePage() {
         </div>
       </main>
 
-      <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
-        <div className="max-w-[1240px] mx-auto">
-          &copy; {new Date().getFullYear()} GreyShacks. All decisions logged and audit-ready.
-        </div>
-      </footer>
+      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 

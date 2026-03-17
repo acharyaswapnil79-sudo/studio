@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -8,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { Footer } from '@/components/Footer';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { CheckCircle2, ArrowRight, Magnet, Repeat, Users, ReceiptText, BarChart3, ShoppingCart, MessageSquare, PieChart, FileText, ShieldCheck, Wallet, Activity, HardDrive, Key, Presentation } from 'lucide-react';
 
@@ -339,11 +339,7 @@ export default function CapabilitiesPage() {
         </div>
       </main>
 
-      <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
-        <div className="max-w-[1240px] mx-auto">
-          &copy; {new Date().getFullYear()} GreyShacks. All decisions logged and audit-ready.
-        </div>
-      </footer>
+      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 

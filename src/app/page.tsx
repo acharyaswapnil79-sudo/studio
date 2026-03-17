@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -11,6 +10,7 @@ import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { EngagementModel } from '@/components/EngagementModel';
+import { Footer } from '@/components/Footer';
 import Link from 'next/link';
 
 const SITE_EVIDENCE = {
@@ -127,6 +127,8 @@ export default function GreyShacksLanding() {
           </div>
         </section>
       </main>
+
+      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 

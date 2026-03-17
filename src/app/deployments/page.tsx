@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -7,6 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { Footer } from '@/components/Footer';
 import { DEPLOYMENTS } from '@/lib/deployments-data';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -40,9 +40,6 @@ export default function DeploymentLibraryPage() {
   }, []);
 
   const filteredDeployments = useMemo(() => {
-    // Debug logging
-    console.log("TOTAL DEPLOYMENTS:", DEPLOYMENTS.length);
-    
     const filtered = DEPLOYMENTS.filter(d => {
       const industryMatch =
         industryFilter === 'all' ||
@@ -73,7 +70,6 @@ export default function DeploymentLibraryPage() {
       );
     });
 
-    console.log("VISIBLE DEPLOYMENTS:", filtered.length);
     return filtered;
   }, [
     industryFilter,
@@ -349,11 +345,7 @@ export default function DeploymentLibraryPage() {
         </div>
       </main>
 
-      <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
-        <div className="max-w-[1240px] mx-auto">
-          &copy; 2023 GreyShacks. All decisions logged and audit-ready.
-        </div>
-      </footer>
+      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 

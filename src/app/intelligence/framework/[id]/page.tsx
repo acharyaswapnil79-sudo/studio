@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { Footer } from '@/components/Footer';
 import { INSIGHTS } from '@/lib/intelligence-data';
 import { ArrowLeft, ArrowRight, Clock, Info, CheckCircle2, ShieldCheck, BarChart3, Activity } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -29,21 +30,17 @@ export default function IntelligenceDetailPage() {
 
   const insight = INSIGHTS.find(item => item.id === id);
 
-  console.log("Route ID:", id);
-  console.log("Matched Insight:", insight);
-
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
     { name: "Capabilities", href: "/capabilities" },
-    { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
     { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   if (!insight) {
     return (
-      <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col items-center justify-center p-6 text-center font-body">
         <div className="max-w-md space-y-6">
           <h1 className="font-headline text-3xl font-bold">Analysis Pending</h1>
           <p className="text-[#A0A0A0] text-sm leading-relaxed">
@@ -62,7 +59,7 @@ export default function IntelligenceDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#D0D8E4] font-sans selection:bg-blue-900/30">
+    <div className="min-h-screen bg-[#0A0A0A] text-[#D0D8E4] font-body selection:bg-blue-900/30">
       <Navbar 
         isScrolled={isScrolled} 
         navLinks={navLinks} 
@@ -226,11 +223,7 @@ export default function IntelligenceDetailPage() {
         </div>
       </main>
 
-      <footer className="py-12 px-6 md:px-10 border-t border-white/5 text-center text-[#A0A0A0] text-sm">
-        <div className="max-w-[1240px] mx-auto">
-          &copy; {new Date().getFullYear()} GreyShacks. All decisions logged and audit-ready.
-        </div>
-      </footer>
+      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
 
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen} 
