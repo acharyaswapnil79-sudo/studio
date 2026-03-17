@@ -73,7 +73,7 @@ export function Footer({ onOpenIntake }: FooterProps) {
         {/* Bottom Strip */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[#404040] text-[11px]">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <span>&copy; 2026 GreyShacks. All rights reserved.</span>
+            <span>&copy; 2023 GreyShacks. All rights reserved.</span>
             <span className="hidden md:inline text-white/10">|</span>
             <span className="text-[#606060]">Built for operational teams — not demos.</span>
           </div>
