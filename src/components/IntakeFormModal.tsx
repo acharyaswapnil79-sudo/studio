@@ -1,13 +1,11 @@
-
 "use client"
-
+import { db } from "../firebase";
+import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, ChevronRight, ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useFirestore } from '@/firebase';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 interface IntakeFormModalProps {
   isOpen: boolean;
@@ -26,11 +24,10 @@ const OUTCOMES = ["Revenue growth", "Cost reduction", "Faster operations", "Erro
 
 export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
   const isMobile = useIsMobile();
-  const db = useFirestore();
   const [step, setStep] = useState<Step>(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     companyName: '',
     industry: '',
@@ -105,9 +102,10 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
         ...formData,
         id: newDocRef.id,
         currency,
-        submissionTimestamp: serverTimestamp(),
+        createdAt: serverTimestamp(),
+        status: "new"
       };
-      
+
       await setDoc(newDocRef, payload);
       setIsSubmitted(true);
     } catch (error) {
@@ -117,11 +115,11 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
     }
   };
 
-  const isStep1Valid = formData.companyName && formData.industry && formData.country && formData.companySize;
-  const isStep2Valid = formData.operationalProcess && formData.weeklyTimeSpent;
-  const isStep3Valid = formData.companyRevenueRange && formData.estimatedBudgetRange;
-  const isStep4Valid = formData.budgetStatus && formData.approverRole && formData.impactArea;
-  const isStep5Valid = formData.fullName && formData.businessEmail && formData.roleTitle && formData.confirmationOfPilotInterest;
+  const isStep1Valid = Boolean(formData.companyName && formData.industry && formData.country && formData.companySize);
+  const isStep2Valid = Boolean(formData.operationalProcess && formData.weeklyTimeSpent);
+  const isStep3Valid = Boolean(formData.companyRevenueRange && formData.estimatedBudgetRange);
+  const isStep4Valid = Boolean(formData.budgetStatus && formData.approverRole && formData.impactArea);
+  const isStep5Valid = Boolean(formData.fullName && formData.businessEmail && formData.roleTitle && formData.confirmationOfPilotInterest);
 
   const currentStepValid = () => {
     if (step === 1) return isStep1Valid;
@@ -142,7 +140,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
             onClick={onClose}
             className="absolute inset-0 bg-black/75 backdrop-blur-[10px]"
           />
-          
+
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -152,8 +150,8 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className={cn(
               "relative z-10 bg-[#0A0A0A] border border-white/5 flex flex-col shadow-2xl overflow-hidden",
-              isMobile 
-                ? "w-full h-[90vh] mt-auto rounded-t-[16px]" 
+              isMobile
+                ? "w-full h-[90vh] mt-auto rounded-t-[16px]"
                 : "w-[90%] max-w-[640px] max-h-[85vh] rounded-xl"
             )}
           >
@@ -172,7 +170,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                 </div>
                 {!isSubmitted && (
                   <div className="w-full bg-white/5 h-1 rounded-full mt-2">
-                    <motion.div 
+                    <motion.div
                       className="bg-[#0047AB] h-full rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${(step / 5) * 100}%` }}
@@ -180,7 +178,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                   </div>
                 )}
               </div>
-              <button 
+              <button
                 onClick={onClose}
                 className="w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-colors"
               >
@@ -452,8 +450,8 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                       disabled={!currentStepValid()}
                       className={cn(
                         "flex-1 md:flex-none flex items-center justify-center gap-2 font-bold text-sm px-8 py-3.5 rounded-lg transition-all",
-                        currentStepValid() 
-                          ? "bg-[#0047AB] text-white hover:bg-[#0047AB]/90" 
+                        currentStepValid()
+                          ? "bg-[#0047AB] text-white hover:bg-[#0047AB]/90"
                           : "bg-white/5 text-white/20 cursor-not-allowed"
                       )}
                     >
@@ -467,7 +465,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                       className={cn(
                         "flex-1 md:flex-none flex items-center justify-center gap-2 font-bold text-sm px-8 py-3.5 rounded-lg transition-all",
                         currentStepValid() && !isSubmitting
-                          ? "bg-[#0047AB] text-white hover:bg-[#0047AB]/90" 
+                          ? "bg-[#0047AB] text-white hover:bg-[#0047AB]/90"
                           : "bg-white/5 text-white/20 cursor-not-allowed"
                       )}
                     >
