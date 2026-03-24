@@ -1,5 +1,5 @@
 "use client"
-import { db } from "../firebase";
+import { useFirestore } from "@/firebase";
 import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,6 +24,7 @@ const OUTCOMES = ["Revenue growth", "Cost reduction", "Faster operations", "Erro
 
 export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
   const isMobile = useIsMobile();
+  const firestore = useFirestore();
   const [step, setStep] = useState<Step>(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,7 +97,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
 
     setIsSubmitting(true);
     try {
-      const pilotRequestsRef = collection(db, 'pilot_requests');
+      const pilotRequestsRef = collection(firestore, 'pilot_requests');
       const newDocRef = doc(pilotRequestsRef);
       const payload = {
         ...formData,
