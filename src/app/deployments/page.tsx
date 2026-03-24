@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -82,9 +83,12 @@ export default function DeploymentLibraryPage() {
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "About", href: "/about" },
     { name: "Capabilities", href: "/capabilities" },
+    { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" }
+    { name: "Field Intelligence", href: "/intelligence" },
+    { name: "Contact", href: "/contact" }
   ];
 
   return (
@@ -302,7 +306,7 @@ export default function DeploymentLibraryPage() {
                       onClick={() => setIsIntakeOpen(true)}
                       className="flex-1 bg-[#0047AB] text-white text-[11px] font-bold py-2.5 rounded-md hover:bg-[#0047AB]/90 transition-colors"
                     >
-                      Scope a Pilot
+                      Request Diagnostic
                     </button>
                     <Link 
                       href={`/deployments/${d.id}`}
@@ -320,17 +324,17 @@ export default function DeploymentLibraryPage() {
           <section className="mt-24 pt-24 border-t border-white/5 text-center">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="font-headline text-3xl md:text-5xl font-semibold leading-tight">
-                If your team is managing a similar operational problem, we scope a pilot in 2–3 weeks.
+                If your team is managing a similar operational problem, we scope a diagnostic in 2–3 weeks.
               </h2>
               <p className="text-[#A0A0A0] text-lg md:text-xl">
-                The pilot is production-safe and measured against your operational baseline.
+                The diagnostic is production-safe and measured against your operational baseline.
               </p>
               <div className="flex flex-col md:flex-row gap-4 justify-center">
                 <button 
                   onClick={() => setIsIntakeOpen(true)}
                   className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2"
                 >
-                  Scope a Pilot
+                  Request an Operational Diagnostic
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <button 

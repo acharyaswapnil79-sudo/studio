@@ -1,3 +1,4 @@
+
 "use client"
 import { useFirestore } from "@/firebase";
 import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
@@ -166,7 +167,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                     </button>
                   )}
                   <h2 className="font-headline text-lg md:text-xl text-white">
-                    {isSubmitted ? "Assessment Received" : `Step ${step} of 5 — Operational Assessment`}
+                    {isSubmitted ? "Assessment Received" : `Step ${step} of 5 — Operational Diagnostic`}
                   </h2>
                 </div>
                 {!isSubmitted && (
@@ -324,7 +325,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                             <option value="" disabled>Select range</option>
                             {budgetRanges.map(b => <option key={b}>{b}</option>)}
                           </select>
-                          <p className="text-[11px] text-[#A0A0A0]">This helps us scope the pilot appropriately.</p>
+                          <p className="text-[11px] text-[#A0A0A0]">This helps us scope the diagnostic appropriately.</p>
                         </div>
                       </div>
                     </div>
@@ -375,7 +376,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
 
                   {step === 5 && (
                     <div className="space-y-6">
-                      <h3 className="text-xl font-bold text-white">Where should we send the pilot assessment?</h3>
+                      <h3 className="text-xl font-bold text-white">Where should we send the diagnostic assessment?</h3>
                       <div className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-1.5">
@@ -428,7 +429,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                             onChange={(e) => setFormData({ ...formData, confirmationOfPilotInterest: e.target.checked })}
                           />
                           <label htmlFor="pilot-confirm" className="text-[#A0A0A0] text-[13px] leading-relaxed cursor-pointer">
-                            I confirm this request relates to evaluating a potential operational pilot.
+                            I confirm this request relates to evaluating a potential operational diagnostic.
                           </label>
                         </div>
                       </div>
@@ -470,7 +471,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                           : "bg-white/5 text-white/20 cursor-not-allowed"
                       )}
                     >
-                      {isSubmitting ? "Submitting..." : "Request Access"}
+                      {isSubmitting ? "Submitting..." : "Request an Operational Diagnostic"}
                       {!isSubmitting && <ChevronRight className="w-4 h-4" />}
                     </button>
                   )}

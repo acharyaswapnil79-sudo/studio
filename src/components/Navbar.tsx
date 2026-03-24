@@ -85,7 +85,7 @@ export function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen
             transition={{ type: "spring", stiffness: 500, damping: 30 }}
             className="bg-[#0047AB] text-white font-semibold text-[13.5px] px-5 py-2.5 rounded-[7px] shadow-[0_4px_16px_rgba(0,71,171,0.25)] hover:shadow-[0_6px_28px_rgba(0,71,171,0.45)] whitespace-nowrap"
           >
-            Apply for Pilot
+            Request an Operational Diagnostic
           </motion.button>
         </div>
 
@@ -94,7 +94,7 @@ export function Navbar({ isScrolled, navLinks, mobileMenuOpen, setMobileMenuOpen
             onClick={onOpenIntake}
             className="bg-[#0047AB] text-white font-semibold text-[12px] px-4 py-2 rounded-[7px] shadow-lg whitespace-nowrap"
           >
-            Apply for Pilot
+            Request Diagnostic
           </button>
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

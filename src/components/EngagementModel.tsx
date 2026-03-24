@@ -128,7 +128,7 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
                 onClick={onOpenIntake}
                 className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0047AB]/90 transition-colors"
               >
-                Discuss an Operational Diagnostic
+                Request an Operational Diagnostic
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
               <button 

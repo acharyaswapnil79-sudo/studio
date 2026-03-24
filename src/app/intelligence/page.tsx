@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -31,10 +32,12 @@ export default function OperationalIntelligencePage() {
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "About", href: "/about" },
     { name: "Capabilities", href: "/capabilities" },
     { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" }
+    { name: "Field Intelligence", href: "/intelligence" },
+    { name: "Contact", href: "/contact" }
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
@@ -149,7 +152,7 @@ export default function OperationalIntelligencePage() {
                   onClick={() => setIsIntakeOpen(true)}
                   className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2 font-body"
                 >
-                  Discuss an Operational Diagnostic
+                  Request an Operational Diagnostic
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -194,9 +197,13 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
         <div className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{item.date}</div>
       </div>
       
-      <h3 className="font-headline text-2xl font-bold mb-4 leading-snug text-white/90 group-hover:text-white transition-colors">
+      <h3 className="font-headline text-2xl font-bold mb-2 leading-snug text-white/90 group-hover:text-white transition-colors">
         {item.title}
       </h3>
+
+      <div className="text-[10px] text-[#606060] font-medium mb-6 uppercase tracking-widest">
+        By Swapnil Nanda, Founder — GreyShacks
+      </div>
       
       <div className="flex items-center gap-2 text-[10px] font-mono text-[#0047AB] mb-6 uppercase tracking-widest">
         <Info className="w-3 h-3" />

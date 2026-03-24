@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -164,9 +165,12 @@ export default function CapabilitiesPage() {
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "About", href: "/about" },
     { name: "Capabilities", href: "/capabilities" },
+    { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" }
+    { name: "Field Intelligence", href: "/intelligence" },
+    { name: "Contact", href: "/contact" }
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
@@ -281,7 +285,7 @@ export default function CapabilitiesPage() {
                 onClick={() => setIsIntakeOpen(true)}
                 className="text-[#0047AB] font-bold underline hover:text-white transition-colors"
               >
-                Request a tailored systems map
+                Request an Operational Diagnostic
               </button>
             </div>
           </section>
@@ -331,7 +335,7 @@ export default function CapabilitiesPage() {
                 onClick={() => setIsIntakeOpen(true)}
                 className="bg-[#0047AB] text-white font-bold text-[14.5px] px-8 py-4 rounded-[7px] shadow-lg flex items-center gap-2"
               >
-                Request pilot methodology — we’ll send it under a mutual NDA within 48 hours.
+                Request an Operational Diagnostic
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </div>

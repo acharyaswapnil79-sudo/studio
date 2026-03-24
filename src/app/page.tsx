@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { cn } from '@/lib/utils';
-import { Users, Magnet, ReceiptText, BarChart3, Repeat, ShoppingCart, MessageSquare, PieChart, FileText, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Users, Magnet, ReceiptText, BarChart3, Repeat, ShoppingCart, MessageSquare, PieChart, FileText, ShieldCheck, ArrowRight, Factory, Building2, Truck, Landmark, Stethoscope, Briefcase, ShoppingBag, Laptop } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
@@ -33,6 +33,32 @@ const CAPABILITIES = [
   { id: 'ops-reporting', icon: PieChart, name: 'Operations Reporting & Alerting', description: 'Operational data aggregated across systems to generate leadership reports, dashboards, and real-time alerts.' },
   { id: 'contract-intel', icon: FileText, name: 'Contract & Document Intelligence', description: 'Contract ingestion, clause extraction, obligation tracking, and renewal alerts managed by the system.' },
   { id: 'compliance', icon: ShieldCheck, name: 'Compliance & Audit Trail Management', description: 'Every system decision logged with context and decision logic — producing audit-ready histories handled by the system.' }
+];
+
+const INDUSTRIES = [
+  { id: 'mfg', icon: Factory, name: 'Manufacturing', description: 'Production quality, procurement, and vendor operations' },
+  { id: 're', icon: Building2, name: 'Real Estate', description: 'Lead operations, sales follow-up, and documentation workflows' },
+  { id: 'log', icon: Truck, name: 'Logistics & Supply Chain', description: 'Exception management, PO tracking, and delivery reconciliation' },
+  { id: 'fin', icon: Landmark, name: 'Financial Services', description: 'AR automation, compliance monitoring, and close cycle compression' },
+  { id: 'hc', icon: Stethoscope, name: 'Healthcare Administration', description: 'Scheduling, claims pre-processing, and patient communications' },
+  { id: 'prof', icon: Briefcase, name: 'Professional Services', description: 'Contract intelligence, billing operations, and reporting' },
+  { id: 'retail', icon: ShoppingBag, name: 'Retail & E-commerce', description: 'Customer query resolution, refund workflows, and inventory ops' },
+  { id: 'saas', icon: Laptop, name: 'SaaS & Technology', description: 'Lead operations, onboarding automation, and access provisioning' }
+];
+
+const HOW_WE_WORK = [
+  {
+    title: "We Start With Your Baseline, Not Our Technology",
+    body: "Before any system is built, we spend 2–4 weeks mapping your current operational workflows and capturing a 4-week performance baseline. We do not propose solutions until we can measure whether they worked."
+  },
+  {
+    title: "We Only Publish Outcomes We Can Defend",
+    body: "Every figure on this site — workflows automated, time saved, ROI period — is derived from pilot-phase measurement against a real operational baseline. Where a figure is a projection, we say so explicitly. Where it is observed, we can show the data."
+  },
+  {
+    title: "We Do Not Scale Until the Pilot Proves It",
+    body: "Our engagement model is structured so that full deployment is contingent on measurable pilot outcomes — not on a contract already signed. If the pilot does not deliver, we do not proceed. That is in writing."
+  }
 ];
 
 export default function GreyShacksLanding() {
@@ -85,10 +111,12 @@ export default function GreyShacksLanding() {
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "About", href: "/about" },
     { name: "Capabilities", href: "/capabilities" },
     { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" }
+    { name: "Field Intelligence", href: "/intelligence" },
+    { name: "Contact", href: "/contact" }
   ];
 
   return (
@@ -108,6 +136,27 @@ export default function GreyShacksLanding() {
         <IndustriesSection />
         <OperationalImpactSection openMethodologyModal={() => setIsMethodologyOpen(true)} />
         <CapabilitiesSection />
+        
+        {/* How We Work Section */}
+        <section className="py-24 bg-[#0D0D0D] px-6 md:px-10 border-t border-white/5">
+          <div className="max-w-[1240px] mx-auto">
+            <div className="mb-16">
+              <h2 className="font-headline text-white text-3xl md:text-4xl mb-4">How We Work</h2>
+              <p className="text-[#A0A0A0] text-lg max-w-3xl leading-relaxed">
+                Three principles that govern every engagement we take on.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {HOW_WE_WORK.map((item, i) => (
+                <div key={i} className="bg-[#111111] border border-[#1F1F1F] p-8 rounded-[12px]">
+                  <h3 className="text-white font-bold text-lg mb-4 leading-tight">{item.title}</h3>
+                  <p className="text-[#A0A0A0] text-[14px] leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <EngagementModel 
           onOpenIntake={() => setIsIntakeOpen(true)} 
           onOpenMethodology={() => setIsMethodologyOpen(true)}
@@ -212,7 +261,7 @@ function HeroSection({ onOpenIntake }: { onOpenIntake: () => void }) {
             onClick={onOpenIntake}
             className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14.5px] px-[30px] py-[14px] rounded-[7px] shadow-[0_8px_28px_rgba(0,71,171,0.32)] md:min-w-[180px] whitespace-nowrap"
           >
-            Apply for Pilot
+            Request an Operational Diagnostic
             <ArrowRight className="w-4 h-4" />
           </motion.button>
           
@@ -231,46 +280,21 @@ function HeroSection({ onOpenIntake }: { onOpenIntake: () => void }) {
 }
 
 function IndustriesSection() {
-  const industries = [
-    "Manufacturing", "Real Estate", "Retail", "Logistics", 
-    "Food & Beverage", "Healthcare", "SaaS", "Financial Services", 
-    "Telecommunications", "Energy", "Supply Chain", "E-commerce", 
-    "Construction", "Professional Services"
-  ];
-
   return (
-    <section className="bg-[#0A0A0A] border-t border-white/6 py-16 md:py-24 overflow-hidden relative">
-      <div className="flex flex-col items-center">
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="font-body text-[13px] tracking-[0.1em] text-[#A0A0A0] uppercase mb-10 text-center"
-        >
-          Trusted by enterprise teams across industries
-        </motion.p>
-
-        <div className="w-full relative overflow-hidden whitespace-nowrap">
-          <div className="flex animate-industry-marquee w-max">
-            {[...industries, ...industries].map((industry, i) => (
-              <div key={i} className="flex items-center">
-                <span className="font-headline text-[20px] md:text-[28px] text-white/70 px-[30px] leading-none">
-                  {industry}
-                </span>
-                <div className="w-[1px] h-[24px] bg-white/15" />
-              </div>
-            ))}
-          </div>
+    <section className="bg-[#0A0A0A] border-t border-white/6 py-16 md:py-24 px-6 md:px-10">
+      <div className="max-w-[1240px] mx-auto">
+        <div className="mb-12 text-center">
+          <h2 className="font-headline text-white text-3xl md:text-4xl mb-4">Industries We Operate In</h2>
         </div>
-
-        <motion.p 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="mt-10 px-6 font-body text-[16px] text-[#A0A0A0] text-center max-w-[640px] leading-[1.7]"
-        >
-          GreyShacks builds operational systems for organizations where efficiency, speed, and accuracy directly impact revenue.
-        </motion.p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {INDUSTRIES.map((industry) => (
+            <div key={industry.id} className="bg-[#111111] border border-white/5 p-6 rounded-[12px] hover:border-[#0047AB]/30 transition-all group">
+              <industry.icon className="w-6 h-6 text-[#0047AB] mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="text-white font-bold text-[16px] mb-2">{industry.name}</h3>
+              <p className="text-[#A0A0A0] text-[13px] leading-relaxed">{industry.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -306,7 +330,7 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
   return (
     <section id="operational-impact" className="bg-[#0D0D0D] border-t border-white/5 py-14 md:py-24 px-6 md:px-10">
       <div className="max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
           <div className="lg:col-span-1">
             <h2 className="font-headline text-white text-3xl md:text-4xl mb-6">Operational Impact Benchmarks</h2>
             <p className="text-[#A0A0A0] text-lg leading-relaxed mb-8">
@@ -342,6 +366,15 @@ function OperationalImpactSection({ openMethodologyModal }: { openMethodologyMod
               </motion.div>
             ))}
           </div>
+        </div>
+        
+        <div className="max-w-3xl pt-8 border-t border-white/5">
+          <p className="text-[#606060] text-xs italic leading-relaxed mb-4">
+            Outcomes are calculated using a conservative measurement methodology — annualised from pilot-phase data, validated against 4-week operational baselines captured before deployment. Figures represent the median of observed ranges, not peak outcomes. Full methodology available on request.
+          </p>
+          <Link href="/intelligence" className="text-[#0047AB] text-xs font-bold hover:underline">
+            Read our measurement methodology →
+          </Link>
         </div>
       </div>
     </section>

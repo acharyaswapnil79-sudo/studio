@@ -22,11 +22,16 @@ export function Footer({ onOpenIntake }: FooterProps) {
                 Operational Intelligence for Agentic Systems
               </div>
             </div>
-            <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-sm">
-              We design and deploy production-grade agentic systems across finance, logistics, sales, and operations — with measurable outcomes and audit-ready governance.
-            </p>
+            <div className="space-y-4">
+              <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-sm">
+                We design and deploy production-grade agentic systems across finance, logistics, sales, and operations — with measurable outcomes and audit-ready governance.
+              </p>
+              <p className="text-[#A0A0A0] text-[11px] leading-relaxed max-w-sm">
+                Headquartered in India. Serving mid-market businesses across APAC, MENA, and NAMER.
+              </p>
+            </div>
             <div className="text-[#A0A0A0] text-xs font-medium">
-              👉 No fluff. No buzzwords.
+              No fluff. No buzzwords.
             </div>
           </div>
 
@@ -45,10 +50,10 @@ export function Footer({ onOpenIntake }: FooterProps) {
             <div className="space-y-6">
               <h4 className="text-white font-bold text-xs uppercase tracking-widest">Resources</h4>
               <ul className="space-y-4">
+                <li><Link href="/about" className="text-[#606060] hover:text-white transition-colors text-sm">About</Link></li>
                 <li><Link href="/intelligence" className="text-[#606060] hover:text-white transition-colors text-sm">Frameworks</Link></li>
                 <li><Link href="/deployments" className="text-[#606060] hover:text-white transition-colors text-sm">Case Studies</Link></li>
                 <li><Link href="/intelligence" className="text-[#606060] hover:text-white transition-colors text-sm">Measurement Methodology</Link></li>
-                <li><Link href="/intelligence" className="text-[#606060] hover:text-white transition-colors text-sm">Failure Analysis</Link></li>
               </ul>
             </div>
           </div>
@@ -65,7 +70,7 @@ export function Footer({ onOpenIntake }: FooterProps) {
               onClick={onOpenIntake}
               className="w-full bg-[#0047AB] text-white font-bold text-sm py-4 rounded-lg shadow-lg hover:bg-[#0047AB]/90 transition-all flex items-center justify-center gap-2"
             >
-              Apply for Pilot
+              Request an Operational Diagnostic
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -74,14 +79,14 @@ export function Footer({ onOpenIntake }: FooterProps) {
         {/* Bottom Strip */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[#404040] text-[11px]">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <span>&copy; 2023 GreyShacks. All rights reserved.</span>
+            <span>&copy; 2026 GreyShacks. All rights reserved.</span>
             <span className="hidden md:inline text-white/10">|</span>
             <span className="text-[#606060]">Built for operational teams — not demos.</span>
           </div>
           
           <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
           </div>
         </div>
         
