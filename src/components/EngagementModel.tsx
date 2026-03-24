@@ -6,6 +6,11 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 
+interface EngagementModelProps {
+  onOpenIntake: () => void;
+  onOpenMethodology: () => void;
+}
+
 const STEPS = [
   {
     id: "01",
@@ -42,7 +47,7 @@ const STEPS = [
   }
 ];
 
-export function EngagementModel({ onOpenIntake }: { onOpenIntake: () => void }) {
+export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementModelProps) {
   return (
     <section 
       id="engagement-model" 
@@ -116,16 +121,22 @@ export function EngagementModel({ onOpenIntake }: { onOpenIntake: () => void }) 
                 We do not proceed to full deployment unless the pilot delivers measurable outcomes against your baseline. No surprise fees. No hidden lock-ins.
               </p>
             </div>
-            <div className="shrink-0 w-full md:w-auto">
+            <div className="shrink-0 w-full md:w-auto flex flex-col sm:flex-row gap-4">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onOpenIntake}
-                className="w-full md:w-auto flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0047AB]/90 transition-colors"
+                className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0047AB]/90 transition-colors"
               >
                 Discuss an Operational Diagnostic
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
+              <button 
+                onClick={onOpenMethodology}
+                className="bg-transparent border border-white/10 text-white font-bold text-[14px] px-8 py-4 rounded-lg hover:bg-white/5 transition-all"
+              >
+                Request Deployment Brief (NDA)
+              </button>
             </div>
           </div>
         </div>

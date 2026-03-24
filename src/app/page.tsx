@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -107,7 +108,10 @@ export default function GreyShacksLanding() {
         <IndustriesSection />
         <OperationalImpactSection openMethodologyModal={() => setIsMethodologyOpen(true)} />
         <CapabilitiesSection />
-        <EngagementModel onOpenIntake={() => setIsIntakeOpen(true)} />
+        <EngagementModel 
+          onOpenIntake={() => setIsIntakeOpen(true)} 
+          onOpenMethodology={() => setIsMethodologyOpen(true)}
+        />
         
         {/* Case Studies Teaser */}
         <section id="case-studies" className="py-24 bg-[#0D0D0D] px-6 md:px-10 border-t border-white/5">
