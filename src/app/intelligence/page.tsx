@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -36,8 +35,7 @@ export default function OperationalIntelligencePage() {
     { name: "Capabilities", href: "/capabilities" },
     { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" },
-    { name: "Contact", href: "/contact" }
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
@@ -202,7 +200,7 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
       </h3>
 
       <div className="text-[10px] text-[#606060] font-medium mb-6 uppercase tracking-widest">
-        By Swapnil Nanda, Founder — GreyShacks
+        By Swapnil Acharya, Founder — GreyShacks
       </div>
       
       <div className="flex items-center gap-2 text-[10px] font-mono text-[#0047AB] mb-6 uppercase tracking-widest">

@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -90,7 +89,7 @@ export function Footer({ onOpenIntake }: FooterProps) {
           </div>
         </div>
         
-        <div className="mt-8 text-center text-[10px] font-mono uppercase tracking-[0.2em] text-white/20">
+        <div className="mt-8 text-center text-[10px] font-mono uppercase tracking-[0.2em] text-white">
           No generic AI solutions. Only deployment-backed systems.
         </div>
       </div>

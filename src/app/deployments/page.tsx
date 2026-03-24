@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -87,8 +86,7 @@ export default function DeploymentLibraryPage() {
     { name: "Capabilities", href: "/capabilities" },
     { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" },
-    { name: "Contact", href: "/contact" }
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   return (

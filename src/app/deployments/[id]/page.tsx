@@ -43,7 +43,9 @@ export default function CaseStudyPage() {
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "About", href: "/about" },
     { name: "Capabilities", href: "/capabilities" },
+    { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
     { name: "Field Intelligence", href: "/intelligence" }
   ];
@@ -273,7 +275,7 @@ export default function CaseStudyPage() {
                     onClick={() => setIsIntakeOpen(true)}
                     className="w-full bg-white text-[#0047AB] font-bold text-sm py-3.5 rounded-lg hover:bg-white/90 transition-colors"
                   >
-                    Apply for Pilot
+                    Request an Operational Diagnostic
                   </button>
                 </div>
               </div>
@@ -314,7 +316,7 @@ export default function CaseStudyPage() {
                   onClick={() => setIsIntakeOpen(true)}
                   className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2 font-body"
                 >
-                  Apply for Pilot
+                  Request an Operational Diagnostic
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <button 

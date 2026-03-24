@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -169,8 +168,7 @@ export default function CapabilitiesPage() {
     { name: "Capabilities", href: "/capabilities" },
     { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" },
-    { name: "Contact", href: "/contact" }
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {

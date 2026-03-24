@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -80,19 +79,6 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, ha
                 )}
               </React.Fragment>
             ))}
-            
-            <motion.button
-              initial={{ y: 18, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.46 }}
-              onClick={() => {
-                onOpenIntake();
-                onClose();
-              }}
-              className="mt-8 w-full max-w-[280px] bg-[#0047AB] text-white font-bold text-[14.5px] py-3.5 rounded-[7px] shadow-xl"
-            >
-              Request an Operational Diagnostic
-            </motion.button>
           </div>
         </motion.div>
       )}

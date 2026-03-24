@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -27,8 +26,7 @@ export default function AboutPage() {
     { name: "Capabilities", href: "/capabilities" },
     { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" },
-    { name: "Contact", href: "/contact" }
+    { name: "Field Intelligence", href: "/intelligence" }
   ];
 
   return (
@@ -74,12 +72,12 @@ export default function AboutPage() {
               <section>
                 <h2 className="font-headline text-2xl md:text-3xl font-bold mb-8 text-white">The Founder</h2>
                 <div className="bg-[#111111] border border-white/5 p-8 md:p-12 rounded-xl shadow-xl">
-                  <h3 className="text-white font-bold text-2xl mb-1">Swapnil Nanda</h3>
+                  <h3 className="text-white font-bold text-2xl mb-1">Swapnil Acharya</h3>
                   <p className="text-[#0047AB] font-mono text-xs uppercase tracking-widest mb-8">Founder, GreyShacks</p>
                   
                   <div className="space-y-6 text-[#A0A0A0] leading-relaxed">
                     <p>
-                      Swapnil Nanda founded GreyShacks to solve a problem he observed consistently across mid-market operations: the gap between what enterprise AI promises and what actually ships into production.
+                      Swapnil Acharya founded GreyShacks to solve a problem he observed consistently across mid-market operations: the gap between what enterprise AI promises and what actually ships into production.
                     </p>
                     <p>
                       Most organisations pursuing AI automation end up with demos, disconnected tools, or systems that require more oversight than the manual process they replaced. GreyShacks was built to close that gap — with a methodology that starts with operational diagnosis, runs through time-boxed pilots with weekly measurement, and scales only when the numbers support it.

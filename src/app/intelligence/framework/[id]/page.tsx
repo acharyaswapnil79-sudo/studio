@@ -33,7 +33,9 @@ export default function IntelligenceDetailPage() {
   const navLinks = [
     { name: "Command Center", href: "/#hero" },
     { name: "Operational Impact", href: "/#operational-impact" },
+    { name: "About", href: "/about" },
     { name: "Capabilities", href: "/capabilities" },
+    { name: "Engagement", href: "/#engagement-model" },
     { name: "Deployment Library", href: "/deployments" },
     { name: "Field Intelligence", href: "/intelligence" }
   ];
@@ -208,7 +210,7 @@ export default function IntelligenceDetailPage() {
                   onClick={() => setIsIntakeOpen(true)}
                   className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2 font-body"
                 >
-                  Discuss an Operational Diagnostic
+                  Request an Operational Diagnostic
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
