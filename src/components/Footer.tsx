@@ -1,8 +1,9 @@
+
 "use client"
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Linkedin, Instagram } from 'lucide-react';
 
 interface FooterProps {
   onOpenIntake: () => void;
@@ -29,8 +30,30 @@ export function Footer({ onOpenIntake }: FooterProps) {
                 Headquartered in India. Serving mid-market businesses across APAC, MENA, and NAMER.
               </p>
             </div>
-            <div className="text-[#A0A0A0] text-xs font-medium">
-              No fluff. No buzzwords.
+            <div className="space-y-6">
+              <div className="text-[#A0A0A0] text-xs font-medium">
+                No fluff. No buzzwords.
+              </div>
+              <div className="flex items-center gap-5">
+                <a 
+                  href="https://www.linkedin.com/company/greyshacks" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[#606060] hover:text-white transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a 
+                  href="https://www.instagram.com/greyshacks?igsh=MWg1NHlsMjlqbWl5ag%3D%3D&utm_source=qr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[#606060] hover:text-white transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
 
