@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -39,7 +40,7 @@ export default function OperationalIntelligencePage() {
   ];
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
-    // Navigate normally
+    // Navigation handled by router or standard anchor logic
   };
 
   return (

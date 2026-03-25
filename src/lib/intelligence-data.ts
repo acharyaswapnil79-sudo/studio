@@ -67,7 +67,7 @@ export interface Insight {
 }
 
 // ==============================
-// DATA
+// DATA (Field Intelligence Content)
 // ==============================
 
 export const INSIGHTS: Insight[] = [
@@ -435,30 +435,6 @@ export const INSIGHTS: Insight[] = [
           callout: {
             number: '5.7 hrs/day',
             label: 'Recruiter time spent on application intake administration pre-deployment.'
-          }
-        }
-      ]
-    },
-    {
-      id: 'framework-16',
-      type: 'framework',
-      category: 'Financial Consolidation',
-      title: 'Multi-Entity Financial Consolidation: Designing Systems for Complex Finance Architectures',
-      provenance: 'Framework developed across N=4 multi-entity financial consolidation deployments',
-      readingTime: '12 min read',
-      date: 'AUG 2025',
-      dataWindow: '2022–2025',
-      reliability: 'Field-validated',
-      summary: 'A framework for multi-entity financial consolidation — addressing the intercompany matching process and close cascade compression.',
-      openingParagraph: 'Multi-entity financial consolidation is an exponential complexity problem. Each additional entity adds intercompany relationships with every existing entity.',
-      pullQuote: 'The slowest entity determines the group start date for consolidation.',
-      sections: [
-        {
-          heading: 'System Intervention Points',
-          content: 'Auto-match rate for intercompany transactions reached 74% in a holding company deployment, reducing human investigation load.',
-          callout: {
-            number: '74%',
-            label: 'Intercompany transaction auto-match rate in a holding company deployment.'
           }
         }
       ]
