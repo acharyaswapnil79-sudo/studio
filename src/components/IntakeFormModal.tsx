@@ -16,7 +16,7 @@ interface IntakeFormModalProps {
 type Step = 1 | 2 | 3 | 4 | 5;
 
 const INDUSTRIES = ["Manufacturing", "Real Estate", "Retail", "Logistics", "Food & Beverage", "SaaS", "Financial Services", "Healthcare", "Construction", "Other"];
-const COUNTRIES = ["India", "United States", "Germany", "France", "Spain", "UAE", "Other"];
+const COUNTRIES = ["India", "United States", "Germany", "France", "Spain", "Ireland", "UK", "UAE", "Singapore", "Australia", "Canada", "Other"];
 const SIZES = ["10–50 employees", "50–200 employees", "200–1000 employees", "1000+"];
 const PROCESSES = ["Lead operations", "Sales follow-up", "Hiring & candidate screening", "Accounts receivable", "Financial reporting", "Procurement & vendor coordination", "Customer query resolution", "Contract/document management", "Compliance tracking", "Other"];
 const TIME_SPENT = ["Under 10 hours", "10–40 hours", "40–100 hours", "100+ hours"];
@@ -55,26 +55,37 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
       case 'United States': return 'USD';
       case 'Germany':
       case 'France':
-      case 'Spain': return 'EUR';
+      case 'Spain':
+      case 'Ireland':
+      case 'UK': return 'EUR'; // Mapping UK to EUR as requested if GBP not supported
       case 'UAE': return 'AED';
+      case 'Singapore': return 'SGD';
+      case 'Australia': return 'AUD';
+      case 'Canada': return 'CAD';
       default: return 'USD';
     }
   }, [formData.country]);
 
   const revenueRanges = useMemo(() => {
-    if (currency === 'INR') return ["Under ₹10 Cr", "₹10 Cr – ₹50 Cr", "₹50 Cr – ₹200 Cr", "₹200 Cr+"];
-    if (currency === 'USD') return ["Under $5M", "$5M – $25M", "$25M – $100M", "$100M+"];
-    if (currency === 'EUR') return ["Under €5M", "€5M – €25M", "€25M – €100M", "€100M+"];
-    if (currency === 'AED') return ["Under 20M AED", "20M – 100M AED", "100M – 400M AED", "400M+ AED"];
-    return ["Under $5M", "$5M – $25M", "$25M – $100M", "$100M+"];
+    if (currency === 'INR') return ["₹10 Cr – ₹50 Cr", "₹50 Cr – ₹200 Cr", "₹200 Cr – ₹500 Cr", "₹500 Cr+"];
+    if (currency === 'USD') return ["$5M – $25M", "$25M – $100M", "$100M – $250M", "$250M+"];
+    if (currency === 'EUR') return ["€5M – €25M", "€25M – €100M", "€100M – €250M", "€250M+"];
+    if (currency === 'AED') return ["20M – 100M AED", "100M – 400M AED", "400M – 1B AED", "1B+ AED"];
+    if (currency === 'SGD') return ["S$10M – S$50M", "S$50M – S$200M", "S$200M+"];
+    if (currency === 'AUD') return ["A$10M – A$50M", "A$50M – A$200M", "A$200M+"];
+    if (currency === 'CAD') return ["C$10M – C$50M", "C$50M – C$200M", "C$200M+"];
+    return ["$5M – $25M", "$25M – $100M", "$100M+"];
   }, [currency]);
 
   const budgetRanges = useMemo(() => {
-    if (currency === 'INR') return ["Under ₹2L", "₹2L – ₹5L", "₹5L – ₹15L", "₹15L+"];
-    if (currency === 'USD') return ["Under $10K", "$10K – $30K", "$30K – $100K", "$100K+"];
-    if (currency === 'EUR') return ["Under €10K", "€10K – €30K", "€30K – €100K", "€100K+"];
-    if (currency === 'AED') return ["Under 40K AED", "40K – 120K AED", "120K – 400K AED", "400K+ AED"];
-    return ["Under $10K", "$10K – $30K", "$30K – $100K", "$100K+"];
+    if (currency === 'INR') return ["₹5L – ₹15L", "₹15L – ₹30L", "₹30L – ₹75L", "₹75L+"];
+    if (currency === 'USD') return ["$15K – $30K", "$30K – $75K", "$75K – $150K", "$150K+"];
+    if (currency === 'EUR') return ["€15K – €30K", "€30K – €75K", "€75K – €150K", "€150K+"];
+    if (currency === 'AED') return ["40K – 120K AED", "120K – 300K AED", "300K – 600K AED", "600K+ AED"];
+    if (currency === 'SGD') return ["S$20K – S$50K", "S$50K – S$100K", "S$100K – S$200K", "S$200K+"];
+    if (currency === 'AUD') return ["A$20K – A$50K", "A$50K – A$100K", "A$100K – A$200K", "A$200K+"];
+    if (currency === 'CAD') return ["C$20K – C$50K", "C$50K – C$100K", "C$100K – C$200K", "C$200K+"];
+    return ["$15K – $30K", "$30K – $75K", "$75K – $150K", "$150K+"];
   }, [currency]);
 
   useEffect(() => {
@@ -130,6 +141,15 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
     if (step === 4) return isStep4Valid;
     return isStep5Valid;
   };
+
+  // Reset dependent fields when country changes
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      companyRevenueRange: '',
+      estimatedBudgetRange: ''
+    }));
+  }, [formData.country]);
 
   return (
     <AnimatePresence>
