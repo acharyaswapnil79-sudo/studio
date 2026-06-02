@@ -1,8 +1,8 @@
 
 "use client"
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
@@ -51,6 +51,27 @@ const FEATURES = [
     desc: "We don't deliver prototypes. Every system goes into live operations — tested, monitored, and maintained."
   }
 ];
+
+function CountUp({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+
+  useEffect(() => {
+    if (isInView) {
+      animate(count, value, { duration: 1.5, ease: "easeOut" });
+    }
+  }, [isInView, count, value]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      <motion.span>{rounded}</motion.span>
+      {suffix}
+    </span>
+  );
+}
 
 export default function GreyShacksHome() {
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
@@ -248,8 +269,61 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
+        {/* INSTITUTIONAL METRICS STRIP */}
+        <section className="bg-[#111111] border-y border-[#1E1E1E] py-[48px]">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 items-center">
+              {/* Metric 1 */}
+              <div className="flex flex-col gap-2 px-4 md:border-r border-[#1E1E1E]">
+                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+                  <CountUp value={190} suffix="+" />
+                </div>
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
+                  Workflows Automated
+                </div>
+              </div>
+
+              {/* Metric 2 */}
+              <div className="flex flex-col gap-2 px-4 md:border-r border-[#1E1E1E]">
+                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+                  <CountUp value={8} prefix="$" suffix="M+" />
+                </div>
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
+                  Annual Savings Tracked Across Deployments
+                </div>
+              </div>
+
+              {/* Metric 3 */}
+              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0 md:border-r border-[#1E1E1E]">
+                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+                  8–14 wk
+                </div>
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
+                  Typical ROI Window
+                </div>
+              </div>
+
+              {/* Metric 4 */}
+              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0">
+                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+                  <CountUp value={30} suffix="+" />
+                </div>
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
+                  Production Deployments
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-12 text-center">
+              <p className="text-[10px] italic text-[#555555]">
+                Figures represent aggregate outcomes across client deployments from Q3 2023–Q1 2026.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* INDUSTRIES SECTION */}
-        <section className="bg-[#111111] py-24 border-y border-[#222222]">
+        <section className="bg-[#111111] py-24 border-b border-[#222222]">
           <div className="container mx-auto px-6">
             <div className="max-w-2xl">
               <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight">Industries We Operate In</h2>
@@ -282,4 +356,3 @@ export default function GreyShacksHome() {
     </div>
   );
 }
-
