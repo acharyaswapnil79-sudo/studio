@@ -1,7 +1,8 @@
+
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
@@ -36,7 +37,9 @@ import {
   Wallet,
   Infinity,
   Layout,
-  LineChart
+  LineChart,
+  Plus,
+  X
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -44,32 +47,38 @@ const FEATURES = [
   {
     icon: Cpu,
     title: "Workflow Automation",
-    desc: "We identify manual, recurring processes and replace them with agentic workflows that execute without human touchpoints."
+    desc: "We identify manual, recurring processes and replace them with agentic workflows that execute without human touchpoints.",
+    gradient: "radial-gradient(circle at 0% 0%, #0445a4 0%, #7000ff 50%, #ff0055 100%)"
   },
   {
     icon: BarChart3,
     title: "Operational Intelligence",
-    desc: "Every deployment comes with a measurement layer — so you know exactly what changed, by how much, and why it matters."
+    desc: "Every deployment comes with a measurement layer — so you know exactly what changed, by how much, and why it matters.",
+    gradient: "radial-gradient(circle at 100% 0%, #0445a4 0%, #00d2ff 50%, #3a7bd5 100%)"
   },
   {
     icon: ShieldCheck,
     title: "Audit-Ready Governance",
-    desc: "Full traceability on every automated decision. Built for finance, compliance, and ops teams that need defensible outcomes."
+    desc: "Full traceability on every automated decision. Built for finance, compliance, and ops teams that need defensible outcomes.",
+    gradient: "radial-gradient(circle at 50% 50%, #0445a4 0%, #1a1a1a 100%)"
   },
   {
     icon: Plug,
     title: "Systems Integration",
-    desc: "GreyShacks connects to your existing stack — CRMs, ERPs, finance tools — without ripping and replacing what works."
+    desc: "GreyShacks connects to your existing stack — CRMs, ERPs, finance tools — without ripping and replacing what works.",
+    gradient: "radial-gradient(circle at 0% 100%, #0445a4 0%, #4b6cb7 50%, #182848 100%)"
   },
   {
     icon: Clock,
     title: "Rapid Time-to-Value",
-    desc: "Most clients see measurable impact within 8–14 weeks. We pilot before we scale — no long commitments upfront."
+    desc: "Most clients see measurable impact within 8–14 weeks. We pilot before we scale — no long commitments upfront.",
+    gradient: "radial-gradient(circle at 100% 100%, #0445a4 0%, #8e2de2 50%, #4a00e0 100%)"
   },
   {
     icon: Layers,
     title: "Production-First Deployment",
-    desc: "We don't deliver prototypes. Every system goes into live operations — tested, monitored, and maintained."
+    desc: "We don't deliver prototypes. Every system goes into live operations — tested, monitored, and maintained.",
+    gradient: "radial-gradient(circle at 50% 0%, #0445a4 0%, #2c3e50 100%)"
   }
 ];
 
@@ -265,27 +274,64 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
-        {/* WHAT WE DO SECTION */}
-        <section className="py-24 border-t border-[#1A1A1A]">
+        {/* WHAT WE DO SECTION — NEXT-GEN DESIGN */}
+        <section className="py-32 border-t border-[#1A1A1A] bg-black">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="mb-20"
             >
-              <span className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">WHAT WE DO</span>
-              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] max-w-[600px] tracking-[-0.02em] leading-[1.1]">One system. Every operational bottleneck.</h2>
-              <p className="text-[17px] text-[#888888] leading-[1.65] max-w-[560px] mt-6">GreyShacks maps your operations, identifies the highest-friction workflows, and deploys intelligent systems that run without manual oversight.</p>
+              <span className="text-[11px] font-medium tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">WHAT WE DO</span>
+              <h2 className="text-[40px] md:text-[64px] font-bold text-[#F5F5F5] tracking-tight leading-[1] mb-8">
+                Next-gen operational <br /> intelligence features.
+              </h2>
+              <p className="text-[18px] md:text-[20px] text-[#888888] leading-relaxed max-w-[600px]">
+                GreyShacks maps your operations, identifies the highest-friction workflows, and deploys systems that run without manual oversight.
+              </p>
             </motion.div>
 
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {FEATURES.map((feature, i) => (
-                <Card key={i} className="group p-8">
-                  <feature.icon className="w-6 h-6 text-[#0445a4] mb-6 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-[20px] font-semibold text-[#F5F5F5] mb-4 tracking-tight">{feature.title}</h3>
-                  <p className="text-[14px] text-[#888888] leading-relaxed">{feature.desc}</p>
-                </Card>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  whileHover={{ y: -5 }}
+                  className="group relative aspect-[4/5] rounded-[32px] overflow-hidden flex flex-col justify-end p-10 cursor-pointer"
+                >
+                  {/* Mesh Gradient Background */}
+                  <div 
+                    className="absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+                    style={{ background: feature.gradient }}
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="absolute inset-0 backdrop-blur-[80px]" />
+                  
+                  {/* Subtle noise/texture overlay */}
+                  <div className="absolute inset-0 noise-bg opacity-[0.05] pointer-events-none" />
+
+                  {/* Top Plus Icon */}
+                  <div className="absolute top-8 right-8">
+                    <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-white/20 transition-colors">
+                      <Plus className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+
+                  {/* Content (Bottom Aligned) */}
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-white/70 leading-relaxed max-w-[280px] group-hover:text-white transition-colors duration-300">
+                      {feature.desc}
+                    </p>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
