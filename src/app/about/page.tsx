@@ -12,7 +12,7 @@ export default function AboutPage() {
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
 
   return (
-    <div className="bg-[#0A0A0A] min-h-screen selection:bg-[#E8FF47]/30">
+    <div className="bg-[#0A0A0A] min-h-screen selection:bg-[#0445a4]/30">
       <Navbar onOpenIntake={() => setIsIntakeOpen(true)} activeSection="about" />
       
       <main className="pt-[160px] pb-0">
@@ -22,7 +22,7 @@ export default function AboutPage() {
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-6 block"
+              className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-6 block"
             >
               ABOUT GREYSHACKS
             </motion.span>
@@ -63,7 +63,7 @@ export default function AboutPage() {
               { val: "14 Wks", l: "Time to Maturity", s: "From diagnostic to full production stability" }
             ].map((s, i) => (
               <div key={i} className="bg-[#0A0A0A] p-12">
-                <div className="text-4xl font-bold text-[#E8FF47] mb-4">{s.val}</div>
+                <div className="text-4xl font-bold text-[#0445a4] mb-4">{s.val}</div>
                 <div className="text-[#F5F5F5] font-bold text-xs uppercase tracking-widest mb-2">{s.l}</div>
                 <div className="text-[#888] text-sm leading-relaxed">{s.s}</div>
               </div>
@@ -77,7 +77,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-6 block"
+                className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-6 block"
               >
                 NON-NEGOTIABLES
               </motion.span>
@@ -107,7 +107,7 @@ export default function AboutPage() {
                     transition={{ delay: 0.2 + idx * 0.1 }}
                     className="flex gap-6"
                   >
-                    <div className="text-[32px] font-bold text-[#E8FF47] opacity-30 leading-none shrink-0">
+                    <div className="text-[32px] font-bold text-[#0445a4] opacity-30 leading-none shrink-0">
                       {item.n}
                     </div>
                     <div className="space-y-3">

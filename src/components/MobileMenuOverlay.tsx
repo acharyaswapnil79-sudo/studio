@@ -56,7 +56,7 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, on
                   href={link.href}
                   className={cn(
                     "text-[28px] md:text-[32px] font-semibold font-display tracking-tight inline-block py-2",
-                    activeSection === link.name.toLowerCase() ? "text-[#E8FF47]" : "text-[#F5F5F5]"
+                    activeSection === link.name.toLowerCase() ? "text-[#0445a4]" : "text-[#F5F5F5]"
                   )}
                   onClick={onClose}
                 >
@@ -77,7 +77,7 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, on
                 onClose();
                 onOpenIntake();
               }}
-              className="w-full h-16 bg-[#E8FF47] text-[#0A0A0A] font-semibold text-lg rounded-[8px]"
+              className="w-full h-16 bg-[#0445a4] text-white font-semibold text-lg rounded-[8px]"
             >
               Get Started
             </Button>

@@ -21,7 +21,7 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#E8FF47]/30">
+    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#0445a4]/30">
       <Navbar 
         activeSection="contact"
         onOpenIntake={() => setIsIntakeOpen(true)}
@@ -40,18 +40,18 @@ export default function ContactPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
-            <a href="mailto:hello@greyshacks.com" className="bg-[#111111] border border-white/5 p-8 rounded-xl hover:border-[#E8FF47]/30 transition-all group">
-              <Mail className="w-6 h-6 text-[#E8FF47] mb-6 group-hover:scale-110 transition-transform" />
+            <a href="mailto:hello@greyshacks.com" className="bg-[#111111] border border-white/5 p-8 rounded-xl hover:border-[#0445a4]/30 transition-all group">
+              <Mail className="w-6 h-6 text-[#0445a4] mb-6 group-hover:scale-110 transition-transform" />
               <div className="text-white/30 text-[10px] font-mono uppercase tracking-widest mb-2">Email</div>
               <div className="text-white font-bold text-lg">hello@greyshacks.com</div>
             </a>
-            <a href="https://linkedin.com/company/greyshacks" target="_blank" rel="noopener noreferrer" className="bg-[#111111] border border-white/5 p-8 rounded-xl hover:border-[#E8FF47]/30 transition-all group">
-              <Linkedin className="w-6 h-6 text-[#E8FF47] mb-6 group-hover:scale-110 transition-transform" />
+            <a href="https://linkedin.com/company/greyshacks" target="_blank" rel="noopener noreferrer" className="bg-[#111111] border border-white/5 p-8 rounded-xl hover:border-[#0445a4]/30 transition-all group">
+              <Linkedin className="w-6 h-6 text-[#0445a4] mb-6 group-hover:scale-110 transition-transform" />
               <div className="text-white/30 text-[10px] font-mono uppercase tracking-widest mb-2">LinkedIn</div>
               <div className="text-white font-bold text-lg">linkedin.com/company/greyshacks</div>
             </a>
             <div className="bg-[#111111] border border-white/5 p-8 rounded-xl">
-              <MapPin className="w-6 h-6 text-[#E8FF47] mb-6" />
+              <MapPin className="w-6 h-6 text-[#0445a4] mb-6" />
               <div className="text-white/30 text-[10px] font-mono uppercase tracking-widest mb-2">Location</div>
               <div className="text-white font-bold text-lg mb-1">Bhubaneswar, India</div>
               <div className="text-white/40 text-xs font-medium">Serving: APAC · MENA · NAMER</div>
@@ -63,22 +63,22 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-white/40 text-[10px] font-mono uppercase tracking-widest">Full Name</label>
-                  <input type="text" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#E8FF47] transition-colors" />
+                  <input type="text" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0445a4] transition-colors" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-white/40 text-[10px] font-mono uppercase tracking-widest">Company Name</label>
-                  <input type="text" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#E8FF47] transition-colors" />
+                  <input type="text" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0445a4] transition-colors" />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-white/40 text-[10px] font-mono uppercase tracking-widest">Work Email</label>
-                <input type="email" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#E8FF47] transition-colors" />
+                <input type="email" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0445a4] transition-colors" />
               </div>
               <div className="space-y-2">
                 <label className="text-white/40 text-[10px] font-mono uppercase tracking-widest">Your Operational Challenge</label>
-                <textarea rows={4} className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#E8FF47] transition-colors resize-none"></textarea>
+                <textarea rows={4} className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#0445a4] transition-colors resize-none"></textarea>
               </div>
-              <button className="w-full bg-[#E8FF47] text-[#0A0A0A] font-bold text-sm py-4 rounded-lg shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-2">
+              <button className="w-full bg-[#0445a4] text-white font-bold text-sm py-4 rounded-lg shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-2">
                 Send Enquiry
                 <Send className="w-4 h-4" />
               </button>

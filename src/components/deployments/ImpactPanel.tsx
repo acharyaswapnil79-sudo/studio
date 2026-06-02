@@ -7,7 +7,7 @@ interface ImpactPanelProps {
 
 export function ImpactPanel({ impact }: ImpactPanelProps) {
   return (
-    <div className="bg-[#0047AB]/10 border border-[#0047AB]/30 rounded-xl p-10 mt-12">
+    <div className="bg-[#0445a4]/10 border border-[#0445a4]/30 rounded-xl p-10 mt-12">
       <h3 className="text-xl font-headline font-semibold mb-4 text-white">
         Business Impact
       </h3>

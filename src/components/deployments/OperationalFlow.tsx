@@ -34,7 +34,7 @@ export function OperationalFlow({ title, beforeSteps, afterSteps }: OperationalF
           <ul className="space-y-4 text-[14px] md:text-sm font-body text-white">
             {after.map((step, i) => (
               <li key={i} className="flex gap-4 items-start">
-                <span className="text-[#E8FF47] font-bold leading-none mt-1">✓</span> 
+                <span className="text-[#0445a4] font-bold leading-none mt-1">✓</span> 
                 <span className="leading-relaxed">{step}</span>
               </li>
             ))}

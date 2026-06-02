@@ -40,7 +40,7 @@ export default function OperationalIntelligencePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-blue-900/30 font-sans">
+    <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#0445a4]/30 font-sans">
       <Navbar 
         isScrolled={isScrolled} 
         navLinks={navLinks} 
@@ -57,10 +57,10 @@ export default function OperationalIntelligencePage() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-[#E8FF47]/10 border border-[#E8FF47]/20 px-3 py-1 rounded-full mb-6"
+              className="inline-flex items-center gap-2 bg-[#0445a4]/10 border border-[#0445a4]/20 px-3 py-1 rounded-full mb-6"
             >
-              <div className="w-1 h-1 rounded-full bg-[#E8FF47] animate-pulse" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#E8FF47]">Updated Quarterly</span>
+              <div className="w-1 h-1 rounded-full bg-[#0445a4] animate-pulse" />
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#0445a4]">Updated Quarterly</span>
             </motion.div>
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
@@ -101,7 +101,7 @@ export default function OperationalIntelligencePage() {
                       {activeCategory === category && (
                         <motion.div 
                           layoutId="category-indicator"
-                          className="absolute bottom-0 left-0 right-0 h-px bg-[#E8FF47]"
+                          className="absolute bottom-0 left-0 right-0 h-px bg-[#0445a4]"
                         />
                       )}
                     </button>
@@ -165,7 +165,7 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
       onClick={onClick}
     >
       <div className="flex justify-between items-start mb-8">
-        <div className="text-[10px] font-mono uppercase tracking-widest text-[#E8FF47] font-bold border border-[#E8FF47]/20 px-2 py-0.5 rounded">
+        <div className="text-[10px] font-mono uppercase tracking-widest text-[#0445a4] font-bold border border-[#0445a4]/20 px-2 py-0.5 rounded">
           {item.category}
         </div>
         <div className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{item.date}</div>
@@ -179,7 +179,7 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
         By Swapnil Acharya, Founder — GreyShacks
       </div>
       
-      <div className="flex items-center gap-2 text-[10px] font-mono text-[#E8FF47] mb-6 uppercase tracking-widest">
+      <div className="flex items-center gap-2 text-[10px] font-mono text-[#0445a4] mb-6 uppercase tracking-widest">
         <Info className="w-3 h-3" />
         {item.provenance}
       </div>
@@ -192,7 +192,7 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
         <div className="flex items-center gap-4 text-[10px] font-mono text-white/20 uppercase tracking-widest">
           <span className="flex items-center gap-1.5"><Clock className="w-3 h-3" /> {item.readingTime}</span>
         </div>
-        <div className="flex items-center gap-2 text-[11px] font-bold text-white/40 group-hover:text-[#E8FF47] transition-colors">
+        <div className="flex items-center gap-2 text-[11px] font-bold text-white/40 group-hover:text-[#0445a4] transition-colors">
           READ ANALYSIS
           <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
         </div>

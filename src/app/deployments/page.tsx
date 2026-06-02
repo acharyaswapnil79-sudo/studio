@@ -91,7 +91,7 @@ export default function DeploymentLibraryPage() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-blue-900/30">
+    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#0445a4]/30">
       <Navbar 
         isScrolled={isScrolled} 
         navLinks={navLinks} 
@@ -113,7 +113,7 @@ export default function DeploymentLibraryPage() {
               <p>
                 Each deployment began with a structured diagnostic and a time-boxed pilot. Outcomes are measured against a defined baseline. Client identities remain anonymized. Deployment data is available under NDA.
               </p>
-              <div className="bg-[#111] border-l-2 border-[#E8FF47] p-6 rounded-r-lg">
+              <div className="bg-[#111] border-l-2 border-[#0445a4] p-6 rounded-r-lg">
                 <p className="text-white text-base">
                   Not every deployment produced the outcomes projected at scoping. Where results differed from pilot expectations, we note it.
                 </p>
@@ -259,12 +259,12 @@ export default function DeploymentLibraryPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-[#111] border border-white/5 rounded-xl overflow-hidden flex flex-col hover:border-[#E8FF47]/50 transition-all shadow-lg"
+                  className="bg-[#111] border border-white/5 rounded-xl overflow-hidden flex flex-col hover:border-[#0445a4]/50 transition-all shadow-lg"
                 >
                   <div className="p-6 flex-1 flex flex-col">
                     <div className="flex justify-between items-start mb-4">
                       <div className="space-y-1">
-                        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E8FF47]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0445a4]">
                           {d.industry}
                         </div>
                         <h3 className="font-bold text-lg leading-tight">{d.title}</h3>
@@ -289,7 +289,7 @@ export default function DeploymentLibraryPage() {
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-white/40">{d.kpis[0].label}</span>
-                          <span className="text-xs font-bold text-[#E8FF47]">{d.kpis[0].impact}</span>
+                          <span className="text-xs font-bold text-[#0445a4]">{d.kpis[0].impact}</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="text-sm font-medium">{d.kpis[0].before}</div>
@@ -303,7 +303,7 @@ export default function DeploymentLibraryPage() {
                   <div className="border-t border-white/5 p-4 flex gap-2">
                     <button 
                       onClick={() => setIsIntakeOpen(true)}
-                      className="flex-1 bg-[#E8FF47] text-[#0A0A0A] text-[11px] font-bold py-2.5 rounded-md hover:opacity-90 transition-colors"
+                      className="flex-1 bg-[#0445a4] text-white text-[11px] font-bold py-2.5 rounded-md hover:opacity-90 transition-colors"
                     >
                       Request Diagnostic
                     </button>

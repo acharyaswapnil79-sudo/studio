@@ -90,7 +90,7 @@ export function MethodologyModal({ isOpen, onClose, onOpenIntake }: MethodologyM
               <div className="max-w-[600px] mx-auto space-y-10">
                 {steps.map((step, index) => (
                   <div key={index} className="flex gap-4 md:gap-6">
-                    <div className="shrink-0 w-7 h-7 rounded-full bg-[#0047AB] flex items-center justify-center text-white text-sm font-bold">
+                    <div className="shrink-0 w-7 h-7 rounded-full bg-[#0445a4] flex items-center justify-center text-white text-sm font-bold">
                       {index + 1}
                     </div>
                     <div className="space-y-1.5">
@@ -109,7 +109,7 @@ export function MethodologyModal({ isOpen, onClose, onOpenIntake }: MethodologyM
                   onClose();
                   onOpenIntake();
                 }}
-                className="w-full bg-[#0047AB] text-white font-bold text-sm md:text-base py-3.5 rounded-lg transition-transform active:scale-[0.98] hover:bg-[#0047AB]/90"
+                className="w-full bg-[#0445a4] text-white font-bold text-sm md:text-base py-3.5 rounded-lg transition-transform active:scale-[0.98] hover:bg-[#0445a4]/90"
               >
                 Request anonymized logs / methodology
               </button>

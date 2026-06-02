@@ -39,7 +39,7 @@ export default function CapabilitiesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#222] border border-[#222]">
             {SYSTEMS.map((s, i) => (
               <div key={i} className="bg-[#111] p-12 hover:bg-[#1A1A1A] transition-all group border-b border-r border-[#222]">
-                <s.icon className="w-8 h-8 text-[#E8FF47] mb-8 group-hover:scale-110 transition-transform" />
+                <s.icon className="w-8 h-8 text-[#0445a4] mb-8 group-hover:scale-110 transition-transform" />
                 <h3 className="text-xl text-[#F5F5F5] mb-4 font-display tracking-tight">{s.t}</h3>
                 <p className="text-[#888] text-sm leading-relaxed">{s.b}</p>
               </div>
@@ -60,7 +60,7 @@ export default function CapabilitiesPage() {
                   "Weekly performance reporting vs baseline"
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4 text-[#F5F5F5] text-sm font-medium">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#E8FF47]" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#0445a4]" />
                     {item}
                   </div>
                 ))}
@@ -74,7 +74,7 @@ export default function CapabilitiesPage() {
               </p>
               <button 
                 onClick={() => setIsIntakeOpen(true)}
-                className="w-full py-4 bg-[#F5F5F5] text-[#0A0A0A] font-bold text-xs uppercase tracking-[0.2em] rounded-[2px] hover:bg-[#E8FF47] transition-all"
+                className="w-full py-4 bg-[#F5F5F5] text-[#0A0A0A] font-bold text-xs uppercase tracking-[0.2em] rounded-[2px] hover:bg-[#0445a4] hover:text-white transition-all"
               >
                 Apply for Diagnostic
               </button>

@@ -36,13 +36,13 @@ export default function CaseStudyPage() {
     return (
       <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center text-white font-body">
         <h1 className="text-4xl font-headline mb-4">Deployment Not Found</h1>
-        <Link href="/deployments" className="text-[#E8FF47] underline">Return to Library</Link>
+        <Link href="/deployments" className="text-[#0445a4] underline">Return to Library</Link>
       </div>
     );
   }
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#E8FF47]/30">
+    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#0445a4]/30">
       <Navbar 
         activeSection="deployments"
         onOpenIntake={() => setIsIntakeOpen(true)}
@@ -58,7 +58,7 @@ export default function CaseStudyPage() {
 
           {/* Hero Section */}
           <section className="mb-12">
-            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E8FF47] mb-4">
+            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0445a4] mb-4">
               {deployment.industry} Deployment
             </div>
             <h1 className="font-headline font-semibold text-4xl md:text-6xl mb-6 leading-tight max-w-4xl">
@@ -88,7 +88,7 @@ export default function CaseStudyPage() {
             </div>
             <div>
               <div className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Methodology</div>
-              <div className="text-lg font-bold text-[#E8FF47] font-body">Audit-Ready</div>
+              <div className="text-lg font-bold text-[#0445a4] font-body">Audit-Ready</div>
             </div>
           </section>
 
@@ -97,7 +97,7 @@ export default function CaseStudyPage() {
               {/* Client Context */}
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <Info className="w-5 h-5 text-[#E8FF47]" />
+                  <Info className="w-5 h-5 text-[#0445a4]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Client Context</h2>
                 </div>
                 <div className="space-y-4 text-[#A0A0A0] leading-relaxed text-lg font-body">
@@ -112,7 +112,7 @@ export default function CaseStudyPage() {
               {/* Operational Problem */}
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <FileText className="w-5 h-5 text-[#E8FF47]" />
+                  <FileText className="w-5 h-5 text-[#0445a4]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Operational Problem</h2>
                 </div>
                 <div className="space-y-6">
@@ -125,7 +125,7 @@ export default function CaseStudyPage() {
                     ))}
                   </ul>
                   {deployment.problemSignificance && (
-                    <div className="bg-[#111] border-l-2 border-[#E8FF47] p-6 rounded-r-lg italic text-white/80 font-body">
+                    <div className="bg-[#111] border-l-2 border-[#0445a4] p-6 rounded-r-lg italic text-white/80 font-body">
                       &ldquo;{deployment.problemSignificance}&rdquo;
                     </div>
                   )}
@@ -140,7 +140,7 @@ export default function CaseStudyPage() {
 
               <section>
                 <div className="flex items-center gap-3 mb-8">
-                  <Clock className="w-5 h-5 text-[#E8FF47]" />
+                  <Clock className="w-5 h-5 text-[#0445a4]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Deployment Timeline</h2>
                 </div>
                 <div className="space-y-8 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-px before:bg-white/5">
@@ -150,8 +150,8 @@ export default function CaseStudyPage() {
                     { phase: 'Scale', description: 'Full production rollout.' }
                   ]).map((item, i) => (
                     <div key={i} className="relative pl-10">
-                      <div className="absolute left-0 top-1 w-[22px] h-[22px] rounded-full bg-[#0A0A0A] border-2 border-[#E8FF47] flex items-center justify-center">
-                        <div className="w-2 h-2 rounded-full bg-[#E8FF47]" />
+                      <div className="absolute left-0 top-1 w-[22px] h-[22px] rounded-full bg-[#0A0A0A] border-2 border-[#0445a4] flex items-center justify-center">
+                        <div className="w-2 h-2 rounded-full bg-[#0445a4]" />
                       </div>
                       <h4 className="font-headline font-bold text-white mb-1">{item.phase}</h4>
                       <p className="text-sm text-[#A0A0A0] leading-relaxed font-body">{item.description}</p>
@@ -164,7 +164,7 @@ export default function CaseStudyPage() {
 
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <Lock className="w-5 h-5 text-[#E8FF47]" />
+                  <Lock className="w-5 h-5 text-[#0445a4]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Scope Limitations</h2>
                 </div>
                 <div className="bg-[#111] border border-white/5 p-8 rounded-xl font-body">

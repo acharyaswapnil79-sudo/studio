@@ -51,7 +51,7 @@ export default function IntelligenceDetailPage() {
           </p>
           <button 
             onClick={() => router.push('/intelligence')}
-            className="inline-flex items-center gap-2 text-[#E8FF47] font-mono text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-[#0445a4] font-mono text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Intelligence
@@ -62,7 +62,7 @@ export default function IntelligenceDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#D0D8E4] font-body selection:bg-blue-900/30">
+    <div className="min-h-screen bg-[#0A0A0A] text-[#D0D8E4] font-body selection:bg-[#0445a4]/30">
       <Navbar 
         isScrolled={isScrolled} 
         navLinks={navLinks} 
@@ -77,7 +77,7 @@ export default function IntelligenceDetailPage() {
           {/* Breadcrumb / Back */}
           <button 
             onClick={() => router.push('/intelligence')}
-            className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-[#E8FF47] mb-12 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-[#0445a4] mb-12 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Intelligence Library
@@ -87,13 +87,13 @@ export default function IntelligenceDetailPage() {
             {/* Content Column (70%) */}
             <div className="lg:col-span-7 space-y-12">
               <header className="space-y-6">
-                <div className="inline-block px-3 py-1 border border-[#E8FF47]/20 bg-[#E8FF47]/5 text-[#E8FF47] text-[10px] font-mono uppercase tracking-widest rounded">
+                <div className="inline-block px-3 py-1 border border-[#0445a4]/20 bg-[#0445a4]/5 text-[#0445a4] text-[10px] font-mono uppercase tracking-widest rounded">
                   {insight.category}
                 </div>
                 <h1 className="font-headline text-4xl md:text-6xl text-white font-bold leading-tight">
                   {insight.title}
                 </h1>
-                <div className="flex items-start gap-3 text-sm text-[#E8FF47] font-mono italic max-w-2xl">
+                <div className="flex items-start gap-3 text-sm text-[#0445a4] font-mono italic max-w-2xl">
                   <Info className="w-4 h-4 shrink-0 mt-1" />
                   <span>{insight.provenance}</span>
                 </div>
@@ -110,7 +110,7 @@ export default function IntelligenceDetailPage() {
                 </p>
 
                 {insight.pullQuote && (
-                  <div className="border-l-2 border-[#E8FF47] pl-8 py-4 my-12 italic">
+                  <div className="border-l-2 border-[#0445a4] pl-8 py-4 my-12 italic">
                     <p className="font-headline text-2xl text-[#EEF2F6] leading-relaxed">
                       "{insight.pullQuote}"
                     </p>
@@ -127,8 +127,8 @@ export default function IntelligenceDetailPage() {
                         {section.content}
                       </div>
                       {section.callout && (
-                        <div className="bg-[#060B10] border border-[#0F1D2A] border-l-4 border-l-[#E8FF47] p-8 my-8 flex gap-8 items-start">
-                          <div className="font-headline text-5xl text-[#E8FF47] font-bold shrink-0">
+                        <div className="bg-[#060B10] border border-[#0F1D2A] border-l-4 border-l-[#0445a4] p-8 my-8 flex gap-8 items-start">
+                          <div className="font-headline text-5xl text-[#0445a4] font-bold shrink-0">
                             {section.callout.number}
                           </div>
                           <p className="text-sm italic text-[#6A7A88] leading-relaxed pt-2">
@@ -158,8 +158,8 @@ export default function IntelligenceDetailPage() {
                     
                     <div className="space-y-1">
                       <div className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Reliability Level</div>
-                      <div className="flex items-center gap-2 text-xs font-bold text-[#E8FF47]">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#E8FF47] animate-pulse" />
+                      <div className="flex items-center gap-2 text-xs font-bold text-[#0445a4]">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#0445a4] animate-pulse" />
                         {insight.reliability}
                       </div>
                     </div>

@@ -21,7 +21,7 @@ export function KPIExhibit({ kpis }: KPIExhibitProps) {
           <div key={index} className="space-y-4">
             <div className="flex justify-between items-end">
               <div className="text-sm font-body text-white/50">{kpi.label}</div>
-              <div className="text-[#0047AB] font-bold text-sm font-body">{kpi.impact}</div>
+              <div className="text-[#0445a4] font-bold text-sm font-body">{kpi.impact}</div>
             </div>
             <div className="flex items-center gap-6">
               <div className="text-xs font-body text-white/40 w-24 text-right">
@@ -29,7 +29,7 @@ export function KPIExhibit({ kpis }: KPIExhibitProps) {
               </div>
               <div className="flex-1 bg-white/5 h-2 rounded-full overflow-hidden relative">
                 <div className="absolute left-0 top-0 bottom-0 bg-white/5 border-r border-white/10 w-1/2" />
-                <div className="bg-[#0047AB] h-2 w-[70%] rounded-full shadow-[0_0_8px_rgba(0,71,171,0.5)]" />
+                <div className="bg-[#0445a4] h-2 w-[70%] rounded-full shadow-[0_0_8px_rgba(4,69,164,0.5)]" />
               </div>
               <div className="text-xs font-body text-white font-semibold w-24">
                 {kpi.after}

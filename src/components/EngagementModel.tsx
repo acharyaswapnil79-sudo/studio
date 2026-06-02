@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -55,8 +54,8 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
     >
       <div className="max-w-[1240px] mx-auto">
         <header className="mb-16">
-          <div className="inline-block bg-[#0047AB]/10 border border-[#0047AB]/20 px-3 py-1 rounded-full mb-4">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#0047AB] font-bold">Engagement Model</span>
+          <div className="inline-block bg-[#0445a4]/10 border border-[#0445a4]/20 px-3 py-1 rounded-full mb-4">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#0445a4] font-bold">Engagement Model</span>
           </div>
           <h2 className="font-headline text-3xl md:text-5xl font-bold text-white mb-6">
             How Engagements Begin
@@ -74,7 +73,7 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
-              whileHover={{ y: -5, borderColor: 'rgba(0, 71, 171, 0.4)' }}
+              whileHover={{ y: -5, borderColor: 'rgba(4, 69, 164, 0.4)' }}
               className="group bg-[#0D0D0D] border border-white/5 p-8 rounded-xl transition-all shadow-xl"
             >
               <div className="flex flex-col h-full">
@@ -86,14 +85,14 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
                   {step.title}
                 </h3>
                 
-                <div className="text-[#0047AB] text-xs font-bold uppercase tracking-wider mb-8">
+                <div className="text-[#0445a4] text-xs font-bold uppercase tracking-wider mb-8">
                   {step.subtitle}
                 </div>
 
                 <ul className="space-y-4 mb-10 flex-1">
                   {step.bullets.map((bullet, bIdx) => (
                     <li key={bIdx} className="flex items-start gap-3 text-sm text-[#A0A0A0] leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-[#0047AB] mt-0.5 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#0445a4] mt-0.5 shrink-0" />
                       <span>{bullet}</span>
                     </li>
                   ))}
@@ -111,7 +110,7 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
           ))}
         </div>
 
-        <div className="bg-[#111] border-l-4 border-[#0047AB] p-8 md:p-10 rounded-r-xl max-w-4xl mx-auto">
+        <div className="bg-[#111] border-l-4 border-[#0445a4] p-8 md:p-10 rounded-r-xl max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
               <p className="text-white font-bold text-lg mb-2">
@@ -126,7 +125,7 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onOpenIntake}
-                className="flex items-center justify-center gap-2 bg-[#0047AB] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0047AB]/90 transition-colors"
+                className="flex items-center justify-center gap-2 bg-[#0445a4] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0445a4]/90 transition-colors"
               >
                 Request an Operational Diagnostic
                 <ArrowRight className="w-4 h-4" />
