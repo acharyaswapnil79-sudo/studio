@@ -462,50 +462,88 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
-        {/* INTEGRATIONS SECTION */}
-        <section className="py-24 bg-[#0A0A0A]">
+        {/* INTEGRATIONS SECTION — NEW SPLIT LAYOUT */}
+        <section className="py-32 bg-black overflow-hidden">
           <div className="container mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <span className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">INTEGRATIONS</span>
-              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1]">Works inside the stack you already run.</h2>
-              <p className="text-[16px] md:text-[17px] text-[#888888] leading-relaxed max-w-[640px] mx-auto mt-6">
-                GreyShacks connects to your CRM, ERP, finance, and communication tools. No rip-and-replace. No new software to learn.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 md:gap-4 max-w-5xl mx-auto overflow-hidden">
-              {INTEGRATIONS.map((platform, i) => (
-                <div 
-                  key={i} 
-                  className="group relative flex items-center justify-center bg-[#111111] border border-[#1E1E1E] rounded-[8px] md:rounded-[12px] aspect-square transition-all hover:border-[#2A2A2A] hover:bg-[#1A1A1A]"
-                >
-                  <platform.icon className="w-5 h-5 md:w-6 md:h-6 text-[#555555] group-hover:text-[#F5F5F5] transition-colors" />
-                  
-                  {/* Tooltip Label (Desktop only) */}
-                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#222222] text-[#F5F5F5] text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-20 hidden md:block">
-                    {platform.name}
-                  </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+              {/* Left Column: Editorial Content */}
+              <div className="lg:col-span-7 space-y-12">
+                <div className="space-y-6">
+                  <motion.h2 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-[40px] md:text-[56px] font-bold text-white tracking-tight leading-[1.05]"
+                  >
+                    Works inside the stack <br className="hidden md:block" /> you already run.
+                  </motion.h2>
+                  <motion.p 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="text-[18px] md:text-[20px] text-[#888888] leading-relaxed max-w-[540px]"
+                  >
+                    GreyShacks connects to your CRM, ERP, finance, and communication tools. No rip-and-replace. No new software to learn.
+                  </motion.p>
                 </div>
-              ))}
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Button 
+                    onClick={() => setIsIntakeOpen(true)}
+                    className="bg-[#1A1A1A] text-white border border-white/10 hover:border-white/30 rounded-full px-10 py-7 text-sm font-semibold tracking-wide"
+                  >
+                    Get started
+                  </Button>
+                </motion.div>
+              </div>
+
+              {/* Right Column: Visual Proof Grid */}
+              <div className="lg:col-span-5 relative">
+                <div 
+                  className="grid grid-cols-3 gap-8 md:gap-12"
+                  style={{
+                    maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)'
+                  }}
+                >
+                  {INTEGRATIONS.map((platform, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.03 }}
+                      className="group flex flex-col items-center justify-center gap-3"
+                    >
+                      <div className="w-16 h-16 rounded-2xl bg-[#0F0F0F] border border-white/5 flex items-center justify-center transition-all duration-500 group-hover:bg-[#1A1A1A] group-hover:border-white/10 group-hover:scale-110">
+                        <platform.icon className="w-7 h-7 text-[#444] transition-colors duration-500 group-hover:text-white" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* Visual Background Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#0445a4]/5 rounded-full blur-[120px] pointer-events-none" />
+              </div>
             </div>
 
-            <div className="mt-12 text-center space-y-8">
-              <p className="text-[14px] text-[#888888]">
-                Don't see your stack? We've integrated with <span className="text-[#0445a4] font-bold">40+ platforms</span>.
+            <div className="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+              <p className="text-[14px] text-[#555555]">
+                Don't see your stack? We've integrated with <span className="text-white font-semibold">40+ platforms</span>.
               </p>
-              <Button 
-                variant="outline"
+              <button 
                 onClick={() => setIsIntakeOpen(true)}
-                className="px-10 py-6 text-sm font-semibold tracking-wider uppercase border-[#333333] hover:border-[#0445a4] w-full sm:w-auto min-h-[56px]"
+                className="text-white/40 hover:text-white text-[13px] font-medium tracking-wide flex items-center gap-2 transition-colors"
               >
                 Talk to an Integration Specialist
-              </Button>
+                <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
         </section>
