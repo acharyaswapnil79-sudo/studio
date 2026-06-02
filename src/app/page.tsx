@@ -207,23 +207,6 @@ export default function GreyShacksHome() {
                 </motion.div>
               </div>
             </div>
-
-            <div className="mt-24 lg:mt-32 pt-8 border-t border-[#1A1A1A] grid grid-cols-2 md:flex md:flex-wrap gap-3 md:gap-4">
-              {[
-                { n: "190+", t: "Workflows Automated" },
-                { n: "$8M+", t: "Annual Savings Tracked" },
-                { n: "8–14 Week", t: "ROI Window" },
-                { n: "30+", t: "Production Deployments" }
-              ].map((stat, i) => (
-                <div 
-                  key={i} 
-                  className="bg-[#111111] border border-[#222222] rounded-full px-4 md:px-6 py-2 flex items-center gap-2"
-                >
-                  <span className="text-[#E8FF47] font-bold text-[12px] md:text-[13px]">{stat.n}</span>
-                  <span className="text-[#888888] text-[12px] md:text-[13px] whitespace-nowrap">{stat.t}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -313,9 +296,9 @@ export default function GreyShacksHome() {
         {/* INSTITUTIONAL METRICS STRIP */}
         <section className="bg-[#111111] border-y border-[#1E1E1E] py-12 md:py-[48px]">
           <div className="container mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center">
               {/* Metric 1 */}
-              <div className="flex flex-col gap-2 px-4 border-r border-[#1E1E1E]">
+              <div className="flex flex-col gap-2 px-4 border-b md:border-b-0 md:border-r border-[#1E1E1E] pb-8 md:pb-0">
                 <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
                   <CountUp value={190} suffix="+" />
                 </div>
@@ -325,17 +308,7 @@ export default function GreyShacksHome() {
               </div>
 
               {/* Metric 2 */}
-              <div className="flex flex-col gap-2 px-4 md:border-r border-[#1E1E1E]">
-                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
-                  <CountUp value={8} prefix="$" suffix="M+" />
-                </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
-                  Annualized Savings Tracked
-                </div>
-              </div>
-
-              {/* Metric 3 */}
-              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0 border-r border-[#1E1E1E]">
+              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0 border-b md:border-b-0 md:border-r border-[#1E1E1E] pb-8 md:pb-0">
                 <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter whitespace-nowrap">
                   8–14 wk
                 </div>
@@ -344,7 +317,7 @@ export default function GreyShacksHome() {
                 </div>
               </div>
 
-              {/* Metric 4 */}
+              {/* Metric 3 */}
               <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0">
                 <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
                   <CountUp value={30} suffix="+" />
@@ -371,16 +344,13 @@ export default function GreyShacksHome() {
               <p className="mt-4 text-[#888888] text-lg">We deploy production-grade systems across core business verticals.</p>
             </div>
             
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
                 { t: "Manufacturing", d: "Production quality, procurement, and vendor operations" },
                 { t: "Real Estate", d: "Lead operations, sales follow-up, and documentation workflows" },
                 { t: "Logistics", d: "Exception management, PO tracking, and delivery reconciliation" },
-                { t: "Financial Services", d: "AR automation, compliance monitoring, and close cycle compression" },
                 { t: "Healthcare", d: "Scheduling, claims pre-processing, and patient communications" },
-                { t: "Professional Services", d: "Contract intelligence, billing operations, and reporting" },
-                { t: "Retail", d: "Customer query resolution, refund workflows, and inventory ops" },
-                { t: "SaaS", d: "Lead operations, onboarding automation, and access provisioning" }
+                { t: "Professional Services", d: "Contract intelligence, billing operations, and reporting" }
               ].map((ind, i) => (
                 <div key={i} className="bg-[#0A0A0A] border border-[#1E1E1E] p-8 rounded-xl hover:border-[#2A2A2A] transition-all group">
                   <h3 className="text-lg font-bold text-[#F5F5F5] mb-2 group-hover:text-[#E8FF47] transition-colors">{ind.t}</h3>

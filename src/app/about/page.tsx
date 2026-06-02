@@ -51,16 +51,15 @@ export default function AboutPage() {
               </p>
               
               <p className="text-[17px] text-[#888888] leading-[1.7]">
-                Three years in, we've automated over 190 workflows, tracked $8M+ in savings, and deployed across finance, logistics, real estate, and professional services. The work speaks. The numbers are public.
+                Three years in, we've automated over 190 workflows and deployed across finance, logistics, real estate, and professional services. The work speaks. The numbers are public.
               </p>
             </motion.div>
           </div>
 
           {/* Stats Grid Refined */}
-          <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-px bg-[#222] border border-[#222]">
+          <div className="mt-32 grid grid-cols-1 md:grid-cols-2 gap-px bg-[#222] border border-[#222]">
             {[
               { val: "30+", l: "Operational Deployments", s: "Across 14 operational environments since 2023" },
-              { val: "$8M+", l: "Annualized Savings", s: "Verified median ROI across client base" },
               { val: "14 Wks", l: "Time to Maturity", s: "From diagnostic to full production stability" }
             ].map((s, i) => (
               <div key={i} className="bg-[#0A0A0A] p-12">
