@@ -7,8 +7,50 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronRight, Activity, Zap, BarChart3 } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { 
+  ArrowRight, 
+  Cpu, 
+  BarChart3, 
+  ShieldCheck, 
+  Plug, 
+  Clock, 
+  Layers 
+} from 'lucide-react';
 import Link from 'next/link';
+
+const FEATURES = [
+  {
+    icon: Cpu,
+    title: "Workflow Automation",
+    desc: "We identify manual, recurring processes and replace them with agentic workflows that execute without human touchpoints."
+  },
+  {
+    icon: BarChart3,
+    title: "Operational Intelligence",
+    desc: "Every deployment comes with a measurement layer — so you know exactly what changed, by how much, and why it matters."
+  },
+  {
+    icon: ShieldCheck,
+    title: "Audit-Ready Governance",
+    desc: "Full traceability on every automated decision. Built for finance, compliance, and ops teams that need defensible outcomes."
+  },
+  {
+    icon: Plug,
+    title: "Systems Integration",
+    desc: "GreyShacks connects to your existing stack — CRMs, ERPs, finance tools — without ripping and replacing what works."
+  },
+  {
+    icon: Clock,
+    title: "Rapid Time-to-Value",
+    desc: "Most clients see measurable impact within 8–14 weeks. We pilot before we scale — no long commitments upfront."
+  },
+  {
+    icon: Layers,
+    title: "Production-First Deployment",
+    desc: "We don't deliver prototypes. Every system goes into live operations — tested, monitored, and maintained."
+  }
+];
 
 export default function GreyShacksHome() {
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
@@ -148,18 +190,14 @@ export default function GreyShacksHome() {
               <p className="text-[17px] text-[#888888] leading-[1.65] max-w-[560px] mt-6">GreyShacks maps your operations, identifies the highest-friction workflows, and deploys intelligent systems that run without manual oversight.</p>
             </motion.div>
 
-            {/* Service Triad Grid */}
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { icon: Activity, t: "Operational Triage", d: "We identify manual latency across your stack through structured diagnostics and process mapping." },
-                { icon: Zap, t: "Agentic Deployment", d: "Production-grade agentic systems are integrated into your existing core business workflows." },
-                { icon: BarChart3, t: "Intelligence Loop", d: "Real-time visibility into performance, accuracy, and automated outcomes with audit trails." }
-              ].map((step, i) => (
-                <div key={i} className="p-8 bg-[#111111] border border-[#1E1E1E] rounded-xl hover:border-[#2A2A2A] transition-all group">
-                  <step.icon className="w-6 h-6 text-[#E8FF47] mb-6 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-[20px] font-bold text-[#F5F5F5] mb-2 font-display">{step.t}</h3>
-                  <p className="text-sm text-[#888888] leading-relaxed">{step.d}</p>
-                </div>
+            {/* Capability Grid */}
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {FEATURES.map((feature, i) => (
+                <Card key={i} className="group p-8">
+                  <feature.icon className="w-6 h-6 text-[#E8FF47] mb-6 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-[20px] font-semibold text-[#F5F5F5] mb-4 tracking-tight">{feature.title}</h3>
+                  <p className="text-[14px] text-[#888888] leading-relaxed">{feature.desc}</p>
+                </Card>
               ))}
             </div>
           </div>
@@ -169,7 +207,7 @@ export default function GreyShacksHome() {
         <section className="bg-[#111111] py-24 border-y border-[#222222]">
           <div className="container mx-auto px-6">
             <div className="max-w-2xl">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] tracking-tight">Industries We Operate In</h2>
+              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight">Industries We Operate In</h2>
               <p className="mt-4 text-[#888888] text-lg">We deploy production-grade systems across core business verticals.</p>
             </div>
             
