@@ -143,7 +143,7 @@ export default function GreyShacksHome() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  className="mt-6 text-[18px] text-[#888888] leading-relaxed max-w-[520px]"
+                  className="mt-6 text-[16px] md:text-[18px] text-[#888888] leading-relaxed max-w-[520px]"
                 >
                   GreyShacks gives mid-market operations teams a structured system to eliminate manual work, track what matters, and scale what works — without the guesswork.
                 </motion.p>
@@ -152,11 +152,11 @@ export default function GreyShacksHome() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="mt-10 flex flex-wrap gap-4"
+                  className="mt-10 flex flex-col sm:flex-row gap-4"
                 >
                   <Button 
                     onClick={() => setIsIntakeOpen(true)}
-                    className="bg-[#E8FF47] text-[#0A0A0A] hover:bg-[#E8FF47]/90 px-8 py-6 text-sm font-semibold tracking-wider uppercase"
+                    className="bg-[#E8FF47] text-[#0A0A0A] hover:bg-[#E8FF47]/90 px-8 py-6 text-sm font-semibold tracking-wider uppercase w-full sm:w-auto min-h-[56px]"
                   >
                     Request a Diagnostic
                     <ArrowRight className="ml-2 w-4 h-4" />
@@ -164,7 +164,7 @@ export default function GreyShacksHome() {
                   <Button 
                     variant="outline"
                     asChild
-                    className="border-[#333333] text-[#F5F5F5] hover:border-[#E8FF47] hover:text-[#E8FF47] px-8 py-6 text-sm font-semibold tracking-wider uppercase"
+                    className="border-[#333333] text-[#F5F5F5] hover:border-[#E8FF47] hover:text-[#E8FF47] px-8 py-6 text-sm font-semibold tracking-wider uppercase w-full sm:w-auto min-h-[56px]"
                   >
                     <Link href="/about">See How It Works</Link>
                   </Button>
@@ -208,19 +208,19 @@ export default function GreyShacksHome() {
               </div>
             </div>
 
-            <div className="mt-24 lg:mt-32 pt-8 border-t border-[#1A1A1A] flex flex-wrap gap-4">
+            <div className="mt-24 lg:mt-32 pt-8 border-t border-[#1A1A1A] grid grid-cols-2 md:flex md:flex-wrap gap-3 md:gap-4">
               {[
                 { n: "190+", t: "Workflows Automated" },
                 { n: "$8M+", t: "Annual Savings Tracked" },
-                { n: "8–14 Week", t: "ROI" },
+                { n: "8–14 Week", t: "ROI Window" },
                 { n: "30+", t: "Production Deployments" }
               ].map((stat, i) => (
                 <div 
                   key={i} 
-                  className="bg-[#111111] border border-[#222222] rounded-full px-6 py-2 flex items-center gap-2"
+                  className="bg-[#111111] border border-[#222222] rounded-full px-4 md:px-6 py-2 flex items-center gap-2"
                 >
-                  <span className="text-[#E8FF47] font-bold text-[13px]">{stat.n}</span>
-                  <span className="text-[#888888] text-[13px]">{stat.t}</span>
+                  <span className="text-[#E8FF47] font-bold text-[12px] md:text-[13px]">{stat.n}</span>
+                  <span className="text-[#888888] text-[12px] md:text-[13px] whitespace-nowrap">{stat.t}</span>
                 </div>
               ))}
             </div>
@@ -267,7 +267,7 @@ export default function GreyShacksHome() {
               <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-[-0.02em] leading-[1.1]">From diagnostic to deployment in weeks, not quarters.</h2>
             </motion.div>
 
-            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
               {/* Connecting Line (Desktop) */}
               <div className="hidden md:block absolute top-12 left-[10%] right-[10%] h-px border-t border-dashed border-[#2A2A2A] z-0" />
               
@@ -288,7 +288,7 @@ export default function GreyShacksHome() {
                     {step.n}
                   </div>
                   <h3 className="text-[20px] font-semibold text-[#F5F5F5] mb-4 tracking-tight">{step.t}</h3>
-                  <p className="text-[14px] text-[#888888] leading-relaxed mb-6">{step.d}</p>
+                  <p className="text-[15px] text-[#888888] leading-relaxed mb-6">{step.d}</p>
                   <div className="mt-auto">
                     <span className="inline-block bg-[#111111] text-[#E8FF47] text-[12px] font-bold px-3 py-1 rounded-full border border-[#222222]">
                       {step.dur}
@@ -300,10 +300,10 @@ export default function GreyShacksHome() {
           </div>
           
           {/* Assurance Strip */}
-          <div className="mt-24 bg-[#111111] border-y border-[#1E1E1E] py-6">
+          <div className="mt-24 bg-[#111111] border-y border-[#1E1E1E] py-8">
             <div className="container mx-auto px-6 flex items-center justify-center gap-3">
               <ShieldCheck className="w-5 h-5 text-[#E8FF47] shrink-0" />
-              <p className="text-[15px] italic text-[#888888] text-center">
+              <p className="text-[14px] md:text-[15px] italic text-[#888888] text-center max-w-[480px]">
                 No pilot is approved without a defined measurement framework. If we can't measure it, we don't deploy it.
               </p>
             </div>
@@ -311,45 +311,45 @@ export default function GreyShacksHome() {
         </section>
 
         {/* INSTITUTIONAL METRICS STRIP */}
-        <section className="bg-[#111111] border-y border-[#1E1E1E] py-[48px]">
+        <section className="bg-[#111111] border-y border-[#1E1E1E] py-12 md:py-[48px]">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 items-center">
               {/* Metric 1 */}
-              <div className="flex flex-col gap-2 px-4 md:border-r border-[#1E1E1E]">
-                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+              <div className="flex flex-col gap-2 px-4 border-r border-[#1E1E1E]">
+                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
                   <CountUp value={190} suffix="+" />
                 </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
                   Workflows Automated
                 </div>
               </div>
 
               {/* Metric 2 */}
               <div className="flex flex-col gap-2 px-4 md:border-r border-[#1E1E1E]">
-                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
                   <CountUp value={8} prefix="$" suffix="M+" />
                 </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
-                  Annual Savings Tracked Across Deployments
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
+                  Annualized Savings Tracked
                 </div>
               </div>
 
               {/* Metric 3 */}
-              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0 md:border-r border-[#1E1E1E]">
-                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0 border-r border-[#1E1E1E]">
+                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter whitespace-nowrap">
                   8–14 wk
                 </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
                   Typical ROI Window
                 </div>
               </div>
 
               {/* Metric 4 */}
               <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0">
-                <div className="text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
                   <CountUp value={30} suffix="+" />
                 </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight">
+                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
                   Production Deployments
                 </div>
               </div>
@@ -384,7 +384,7 @@ export default function GreyShacksHome() {
               ].map((ind, i) => (
                 <div key={i} className="bg-[#0A0A0A] border border-[#1E1E1E] p-8 rounded-xl hover:border-[#2A2A2A] transition-all group">
                   <h3 className="text-lg font-bold text-[#F5F5F5] mb-2 group-hover:text-[#E8FF47] transition-colors">{ind.t}</h3>
-                  <p className="text-sm text-[#888888] leading-relaxed">{ind.d}</p>
+                  <p className="text-[14px] text-[#888888] leading-relaxed">{ind.d}</p>
                 </div>
               ))}
             </div>
@@ -403,21 +403,21 @@ export default function GreyShacksHome() {
             >
               <span className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-4 block">INTEGRATIONS</span>
               <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1]">Works inside the stack you already run.</h2>
-              <p className="text-[17px] text-[#888888] leading-relaxed max-w-[640px] mx-auto mt-6">
+              <p className="text-[16px] md:text-[17px] text-[#888888] leading-relaxed max-w-[640px] mx-auto mt-6">
                 GreyShacks connects to your CRM, ERP, finance, and communication tools. No rip-and-replace. No new software to learn.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 md:gap-4 max-w-5xl mx-auto">
+            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 md:gap-4 max-w-5xl mx-auto overflow-hidden">
               {INTEGRATIONS.map((platform, i) => (
                 <div 
                   key={i} 
-                  className="group relative flex items-center justify-center bg-[#111111] border border-[#1E1E1E] rounded-[12px] aspect-square transition-all hover:border-[#2A2A2A] hover:bg-[#1A1A1A]"
+                  className="group relative flex items-center justify-center bg-[#111111] border border-[#1E1E1E] rounded-[8px] md:rounded-[12px] aspect-square transition-all hover:border-[#2A2A2A] hover:bg-[#1A1A1A]"
                 >
-                  <platform.icon className="w-6 h-6 text-[#555555] group-hover:text-[#F5F5F5] transition-colors" />
+                  <platform.icon className="w-5 h-5 md:w-6 md:h-6 text-[#555555] group-hover:text-[#F5F5F5] transition-colors" />
                   
-                  {/* Simple Tooltip Label */}
-                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#222222] text-[#F5F5F5] text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-20">
+                  {/* Tooltip Label (Desktop only) */}
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#222222] text-[#F5F5F5] text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-20 hidden md:block">
                     {platform.name}
                   </div>
                 </div>
@@ -431,7 +431,7 @@ export default function GreyShacksHome() {
               <Button 
                 variant="outline"
                 onClick={() => setIsIntakeOpen(true)}
-                className="px-10 py-6 text-sm font-semibold tracking-wider uppercase border-[#333333] hover:border-[#E8FF47]"
+                className="px-10 py-6 text-sm font-semibold tracking-wider uppercase border-[#333333] hover:border-[#E8FF47] w-full sm:w-auto min-h-[56px]"
               >
                 Talk to an Integration Specialist
               </Button>

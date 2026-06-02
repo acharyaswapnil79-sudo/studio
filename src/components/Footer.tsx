@@ -20,21 +20,21 @@ export function Footer({ onOpenIntake }: FooterProps) {
               <Link href="/" className="font-sans font-bold text-[18px] text-[#F5F5F5] tracking-tighter">
                 GreyShacks
               </Link>
-              <p className="text-[13px] text-[#555555] leading-tight font-sans">
+              <p className="text-[14px] text-[#555555] leading-tight font-sans">
                 Operational Intelligence for Mid-Market Operations
               </p>
             </div>
             
-            <p className="text-[12px] text-[#444444] leading-relaxed max-w-[240px] font-sans">
+            <p className="text-[14px] text-[#444444] leading-relaxed max-w-[280px] font-sans">
               Headquartered in India. Serving APAC, MENA, and NAMER.
             </p>
             
-            <div className="flex gap-4">
+            <div className="flex gap-6">
               <a 
                 href="https://linkedin.com/company/greyshacks" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-[#444444] hover:text-[#F5F5F5] transition-colors"
+                className="text-[#444444] hover:text-[#F5F5F5] transition-colors p-2 -ml-2"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-[24px] h-[24px]" />
@@ -43,7 +43,7 @@ export function Footer({ onOpenIntake }: FooterProps) {
                 href="https://instagram.com/greyshacks" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-[#444444] hover:text-[#F5F5F5] transition-colors"
+                className="text-[#444444] hover:text-[#F5F5F5] transition-colors p-2"
                 aria-label="Instagram"
               >
                 <Instagram className="w-[24px] h-[24px]" />
@@ -56,22 +56,22 @@ export function Footer({ onOpenIntake }: FooterProps) {
             <h4 className="text-[12px] font-bold text-[#888888] uppercase tracking-widest font-sans">Product</h4>
             <ul className="space-y-4 font-sans">
               <li>
-                <Link href="/capabilities" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/capabilities" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   What We Do
                 </Link>
               </li>
               <li>
-                <Link href="/about#how-we-work" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/about#how-we-work" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   How It Works
                 </Link>
               </li>
               <li>
-                <Link href="/deployments" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/deployments" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   Results
                 </Link>
               </li>
               <li>
-                <Link href="/capabilities#integrations" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/capabilities#integrations" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   Integrations
                 </Link>
               </li>
@@ -83,27 +83,27 @@ export function Footer({ onOpenIntake }: FooterProps) {
             <h4 className="text-[12px] font-bold text-[#888888] uppercase tracking-widest font-sans">Company</h4>
             <ul className="space-y-4 font-sans">
               <li>
-                <Link href="/about" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/about" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/intelligence" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/intelligence" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   Field Intelligence
                 </Link>
               </li>
               <li>
-                <Link href="/deployments" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/deployments" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   Deployment Library
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/privacy" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors">
+                <Link href="/terms" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   Terms of Use
                 </Link>
               </li>
@@ -111,11 +111,11 @@ export function Footer({ onOpenIntake }: FooterProps) {
           </div>
 
           {/* Column 4 — Action */}
-          <div className="md:col-span-3 space-y-4 font-sans">
+          <div className="md:col-span-3 space-y-4 font-sans pt-4 md:pt-0">
             <p className="text-[12px] text-[#888888] font-medium">Ready to start?</p>
             <Button
               onClick={onOpenIntake}
-              className="w-full bg-[#E8FF47] text-[#0A0A0A] font-bold text-[13px] uppercase tracking-widest py-6 rounded-[6px]"
+              className="w-full bg-[#E8FF47] text-[#0A0A0A] font-bold text-[13px] uppercase tracking-widest py-6 rounded-[6px] min-h-[48px]"
             >
               Request a Diagnostic
             </Button>
@@ -123,11 +123,11 @@ export function Footer({ onOpenIntake }: FooterProps) {
         </div>
 
         {/* Bottom Strip */}
-        <div className="pt-8 border-t border-[#1A1A1A] flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-[#1A1A1A] flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-[12px] text-[#444444] font-sans">
             © 2026 GreyShacks. All rights reserved.
           </div>
-          <div className="text-[12px] text-[#333333] italic font-sans">
+          <div className="text-[12px] text-[#333333] italic font-sans text-center md:text-right">
             No generic AI solutions. Only deployment-backed systems.
           </div>
         </div>

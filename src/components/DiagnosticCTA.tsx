@@ -27,7 +27,7 @@ export function DiagnosticCTA({ onOpenIntake }: DiagnosticCTAProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-[32px] md:text-[40px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1] mb-6 max-w-[580px] mx-auto"
+          className="text-[30px] md:text-[40px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1] mb-6 max-w-[580px] mx-auto"
         >
           Your operations have a measurement problem. We can fix that.
         </motion.h2>
@@ -37,7 +37,7 @@ export function DiagnosticCTA({ onOpenIntake }: DiagnosticCTAProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-[17px] text-[#888888] leading-relaxed max-w-[640px] mx-auto mb-10"
+          className="text-[16px] md:text-[17px] text-[#888888] leading-relaxed max-w-[640px] mx-auto mb-10"
         >
           A diagnostic isn't a sales call. It's a structured 2-week process that tells you — with data — exactly where your biggest ROI opportunities are.
         </motion.p>
@@ -50,7 +50,7 @@ export function DiagnosticCTA({ onOpenIntake }: DiagnosticCTAProps) {
         >
           <Button 
             onClick={onOpenIntake}
-            className="bg-[#E8FF47] text-[#0A0A0A] hover:bg-[#E8FF47]/90 px-10 py-6 text-sm font-semibold tracking-wider uppercase rounded-[6px]"
+            className="bg-[#E8FF47] text-[#0A0A0A] hover:bg-[#E8FF47]/90 px-10 py-6 text-sm font-semibold tracking-wider uppercase rounded-[6px] w-full sm:w-auto min-h-[56px]"
           >
             Request an Operational Diagnostic
             <ArrowRight className="ml-2 w-4 h-4" />

@@ -31,20 +31,20 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, on
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-[200] bg-[#0A0A0A] flex flex-col p-6"
         >
-          <div className="flex justify-between items-center mb-12">
+          <div className="flex justify-between items-center mb-16">
             <span className="text-[18px] font-semibold tracking-tighter text-[#F5F5F5] font-display">
               GreyShacks
             </span>
             <button 
               onClick={onClose}
-              className="p-2 text-[#888888]"
+              className="p-4 -mr-4 text-[#888888] min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Close mobile menu"
             >
-              <X className="w-6 h-6" />
+              <X className="w-8 h-8" />
             </button>
           </div>
           
-          <div className="flex flex-col gap-8 mb-12">
+          <div className="flex flex-col gap-10 mb-12">
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.name}
@@ -55,7 +55,7 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, on
                 <Link
                   href={link.href}
                   className={cn(
-                    "text-[32px] font-semibold font-display tracking-tight",
+                    "text-[28px] md:text-[32px] font-semibold font-display tracking-tight inline-block py-2",
                     activeSection === link.name.toLowerCase() ? "text-[#E8FF47]" : "text-[#F5F5F5]"
                   )}
                   onClick={onClose}
@@ -77,7 +77,7 @@ export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, on
                 onClose();
                 onOpenIntake();
               }}
-              className="w-full h-14 bg-[#E8FF47] text-[#0A0A0A] font-semibold text-lg"
+              className="w-full h-16 bg-[#E8FF47] text-[#0A0A0A] font-semibold text-lg rounded-[8px]"
             >
               Get Started
             </Button>
