@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -131,9 +132,8 @@ export default function GreyShacksHome() {
       <Navbar onOpenIntake={() => setIsIntakeOpen(true)} />
       
       <main>
-        {/* HERO SECTION - REDESIGNED */}
+        {/* HERO SECTION */}
         <section className="relative min-h-screen flex flex-col justify-center items-center text-center pt-20 px-6">
-          {/* Abstract Wave Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] opacity-20 blur-[100px]" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
               <motion.path
@@ -159,7 +159,6 @@ export default function GreyShacksHome() {
           </div>
 
           <div className="container relative z-10 max-w-4xl mx-auto">
-            {/* Top Badge */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -215,7 +214,6 @@ export default function GreyShacksHome() {
         <section className="py-32 bg-[#0A0A0A] border-t border-[#1A1A1A]">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
-              {/* Left Column: Narrative */}
               <div className="lg:col-span-7 space-y-8">
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -262,7 +260,6 @@ export default function GreyShacksHome() {
                 </motion.div>
               </div>
 
-              {/* Right Column: Visual Mockup */}
               <div className="lg:col-span-5 relative">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -270,14 +267,11 @@ export default function GreyShacksHome() {
                   viewport={{ once: true }}
                   className="relative w-full aspect-square rounded-[40px] overflow-hidden shadow-2xl border border-white/5"
                 >
-                  {/* Mesh Gradient Background */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#0445a4] via-[#021d3a] to-[#0A0A0A]" />
                   <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#0445a4] rounded-full blur-[100px] opacity-40 animate-pulse" />
                   
-                  {/* UI Mockup Overlay */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
                     <div className="w-full bg-[#111111]/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 shadow-2xl space-y-6">
-                      {/* Top Chips */}
                       <div className="flex gap-2">
                         <div className="bg-white/10 px-3 py-2 rounded-lg flex items-center gap-2 text-white/80 text-xs font-medium">
                           <CheckSquare className="w-3.5 h-3.5" />
@@ -289,7 +283,6 @@ export default function GreyShacksHome() {
                         </div>
                       </div>
                       
-                      {/* Search Bar */}
                       <div className="relative">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-3">
                           <Plus className="w-4 h-4 text-white/40" />
@@ -340,25 +333,20 @@ export default function GreyShacksHome() {
                   whileHover={{ y: -5 }}
                   className="group relative aspect-[4/5] rounded-[32px] overflow-hidden flex flex-col justify-end p-10 cursor-pointer"
                 >
-                  {/* Mesh Gradient Background */}
                   <div 
                     className="absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity duration-700"
                     style={{ background: feature.gradient }}
                   />
                   <div className="absolute inset-0 bg-black/20" />
                   <div className="absolute inset-0 backdrop-blur-[80px]" />
-                  
-                  {/* Subtle noise/texture overlay */}
                   <div className="absolute inset-0 noise-bg opacity-[0.05] pointer-events-none" />
 
-                  {/* Top Plus Icon */}
                   <div className="absolute top-8 right-8">
                     <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-white/20 transition-colors">
                       <Plus className="w-4 h-4 text-white" />
                     </div>
                   </div>
 
-                  {/* Content (Bottom Aligned) */}
                   <div className="relative z-10">
                     <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">
                       {feature.title}
@@ -374,45 +362,42 @@ export default function GreyShacksHome() {
         </section>
 
         {/* HOW IT WORKS SECTION */}
-        <section className="py-24 border-t border-[#1A1A1A] bg-[#0A0A0A]">
+        <section className="py-32 border-t border-[#1A1A1A] bg-[#0A0A0A]">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-20"
+              className="mb-24"
             >
-              <span className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">HOW IT WORKS</span>
-              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-[-0.02em] leading-[1.1]">From diagnostic to deployment in weeks, not quarters.</h2>
+              <span className="text-[11px] font-medium tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">HOW IT WORKS</span>
+              <h2 className="text-[40px] md:text-[56px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1]">From diagnostic to deployment <br className="hidden md:block" /> in weeks, not quarters.</h2>
             </motion.div>
 
-            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 lg:gap-24">
               {/* Connecting Line (Desktop) */}
-              <div className="hidden md:block absolute top-12 left-[10%] right-[10%] h-px border-t border-dashed border-[#2A2A2A] z-0" />
+              <div className="hidden md:block absolute top-12 left-0 right-0 h-px border-t border-dashed border-white/10 z-0" />
               
               {[
-                { n: "01", t: "Operational Diagnostic", d: "We spend 2 weeks inside your operations — mapping workflows, measuring friction, and identifying the highest-ROI automation targets.", dur: "2 Weeks" },
-                { n: "02", t: "Pilot Deployment", d: "We deploy a scoped system against one priority workflow. You see real results in your real environment before committing to scale.", dur: "4–6 Weeks" },
-                { n: "03", t: "Production Rollout", d: "Once the pilot validates ROI, we systematically expand to adjacent workflows — with full measurement and governance built in.", dur: "Ongoing" }
+                { n: "01", t: "Operational Diagnostic", d: "We spend 2 weeks inside your operations — mapping workflows, measuring friction, and identifying high-ROI targets.", dur: "2 Weeks" },
+                { n: "02", t: "Pilot Deployment", d: "We deploy a scoped system against one priority workflow. You see results in your real environment before scaling.", dur: "4–6 Weeks" },
+                { n: "03", t: "Production Rollout", d: "Once the pilot validates ROI, we systematically expand to adjacent workflows with full governance built in.", dur: "Ongoing" }
               ].map((step, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="relative z-10 flex flex-col"
+                  transition={{ delay: i * 0.1 }}
+                  className="relative z-10"
                 >
-                  <div className="text-[48px] font-bold text-[#0445a4] opacity-40 leading-none mb-6 font-display">
+                  <div className="text-[72px] md:text-[84px] font-bold text-[#0445a4]/20 leading-none mb-8 tracking-tighter">
                     {step.n}
                   </div>
-                  <h3 className="text-[20px] font-semibold text-[#F5F5F5] mb-4 tracking-tight">{step.t}</h3>
-                  <p className="text-[15px] text-[#888888] leading-relaxed mb-6">{step.d}</p>
-                  <div className="mt-auto">
-                    <span className="inline-block bg-[#111111] text-[#0445a4] text-[12px] font-bold px-3 py-1 rounded-full border border-[#222222]">
-                      {step.dur}
-                    </span>
+                  <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">{step.t}</h3>
+                  <p className="text-[16px] text-[#888888] leading-relaxed mb-8 max-w-[320px]">{step.d}</p>
+                  <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/5 bg-white/5 text-[11px] font-bold uppercase tracking-widest text-[#0445a4]">
+                    {step.dur}
                   </div>
                 </motion.div>
               ))}
@@ -421,57 +406,55 @@ export default function GreyShacksHome() {
         </section>
 
         {/* INSTITUTIONAL METRICS STRIP */}
-        <section className="bg-[#111111] border-y border-[#1E1E1E] py-12 md:py-[48px]">
+        <section className="bg-[#0D0D0D] border-y border-white/5 py-20 md:py-32">
           <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center">
-              {/* Metric 1 */}
-              <div className="flex flex-col gap-2 px-4 border-b md:border-b-0 md:border-r border-[#1E1E1E] pb-8 md:pb-0">
-                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 items-center">
+              <div className="flex flex-col gap-3 px-4 md:border-r border-white/5">
+                <div className="text-[48px] md:text-[64px] font-bold text-white tracking-tighter leading-none">
                   <CountUp value={190} suffix="+" />
                 </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
+                <div className="text-[12px] font-bold uppercase tracking-[0.2em] text-[#555]">
                   Workflows Automated
                 </div>
               </div>
 
-              {/* Metric 2 */}
-              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0 border-b md:border-b-0 md:border-r border-[#1E1E1E] pb-8 md:pb-0">
-                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter whitespace-nowrap">
+              <div className="flex flex-col gap-3 px-4 md:px-12 md:border-r border-white/5">
+                <div className="text-[48px] md:text-[64px] font-bold text-white tracking-tighter leading-none">
                   8–14 wk
                 </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
+                <div className="text-[12px] font-bold uppercase tracking-[0.2em] text-[#555]">
                   Typical ROI Window
                 </div>
               </div>
 
-              {/* Metric 3 */}
-              <div className="flex flex-col gap-2 px-4 mt-8 md:mt-0">
-                <div className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] leading-none tracking-tighter">
+              <div className="flex flex-col gap-3 px-4 md:px-12">
+                <div className="text-[48px] md:text-[64px] font-bold text-white tracking-tighter leading-none">
                   <CountUp value={30} suffix="+" />
                 </div>
-                <div className="text-[13px] text-[#888888] max-w-[160px] leading-tight mt-1">
+                <div className="text-[12px] font-bold uppercase tracking-[0.2em] text-[#555]">
                   Production Deployments
                 </div>
               </div>
             </div>
             
-            <div className="mt-12 text-center">
-              <p className="text-[10px] italic text-[#555555]">
-                Figures represent aggregate outcomes across client deployments from Q3 2023–Q1 2026.
+            <div className="mt-20 text-center opacity-30">
+              <p className="text-[10px] italic font-medium uppercase tracking-[0.3em]">
+                AGGREGATE OUTCOMES Q3 2023 – Q1 2026
               </p>
             </div>
           </div>
         </section>
 
         {/* INDUSTRIES SECTION */}
-        <section className="bg-[#111111] py-24 border-b border-[#222222]">
+        <section className="bg-[#0A0A0A] py-32">
           <div className="container mx-auto px-6">
-            <div className="max-w-2xl">
-              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight">Industries We Operate In</h2>
-              <p className="mt-4 text-[#888888] text-lg">We deploy production-grade systems across core business verticals.</p>
+            <div className="mb-20 max-w-2xl">
+              <span className="text-[11px] font-medium tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">CORE VERTICALS</span>
+              <h2 className="text-[40px] md:text-[56px] font-bold text-white tracking-tight leading-tight">Industries We Operate In</h2>
+              <p className="mt-6 text-[#888888] text-lg leading-relaxed">We deploy production-grade systems across core mid-market business verticals.</p>
             </div>
             
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { t: "Manufacturing", d: "Production quality, procurement, and vendor operations" },
                 { t: "Real Estate", d: "Lead operations, sales follow-up, and documentation workflows" },
@@ -479,10 +462,14 @@ export default function GreyShacksHome() {
                 { t: "Healthcare", d: "Scheduling, claims pre-processing, and patient communications" },
                 { t: "Professional Services", d: "Contract intelligence, billing operations, and reporting" }
               ].map((ind, i) => (
-                <div key={i} className="bg-[#0A0A0A] border border-[#1E1E1E] p-8 rounded-xl hover:border-[#2A2A2A] transition-all group">
-                  <h3 className="text-lg font-bold text-[#F5F5F5] mb-2 group-hover:text-[#0445a4] transition-colors">{ind.t}</h3>
-                  <p className="text-[14px] text-[#888888] leading-relaxed">{ind.d}</p>
-                </div>
+                <motion.div 
+                  key={i} 
+                  whileHover={{ y: -5 }}
+                  className="bg-[#0D0D0D] border border-white/5 p-10 rounded-2xl transition-all group hover:border-[#0445a4]/30"
+                >
+                  <h3 className="text-xl font-bold text-white mb-4 group-hover:text-[#0445a4] transition-colors">{ind.t}</h3>
+                  <p className="text-[15px] text-[#666] leading-relaxed">{ind.d}</p>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -492,7 +479,6 @@ export default function GreyShacksHome() {
         <section className="py-32 bg-black overflow-hidden">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
-              {/* Left Column: Editorial Content */}
               <div className="lg:col-span-7 space-y-12">
                 <div className="space-y-6">
                   <motion.h2 
@@ -529,7 +515,6 @@ export default function GreyShacksHome() {
                 </motion.div>
               </div>
 
-              {/* Right Column: Visual Proof Grid */}
               <div className="lg:col-span-5 relative">
                 <div 
                   className="grid grid-cols-3 gap-8 md:gap-12"
@@ -571,7 +556,6 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
-        {/* DIAGNOSTIC CTA */}
         <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
