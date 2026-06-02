@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -209,17 +208,6 @@ export default function GreyShacksHome() {
                 <Link href="/about">Learn more</Link>
               </Button>
             </motion.div>
-          </div>
-
-          {/* Floating Labels - bottom right corner area */}
-          <div className="absolute bottom-20 right-10 hidden lg:flex flex-col gap-3 items-end">
-            <div className="bg-white text-black text-[11px] font-bold px-4 py-2 rounded-lg shadow-2xl flex items-center gap-2">
-              <CreditCard className="w-3.5 h-3.5" />
-              Request Diagnostic
-            </div>
-            <div className="bg-[#111] border border-white/10 text-white/60 text-[11px] font-bold px-4 py-2 rounded-lg">
-              Deployment Window Open
-            </div>
           </div>
         </section>
 
