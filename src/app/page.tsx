@@ -62,12 +62,10 @@ export default function GreyShacksHome() {
       <main>
         {/* HERO SECTION */}
         <section className="relative min-h-screen flex flex-col justify-center pt-20">
-          {/* Subtle noise texture */}
           <div className="absolute inset-0 noise-bg opacity-[0.03] pointer-events-none" />
           
           <div className="container mx-auto px-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* Left: Text Content */}
               <div className="lg:col-span-7">
                 <motion.h1 
                   initial={{ opacity: 0, y: 20 }}
@@ -111,7 +109,6 @@ export default function GreyShacksHome() {
                 </motion.div>
               </div>
 
-              {/* Right: Abstract Visual */}
               <div className="lg:col-span-5 hidden lg:block">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -120,14 +117,11 @@ export default function GreyShacksHome() {
                   className="relative w-full aspect-square flex items-center justify-center"
                 >
                   <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Grid Lines */}
                     <path d="M50 50H350V350H50V50Z" stroke="#222222" strokeWidth="1" />
                     <path d="M50 150H350" stroke="#222222" strokeWidth="1" />
                     <path d="M50 250H350" stroke="#222222" strokeWidth="1" />
                     <path d="M150 50V350" stroke="#222222" strokeWidth="1" />
                     <path d="M250 50V350" stroke="#222222" strokeWidth="1" />
-                    
-                    {/* Flow Lines */}
                     <motion.path 
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: 1 }}
@@ -137,15 +131,11 @@ export default function GreyShacksHome() {
                       strokeWidth="2" 
                       strokeDasharray="4 4"
                     />
-                    
-                    {/* Nodes */}
                     <circle cx="50" cy="150" r="4" fill="#E8FF47" />
                     <circle cx="150" cy="150" r="4" fill="#333333" />
                     <circle cx="150" cy="250" r="4" fill="#E8FF47" />
                     <circle cx="250" cy="250" r="4" fill="#333333" />
                     <circle cx="350" cy="250" r="4" fill="#E8FF47" />
-                    
-                    {/* Active Pulse */}
                     <motion.circle 
                       animate={{ r: [4, 8, 4], opacity: [1, 0, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
@@ -156,7 +146,6 @@ export default function GreyShacksHome() {
               </div>
             </div>
 
-            {/* Bottom Stats */}
             <div className="mt-24 lg:mt-32 pt-8 border-t border-[#1A1A1A] flex flex-wrap gap-4">
               {[
                 { n: "190+", t: "Workflows Automated" },
@@ -190,7 +179,6 @@ export default function GreyShacksHome() {
               <p className="text-[17px] text-[#888888] leading-[1.65] max-w-[560px] mt-6">GreyShacks maps your operations, identifies the highest-friction workflows, and deploys intelligent systems that run without manual oversight.</p>
             </motion.div>
 
-            {/* Capability Grid */}
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {FEATURES.map((feature, i) => (
                 <Card key={i} className="group p-8">
@@ -199,6 +187,63 @@ export default function GreyShacksHome() {
                   <p className="text-[14px] text-[#888888] leading-relaxed">{feature.desc}</p>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* HOW IT WORKS SECTION */}
+        <section className="py-24 border-t border-[#1A1A1A] bg-[#0A0A0A]">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-20"
+            >
+              <span className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-4 block">HOW IT WORKS</span>
+              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-[-0.02em] leading-[1.1]">From diagnostic to deployment in weeks, not quarters.</h2>
+            </motion.div>
+
+            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+              {/* Connecting Line (Desktop) */}
+              <div className="hidden md:block absolute top-12 left-[10%] right-[10%] h-px border-t border-dashed border-[#2A2A2A] z-0" />
+              
+              {[
+                { n: "01", t: "Operational Diagnostic", d: "We spend 2 weeks inside your operations — mapping workflows, measuring friction, and identifying the highest-ROI automation targets.", dur: "2 Weeks" },
+                { n: "02", t: "Pilot Deployment", d: "We deploy a scoped system against one priority workflow. You see real results in your real environment before committing to scale.", dur: "4–6 Weeks" },
+                { n: "03", t: "Production Rollout", d: "Once the pilot validates ROI, we systematically expand to adjacent workflows — with full measurement and governance built in.", dur: "Ongoing" }
+              ].map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="relative z-10 flex flex-col"
+                >
+                  <div className="text-[48px] font-bold text-[#E8FF47] opacity-40 leading-none mb-6 font-display">
+                    {step.n}
+                  </div>
+                  <h3 className="text-[20px] font-semibold text-[#F5F5F5] mb-4 tracking-tight">{step.t}</h3>
+                  <p className="text-[14px] text-[#888888] leading-relaxed mb-6">{step.d}</p>
+                  <div className="mt-auto">
+                    <span className="inline-block bg-[#111111] text-[#E8FF47] text-[12px] font-bold px-3 py-1 rounded-full border border-[#222222]">
+                      {step.dur}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Assurance Strip */}
+          <div className="mt-24 bg-[#111111] border-y border-[#1E1E1E] py-6">
+            <div className="container mx-auto px-6 flex items-center justify-center gap-3">
+              <ShieldCheck className="w-5 h-5 text-[#E8FF47] shrink-0" />
+              <p className="text-[15px] italic text-[#888888] text-center">
+                No pilot is approved without a defined measurement framework. If we can't measure it, we don't deploy it.
+              </p>
             </div>
           </div>
         </section>
@@ -237,3 +282,4 @@ export default function GreyShacksHome() {
     </div>
   );
 }
+
