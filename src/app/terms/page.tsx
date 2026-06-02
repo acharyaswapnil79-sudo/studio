@@ -1,10 +1,10 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
 
 export default function TermsPage() {
@@ -18,32 +18,16 @@ export default function TermsPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Command Center", href: "/#hero" },
-    { name: "Operational Impact", href: "/#operational-impact" },
-    { name: "About", href: "/about" },
-    { name: "Capabilities", href: "/capabilities" },
-    { name: "Engagement", href: "/#engagement-model" },
-    { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" },
-    { name: "Contact", href: "/contact" }
-  ];
-
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-blue-900/30">
+    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#E8FF47]/30">
       <Navbar 
-        isScrolled={isScrolled} 
-        navLinks={navLinks} 
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
         activeSection=""
-        handleNavClick={() => {}}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
-      <main className="pt-32 pb-24 px-6 md:px-10">
-        <div className="max-w-[800px] mx-auto">
-          <h1 className="font-headline font-semibold text-4xl md:text-5xl mb-4">Terms of Use</h1>
+      <main className="pt-32 pb-0 px-6 md:px-10">
+        <div className="max-w-[800px] mx-auto mb-24">
+          <h1 className="font-headline font-semibold text-4xl md:text-5xl mb-4 text-[#F5F5F5]">Terms of Use</h1>
           <p className="text-[#606060] text-sm mb-12">Last updated: March 2026</p>
           
           <div className="space-y-12 text-[#A0A0A0] text-lg leading-relaxed">
@@ -87,18 +71,11 @@ export default function TermsPage() {
             </section>
           </div>
         </div>
+
+        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-
-      <MobileMenuOverlay 
-        isOpen={mobileMenuOpen} 
-        onClose={() => setMobileMenuOpen(false)} 
-        navLinks={navLinks} 
-        activeSection=""
-        handleNavClick={() => {}}
-        onOpenIntake={() => setIsIntakeOpen(true)}
-      />
 
       <IntakeFormModal
         isOpen={isIntakeOpen}

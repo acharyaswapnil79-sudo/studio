@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -6,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
 import { INSIGHTS, CATEGORY_NAMES, Category, Insight } from '@/lib/intelligence-data';
 import { Clock, ArrowRight, Info } from 'lucide-react';
@@ -39,10 +39,6 @@ export default function OperationalIntelligencePage() {
     { name: "Field Intelligence", href: "/intelligence" }
   ];
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    // Navigation handled by router or standard anchor logic
-  };
-
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-blue-900/30 font-sans">
       <Navbar 
@@ -51,21 +47,20 @@ export default function OperationalIntelligencePage() {
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection="intelligence"
-        handleNavClick={handleNavClick}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
-      <main className="pt-32 pb-24 px-6 md:px-10">
+      <main className="pt-32 pb-0 px-6 md:px-10">
         <div className="max-w-[1240px] mx-auto">
           {/* Header */}
           <header className="mb-16 max-w-3xl">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-[#0047AB]/10 border border-[#0047AB]/20 px-3 py-1 rounded-full mb-6"
+              className="inline-flex items-center gap-2 bg-[#E8FF47]/10 border border-[#E8FF47]/20 px-3 py-1 rounded-full mb-6"
             >
-              <div className="w-1 h-1 rounded-full bg-[#0047AB] animate-pulse" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#0047AB]">Updated Quarterly</span>
+              <div className="w-1 h-1 rounded-full bg-[#E8FF47] animate-pulse" />
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#E8FF47]">Updated Quarterly</span>
             </motion.div>
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
@@ -106,7 +101,7 @@ export default function OperationalIntelligencePage() {
                       {activeCategory === category && (
                         <motion.div 
                           layoutId="category-indicator"
-                          className="absolute bottom-0 left-0 right-0 h-px bg-[#0047AB]"
+                          className="absolute bottom-0 left-0 right-0 h-px bg-[#E8FF47]"
                         />
                       )}
                     </button>
@@ -117,7 +112,7 @@ export default function OperationalIntelligencePage() {
           </div>
 
           {/* Insight Grid */}
-          <section id="grid">
+          <section id="grid" className="mb-24">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1px bg-white/5 border border-white/5 rounded-xl overflow-hidden">
               <AnimatePresence mode="popLayout">
                 {filteredInsights.map((item) => (
@@ -136,28 +131,9 @@ export default function OperationalIntelligencePage() {
               </div>
             )}
           </section>
-
-          {/* Final Conversion Section */}
-          <section className="mt-24 pt-24 border-t border-white/5 text-center flex flex-col items-center">
-            <div className="max-w-3xl mx-auto space-y-8">
-              <h2 className="font-headline text-3xl md:text-5xl font-semibold leading-tight">
-                Evaluating agentic systems in your operations?
-              </h2>
-              <p className="text-[#A0A0A0] text-lg md:text-xl font-body">
-                We begin with a structured operational diagnostic (typically 2–3 weeks) to determine whether a system is the appropriate intervention.
-              </p>
-              <div className="flex justify-center">
-                <button 
-                  onClick={() => setIsIntakeOpen(true)}
-                  className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2 font-body"
-                >
-                  Request an Operational Diagnostic
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </section>
         </div>
+
+        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
@@ -167,7 +143,6 @@ export default function OperationalIntelligencePage() {
         onClose={() => setMobileMenuOpen(false)} 
         navLinks={navLinks} 
         activeSection="intelligence"
-        handleNavClick={handleNavClick}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
@@ -190,7 +165,7 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
       onClick={onClick}
     >
       <div className="flex justify-between items-start mb-8">
-        <div className="text-[10px] font-mono uppercase tracking-widest text-[#0047AB] font-bold border border-[#0047AB]/20 px-2 py-0.5 rounded">
+        <div className="text-[10px] font-mono uppercase tracking-widest text-[#E8FF47] font-bold border border-[#E8FF47]/20 px-2 py-0.5 rounded">
           {item.category}
         </div>
         <div className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{item.date}</div>
@@ -204,7 +179,7 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
         By Swapnil Acharya, Founder — GreyShacks
       </div>
       
-      <div className="flex items-center gap-2 text-[10px] font-mono text-[#0047AB] mb-6 uppercase tracking-widest">
+      <div className="flex items-center gap-2 text-[10px] font-mono text-[#E8FF47] mb-6 uppercase tracking-widest">
         <Info className="w-3 h-3" />
         {item.provenance}
       </div>
@@ -217,7 +192,7 @@ function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) 
         <div className="flex items-center gap-4 text-[10px] font-mono text-white/20 uppercase tracking-widest">
           <span className="flex items-center gap-1.5"><Clock className="w-3 h-3" /> {item.readingTime}</span>
         </div>
-        <div className="flex items-center gap-2 text-[11px] font-bold text-white/40 group-hover:text-[#0047AB] transition-colors">
+        <div className="flex items-center gap-2 text-[11px] font-bold text-white/40 group-hover:text-[#E8FF47] transition-colors">
           READ ANALYSIS
           <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
         </div>

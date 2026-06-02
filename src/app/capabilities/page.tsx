@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Database, Zap, Activity, Users, FileText, ShoppingCart, MessageSquare, ShieldCheck } from 'lucide-react';
 
 const SYSTEMS = [
@@ -24,7 +25,7 @@ export default function CapabilitiesPage() {
     <div className="bg-[#0A0A0A] min-h-screen">
       <Navbar onOpenIntake={() => setIsIntakeOpen(true)} activeSection="capabilities" />
       
-      <main className="pt-40 pb-24 px-6">
+      <main className="pt-40 pb-0 px-6">
         <div className="container mx-auto">
           <div className="max-w-4xl mb-24">
             <h1 className="font-display text-5xl md:text-8xl text-[#F5F5F5] leading-[0.9] mb-8">
@@ -38,14 +39,14 @@ export default function CapabilitiesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#222] border border-[#222]">
             {SYSTEMS.map((s, i) => (
               <div key={i} className="bg-[#111] p-12 hover:bg-[#1A1A1A] transition-all group border-b border-r border-[#222]">
-                <s.icon className="w-8 h-8 text-[#4DFFB4] mb-8 group-hover:scale-110 transition-transform" />
+                <s.icon className="w-8 h-8 text-[#E8FF47] mb-8 group-hover:scale-110 transition-transform" />
                 <h3 className="text-xl text-[#F5F5F5] mb-4 font-display tracking-tight">{s.t}</h3>
                 <p className="text-[#888] text-sm leading-relaxed">{s.b}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-40 border-t border-[#222] pt-24 grid grid-cols-1 lg:grid-cols-2 gap-24">
+          <div className="mt-40 border-t border-[#222] py-24 grid grid-cols-1 lg:grid-cols-2 gap-24">
             <div>
               <h2 className="text-3xl text-[#F5F5F5] font-display mb-8">Production Stability.</h2>
               <p className="text-[#888] text-lg leading-relaxed mb-12">
@@ -59,7 +60,7 @@ export default function CapabilitiesPage() {
                   "Weekly performance reporting vs baseline"
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4 text-[#F5F5F5] text-sm font-medium">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#4DFFB4]" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#E8FF47]" />
                     {item}
                   </div>
                 ))}
@@ -73,13 +74,15 @@ export default function CapabilitiesPage() {
               </p>
               <button 
                 onClick={() => setIsIntakeOpen(true)}
-                className="w-full py-4 bg-[#F5F5F5] text-[#0A0A0A] font-bold text-xs uppercase tracking-[0.2em] rounded-[2px] hover:bg-[#4DFFB4] transition-all"
+                className="w-full py-4 bg-[#F5F5F5] text-[#0A0A0A] font-bold text-xs uppercase tracking-[0.2em] rounded-[2px] hover:bg-[#E8FF47] transition-all"
               >
                 Apply for Diagnostic
               </button>
             </div>
           </div>
         </div>
+
+        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />

@@ -7,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
 import { DEPLOYMENTS } from '@/lib/deployments-data';
 import { OperationalFlow } from "@/components/deployments/OperationalFlow";
@@ -35,34 +36,19 @@ export default function CaseStudyPage() {
     return (
       <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center text-white font-body">
         <h1 className="text-4xl font-headline mb-4">Deployment Not Found</h1>
-        <Link href="/deployments" className="text-[#0047AB] underline">Return to Library</Link>
+        <Link href="/deployments" className="text-[#E8FF47] underline">Return to Library</Link>
       </div>
     );
   }
 
-  const navLinks = [
-    { name: "Command Center", href: "/#hero" },
-    { name: "Operational Impact", href: "/#operational-impact" },
-    { name: "About", href: "/about" },
-    { name: "Capabilities", href: "/capabilities" },
-    { name: "Engagement", href: "/#engagement-model" },
-    { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" }
-  ];
-
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-blue-900/30">
+    <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#E8FF47]/30">
       <Navbar 
-        isScrolled={isScrolled} 
-        navLinks={navLinks} 
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
         activeSection="deployments"
-        handleNavClick={() => {}}
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
-      <main className="pt-32 pb-24 px-6 md:px-10">
+      <main className="pt-32 pb-0 px-6 md:px-10">
         <div className="max-w-[1240px] mx-auto">
           {/* Back Button */}
           <Link href="/deployments" className="inline-flex items-center gap-2 text-[#A0A0A0] hover:text-white transition-colors mb-8 group">
@@ -72,7 +58,7 @@ export default function CaseStudyPage() {
 
           {/* Hero Section */}
           <section className="mb-12">
-            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0047AB] mb-4">
+            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E8FF47] mb-4">
               {deployment.industry} Deployment
             </div>
             <h1 className="font-headline font-semibold text-4xl md:text-6xl mb-6 leading-tight max-w-4xl">
@@ -102,16 +88,16 @@ export default function CaseStudyPage() {
             </div>
             <div>
               <div className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Methodology</div>
-              <div className="text-lg font-bold text-[#0047AB] font-body">Audit-Ready</div>
+              <div className="text-lg font-bold text-[#E8FF47] font-body">Audit-Ready</div>
             </div>
           </section>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 mb-24">
             <div className="lg:col-span-2 space-y-16">
               {/* Client Context */}
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <Info className="w-5 h-5 text-[#0047AB]" />
+                  <Info className="w-5 h-5 text-[#E8FF47]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Client Context</h2>
                 </div>
                 <div className="space-y-4 text-[#A0A0A0] leading-relaxed text-lg font-body">
@@ -126,7 +112,7 @@ export default function CaseStudyPage() {
               {/* Operational Problem */}
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <FileText className="w-5 h-5 text-[#0047AB]" />
+                  <FileText className="w-5 h-5 text-[#E8FF47]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Operational Problem</h2>
                 </div>
                 <div className="space-y-6">
@@ -139,24 +125,22 @@ export default function CaseStudyPage() {
                     ))}
                   </ul>
                   {deployment.problemSignificance && (
-                    <div className="bg-[#111] border-l-2 border-[#0047AB] p-6 rounded-r-lg italic text-white/80 font-body">
+                    <div className="bg-[#111] border-l-2 border-[#E8FF47] p-6 rounded-r-lg italic text-white/80 font-body">
                       &ldquo;{deployment.problemSignificance}&rdquo;
                     </div>
                   )}
                 </div>
               </section>
 
-              {/* Operational Workflow Diagram */}
               <OperationalFlow 
                 title={deployment.title} 
                 beforeSteps={deployment.beforeFlow} 
                 afterSteps={deployment.afterFlow}
               />
 
-              {/* Deployment Timeline */}
               <section>
                 <div className="flex items-center gap-3 mb-8">
-                  <Clock className="w-5 h-5 text-[#0047AB]" />
+                  <Clock className="w-5 h-5 text-[#E8FF47]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Deployment Timeline</h2>
                 </div>
                 <div className="space-y-8 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-px before:bg-white/5">
@@ -166,8 +150,8 @@ export default function CaseStudyPage() {
                     { phase: 'Scale', description: 'Full production rollout.' }
                   ]).map((item, i) => (
                     <div key={i} className="relative pl-10">
-                      <div className="absolute left-0 top-1 w-[22px] h-[22px] rounded-full bg-[#0A0A0A] border-2 border-[#0047AB] flex items-center justify-center">
-                        <div className="w-2 h-2 rounded-full bg-[#0047AB]" />
+                      <div className="absolute left-0 top-1 w-[22px] h-[22px] rounded-full bg-[#0A0A0A] border-2 border-[#E8FF47] flex items-center justify-center">
+                        <div className="w-2 h-2 rounded-full bg-[#E8FF47]" />
                       </div>
                       <h4 className="font-headline font-bold text-white mb-1">{item.phase}</h4>
                       <p className="text-sm text-[#A0A0A0] leading-relaxed font-body">{item.description}</p>
@@ -176,13 +160,11 @@ export default function CaseStudyPage() {
                 </div>
               </section>
 
-              {/* KPI Impact Exhibit */}
               <KPIExhibit kpis={deployment.kpis} />
 
-              {/* Scope Limitations */}
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <Lock className="w-5 h-5 text-[#0047AB]" />
+                  <Lock className="w-5 h-5 text-[#E8FF47]" />
                   <h2 className="text-xl font-headline font-bold uppercase tracking-widest">Scope Limitations</h2>
                 </div>
                 <div className="bg-[#111] border border-white/5 p-8 rounded-xl font-body">
@@ -192,39 +174,7 @@ export default function CaseStudyPage() {
                 </div>
               </section>
 
-              {/* Business Impact Panel */}
               <ImpactPanel impact={deployment.businessImpact} />
-
-              {/* What Stayed Human */}
-              <section>
-                <div className="flex items-center gap-3 mb-6">
-                  <Info className="w-5 h-5 text-[#0047AB]" />
-                  <h2 className="text-xl font-headline font-bold uppercase tracking-widest">What Stayed Human</h2>
-                </div>
-                <div className="bg-black/40 border border-white/5 p-8 rounded-xl">
-                  <ul className="space-y-4 font-body">
-                    {(deployment.whatStayedHuman || ['Strategic Decisioning', 'Complex Exceptions', 'Stakeholder Comms']).map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm text-white/60">
-                        <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-
-              {/* What We Learned */}
-              <section>
-                <div className="flex items-center gap-3 mb-6">
-                  <Info className="w-5 h-5 text-[#0047AB]" />
-                  <h2 className="text-xl font-headline font-bold uppercase tracking-widest">What We Learned</h2>
-                </div>
-                <div className="bg-[#1a1111]/20 border border-red-900/10 p-8 rounded-xl font-body">
-                  <p className="text-[#A0A0A0] leading-relaxed text-lg">
-                    {deployment.whatWeLearned || "Standard pilot outcomes met projections; recalibration of rule-based logic occurred in Week 4."}
-                  </p>
-                </div>
-              </section>
             </div>
 
             {/* Sidebar */}
@@ -253,94 +203,17 @@ export default function CaseStudyPage() {
                         ))}
                       </div>
                     </div>
-                    <div className="pt-6 border-t border-white/5">
-                      <div className="flex items-center gap-2 text-[#0047AB] mb-2">
-                        <Lock className="w-3 h-3" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest">Audited Evidence</span>
-                      </div>
-                      <p className="text-[11px] text-[#A0A0A0]">
-                        Full methodology and anonymized pilot data logs are available under a standard NDA.
-                      </p>
-                    </div>
                   </div>
-                </div>
-
-                {/* Conversion */}
-                <div className="bg-[#0047AB] p-8 rounded-xl shadow-2xl space-y-6 font-body">
-                  <h4 className="text-white font-bold text-lg leading-tight">Scope a similar pilot for your team</h4>
-                  <p className="text-white/80 text-sm leading-relaxed">
-                    We can capture your operational baseline and scope a production-safe pilot in 2–3 weeks.
-                  </p>
-                  <button 
-                    onClick={() => setIsIntakeOpen(true)}
-                    className="w-full bg-white text-[#0047AB] font-bold text-sm py-3.5 rounded-lg hover:bg-white/90 transition-colors"
-                  >
-                    Request an Operational Diagnostic
-                  </button>
                 </div>
               </div>
             </aside>
           </div>
-
-          {/* Cross-Deployment References */}
-          <section className="mt-32 pt-16 border-t border-white/5">
-            <h2 className="font-headline text-3xl mb-12">Related Deployments</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {DEPLOYMENTS.filter(d => d.id !== deployment.id).slice(0, 3).map((d) => (
-                <Link 
-                  key={d.id} 
-                  href={`/deployments/${d.id}`}
-                  className="bg-[#111] border border-white/5 p-6 rounded-xl hover:border-[#0047AB]/50 transition-all group"
-                >
-                  <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#0047AB] mb-2">{d.industry}</div>
-                  <h4 className="text-white font-headline font-bold mb-4 group-hover:text-[#0047AB] transition-colors">{d.title}</h4>
-                  <div className="flex items-center text-xs text-[#A0A0A0] gap-2 font-body">
-                    View Deployment <ArrowRight className="w-3 h-3" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* Final Conversion Section */}
-          <section className="mt-24 pt-24 border-t border-white/5 text-center">
-            <div className="max-w-3xl mx-auto space-y-8">
-              <h2 className="font-headline text-3xl md:text-5xl font-semibold leading-tight">
-                If your team is managing a similar operational problem, we scope a pilot in 2–3 weeks.
-              </h2>
-              <p className="text-[#A0A0A0] text-lg md:text-xl font-body">
-                The pilot is production-safe and measured against your operational baseline.
-              </p>
-              <div className="flex flex-col md:flex-row gap-4 justify-center">
-                <button 
-                  onClick={() => setIsIntakeOpen(true)}
-                  className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2 font-body"
-                >
-                  Request an Operational Diagnostic
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <button 
-                  onClick={() => setIsMethodologyOpen(true)}
-                  className="bg-transparent border border-white/10 text-white font-bold text-sm px-10 py-4 rounded-lg hover:bg-white/5 transition-all font-body"
-                >
-                  Request the Deployment Brief (NDA)
-                </button>
-              </div>
-            </div>
-          </section>
         </div>
+
+        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-
-      <MobileMenuOverlay 
-        isOpen={mobileMenuOpen} 
-        onClose={() => setMobileMenuOpen(false)} 
-        navLinks={navLinks} 
-        activeSection="deployments"
-        handleNavClick={() => {}}
-        onOpenIntake={() => setIsIntakeOpen(true)}
-      />
 
       <MethodologyModal 
         isOpen={isMethodologyOpen} 

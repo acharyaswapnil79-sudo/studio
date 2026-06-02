@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -6,6 +5,7 @@ import { motion, useInView, useMotionValue, useTransform, animate } from 'framer
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { 
@@ -438,6 +438,9 @@ export default function GreyShacksHome() {
             </div>
           </div>
         </section>
+
+        {/* DIAGNOSTIC CTA */}
+        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />

@@ -6,6 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
 import { MethodologyModal } from '@/components/MethodologyModal';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
 import { DEPLOYMENTS } from '@/lib/deployments-data';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -101,7 +102,7 @@ export default function DeploymentLibraryPage() {
         onOpenIntake={() => setIsIntakeOpen(true)}
       />
 
-      <main className="pt-32 pb-24 px-6 md:px-10">
+      <main className="pt-32 pb-0 px-6 md:px-10">
         <div className="max-w-[1240px] mx-auto">
           {/* Header */}
           <div className="mb-16">
@@ -112,7 +113,7 @@ export default function DeploymentLibraryPage() {
               <p>
                 Each deployment began with a structured diagnostic and a time-boxed pilot. Outcomes are measured against a defined baseline. Client identities remain anonymized. Deployment data is available under NDA.
               </p>
-              <div className="bg-[#111] border-l-2 border-[#0047AB] p-6 rounded-r-lg">
+              <div className="bg-[#111] border-l-2 border-[#E8FF47] p-6 rounded-r-lg">
                 <p className="text-white text-base">
                   Not every deployment produced the outcomes projected at scoping. Where results differed from pilot expectations, we note it.
                 </p>
@@ -248,7 +249,7 @@ export default function DeploymentLibraryPage() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
             <AnimatePresence mode="popLayout">
               {filteredDeployments.map((d) => (
                 <motion.div
@@ -258,12 +259,12 @@ export default function DeploymentLibraryPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-[#111] border border-white/5 rounded-xl overflow-hidden flex flex-col hover:border-[#0047AB]/50 transition-all shadow-lg"
+                  className="bg-[#111] border border-white/5 rounded-xl overflow-hidden flex flex-col hover:border-[#E8FF47]/50 transition-all shadow-lg"
                 >
                   <div className="p-6 flex-1 flex flex-col">
                     <div className="flex justify-between items-start mb-4">
                       <div className="space-y-1">
-                        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0047AB]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E8FF47]">
                           {d.industry}
                         </div>
                         <h3 className="font-bold text-lg leading-tight">{d.title}</h3>
@@ -288,7 +289,7 @@ export default function DeploymentLibraryPage() {
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-white/40">{d.kpis[0].label}</span>
-                          <span className="text-xs font-bold text-[#0047AB]">{d.kpis[0].impact}</span>
+                          <span className="text-xs font-bold text-[#E8FF47]">{d.kpis[0].impact}</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="text-sm font-medium">{d.kpis[0].before}</div>
@@ -302,7 +303,7 @@ export default function DeploymentLibraryPage() {
                   <div className="border-t border-white/5 p-4 flex gap-2">
                     <button 
                       onClick={() => setIsIntakeOpen(true)}
-                      className="flex-1 bg-[#0047AB] text-white text-[11px] font-bold py-2.5 rounded-md hover:bg-[#0047AB]/90 transition-colors"
+                      className="flex-1 bg-[#E8FF47] text-[#0A0A0A] text-[11px] font-bold py-2.5 rounded-md hover:opacity-90 transition-colors"
                     >
                       Request Diagnostic
                     </button>
@@ -317,34 +318,9 @@ export default function DeploymentLibraryPage() {
               ))}
             </AnimatePresence>
           </div>
-
-          {/* Conversion Block */}
-          <section className="mt-24 pt-24 border-t border-white/5 text-center">
-            <div className="max-w-3xl mx-auto space-y-8">
-              <h2 className="font-headline text-3xl md:text-5xl font-semibold leading-tight">
-                If your team is managing a similar operational problem, we scope a diagnostic in 2–3 weeks.
-              </h2>
-              <p className="text-[#A0A0A0] text-lg md:text-xl">
-                The diagnostic is production-safe and measured against your operational baseline.
-              </p>
-              <div className="flex flex-col md:flex-row gap-4 justify-center">
-                <button 
-                  onClick={() => setIsIntakeOpen(true)}
-                  className="bg-[#0047AB] text-white font-bold text-sm px-10 py-4 rounded-lg shadow-xl flex items-center justify-center gap-2"
-                >
-                  Request an Operational Diagnostic
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <button 
-                  onClick={() => setIsMethodologyOpen(true)}
-                  className="bg-transparent border border-white/10 text-white font-bold text-sm px-10 py-4 rounded-lg hover:bg-white/5 transition-all"
-                >
-                  Request the Deployment Brief (NDA)
-                </button>
-              </div>
-            </div>
-          </section>
         </div>
+
+        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />

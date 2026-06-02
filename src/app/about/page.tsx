@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -6,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
+import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
@@ -15,7 +15,7 @@ export default function AboutPage() {
     <div className="bg-[#0A0A0A] min-h-screen selection:bg-[#E8FF47]/30">
       <Navbar onOpenIntake={() => setIsIntakeOpen(true)} activeSection="about" />
       
-      <main className="pt-[160px] pb-24">
+      <main className="pt-[160px] pb-0">
         <div className="container px-6 mx-auto">
           {/* Institutional Hero */}
           <div className="max-w-4xl">
@@ -124,18 +124,9 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
-
-          {/* Engagement CTA */}
-          <div className="mt-40 border-t border-[#222] pt-24 text-center">
-            <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] mb-12 tracking-tight">Let's audit your latency.</h2>
-            <button
-              onClick={() => setIsIntakeOpen(true)}
-              className="px-12 py-5 bg-[#E8FF47] text-[#0A0A0A] font-bold uppercase tracking-widest text-[13px] rounded-[2px] transition-transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Start Diagnostic Assessment
-            </button>
-          </div>
         </div>
+
+        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
