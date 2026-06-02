@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -17,7 +16,6 @@ const navLinks = [
   { name: "About", href: "/about" },
   { name: "Capabilities", href: "/capabilities" },
   { name: "Results", href: "/deployments" },
-  { name: "Integrations", href: "/capabilities#integrations" },
   { name: "Contact", href: "/contact" }
 ];
 
@@ -37,9 +35,9 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
     <>
       <nav 
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] h-20 flex items-center transition-all duration-300 px-6",
+          "fixed top-0 left-0 right-0 z-[100] h-20 md:h-24 flex items-center transition-all duration-500 px-6",
           isScrolled 
-            ? "bg-[#0A0A0A]/85 backdrop-blur-md border-b border-white/5" 
+            ? "bg-[#0A0A0A]/85 backdrop-blur-xl border-b border-white/5" 
             : "bg-transparent border-b border-transparent"
         )}
       >
@@ -47,12 +45,12 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
           {/* Wordmark */}
           <Link 
             href="/" 
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 group relative z-10"
           >
-            <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-black group-hover:bg-[#0445a4] transition-colors" />
+            <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center">
+              <div className="w-2.5 h-2.5 rounded-full bg-black group-hover:bg-[#0445a4] transition-all duration-300" />
             </div>
-            <span className="text-[18px] font-bold tracking-tighter text-[#F5F5F5] font-display">
+            <span className="text-[18px] md:text-[20px] font-bold tracking-tighter text-[#F5F5F5] font-display">
               GreyShacks
             </span>
           </Link>
@@ -64,10 +62,10 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-[13px] font-medium tracking-wide transition-colors",
+                  "text-[13px] font-semibold tracking-wide transition-all hover:text-[#0445a4]",
                   activeSection === link.name.toLowerCase() 
                     ? "text-[#F5F5F5]" 
-                    : "text-white/50 hover:text-white"
+                    : "text-white/40 hover:text-white"
                 )}
               >
                 {link.name}
@@ -76,11 +74,11 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
           </div>
 
           {/* Right CTA */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 relative z-10">
             <div className="hidden md:block">
               <Button 
                 onClick={onOpenIntake}
-                className="bg-transparent border border-white/20 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-6 py-2 h-10 text-[13px] font-bold tracking-wide transition-all"
+                className="bg-transparent border border-white/20 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-8 py-2.5 h-11 text-[13px] font-bold tracking-wide transition-all shadow-xl"
               >
                 Get started
               </Button>
@@ -88,10 +86,11 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
             
             {/* Mobile Toggle */}
             <button 
-              className="md:hidden p-2 text-[#888888]"
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-[#888888]"
               onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5" />
             </button>
           </div>
         </div>
