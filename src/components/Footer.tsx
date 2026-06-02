@@ -88,16 +88,6 @@ export function Footer({ onOpenIntake }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href="/intelligence" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
-                  Field Intelligence
-                </Link>
-              </li>
-              <li>
-                <Link href="/deployments" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
-                  Deployment Library
-                </Link>
-              </li>
-              <li>
                 <Link href="/privacy" className="text-[14px] text-[#666666] hover:text-[#F5F5F5] transition-colors inline-block py-1">
                   Privacy Policy
                 </Link>
