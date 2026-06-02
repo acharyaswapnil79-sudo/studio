@@ -15,7 +15,25 @@ import {
   ShieldCheck, 
   Plug, 
   Clock, 
-  Layers 
+  Layers,
+  Database,
+  Users,
+  Server,
+  Globe,
+  Calculator,
+  FileText,
+  Hash,
+  Video,
+  Mail,
+  Book,
+  Table,
+  CheckSquare,
+  Zap,
+  Repeat,
+  Phone,
+  MessageCircle,
+  CreditCard,
+  Wallet
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -50,6 +68,29 @@ const FEATURES = [
     title: "Production-First Deployment",
     desc: "We don't deliver prototypes. Every system goes into live operations — tested, monitored, and maintained."
   }
+];
+
+const INTEGRATIONS = [
+  { name: "Salesforce", icon: Database },
+  { name: "HubSpot", icon: Users },
+  { name: "Zoho CRM", icon: Layers },
+  { name: "SAP", icon: Server },
+  { name: "NetSuite", icon: Globe },
+  { name: "QuickBooks", icon: BarChart3 },
+  { name: "Xero", icon: Calculator },
+  { name: "Tally", icon: FileText },
+  { name: "Slack", icon: Hash },
+  { name: "MS Teams", icon: Video },
+  { name: "Workspace", icon: Mail },
+  { name: "Notion", icon: Book },
+  { name: "Airtable", icon: Table },
+  { name: "Jira", icon: CheckSquare },
+  { name: "Zapier", icon: Zap },
+  { name: "Make", icon: Repeat },
+  { name: "Twilio", icon: Phone },
+  { name: "WhatsApp", icon: MessageCircle },
+  { name: "Stripe", icon: CreditCard },
+  { name: "Razorpay", icon: Wallet },
 ];
 
 function CountUp({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
@@ -346,6 +387,54 @@ export default function GreyShacksHome() {
                   <p className="text-sm text-[#888888] leading-relaxed">{ind.d}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* INTEGRATIONS SECTION */}
+        <section className="py-24 bg-[#0A0A0A]">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <span className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-4 block">INTEGRATIONS</span>
+              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1]">Works inside the stack you already run.</h2>
+              <p className="text-[17px] text-[#888888] leading-relaxed max-w-[640px] mx-auto mt-6">
+                GreyShacks connects to your CRM, ERP, finance, and communication tools. No rip-and-replace. No new software to learn.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 md:gap-4 max-w-5xl mx-auto">
+              {INTEGRATIONS.map((platform, i) => (
+                <div 
+                  key={i} 
+                  className="group relative flex items-center justify-center bg-[#111111] border border-[#1E1E1E] rounded-[12px] aspect-square transition-all hover:border-[#2A2A2A] hover:bg-[#1A1A1A]"
+                >
+                  <platform.icon className="w-6 h-6 text-[#555555] group-hover:text-[#F5F5F5] transition-colors" />
+                  
+                  {/* Simple Tooltip Label */}
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#222222] text-[#F5F5F5] text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-20">
+                    {platform.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center space-y-8">
+              <p className="text-[14px] text-[#888888]">
+                Don't see your stack? We've integrated with <span className="text-[#E8FF47] font-bold">40+ platforms</span>.
+              </p>
+              <Button 
+                variant="outline"
+                onClick={() => setIsIntakeOpen(true)}
+                className="px-10 py-6 text-sm font-semibold tracking-wider uppercase border-[#333333] hover:border-[#E8FF47]"
+              >
+                Talk to an Integration Specialist
+              </Button>
             </div>
           </div>
         </section>
