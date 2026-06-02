@@ -7,7 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronRight, Activity, Zap, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function GreyShacksHome() {
@@ -134,7 +134,38 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
-        {/* REST OF PAGE SECTIONS */}
+        {/* WHAT WE DO SECTION */}
+        <section className="py-24 border-t border-[#1A1A1A]">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-4 block">WHAT WE DO</span>
+              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] max-w-[600px] tracking-[-0.02em] leading-[1.1]">One system. Every operational bottleneck.</h2>
+              <p className="text-[17px] text-[#888888] leading-[1.65] max-w-[560px] mt-6">GreyShacks maps your operations, identifies the highest-friction workflows, and deploys intelligent systems that run without manual oversight.</p>
+            </motion.div>
+
+            {/* Service Triad Grid */}
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { icon: Activity, t: "Operational Triage", d: "We identify manual latency across your stack through structured diagnostics and process mapping." },
+                { icon: Zap, t: "Agentic Deployment", d: "Production-grade agentic systems are integrated into your existing core business workflows." },
+                { icon: BarChart3, t: "Intelligence Loop", d: "Real-time visibility into performance, accuracy, and automated outcomes with audit trails." }
+              ].map((step, i) => (
+                <div key={i} className="p-8 bg-[#111111] border border-[#1E1E1E] rounded-xl hover:border-[#2A2A2A] transition-all group">
+                  <step.icon className="w-6 h-6 text-[#E8FF47] mb-6 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-[20px] font-bold text-[#F5F5F5] mb-2 font-display">{step.t}</h3>
+                  <p className="text-sm text-[#888888] leading-relaxed">{step.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* INDUSTRIES SECTION */}
         <section className="bg-[#111111] py-24 border-y border-[#222222]">
           <div className="container mx-auto px-6">
             <div className="max-w-2xl">
