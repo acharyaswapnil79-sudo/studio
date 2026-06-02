@@ -74,7 +74,7 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
             <div className="hidden md:block">
               <Button 
                 onClick={onOpenIntake}
-                className="bg-[#E8FF47] text-[#0A0A0A] font-semibold text-[14px] py-2.5 px-6"
+                className="bg-[#0445a4] text-white font-semibold text-[14px] py-2.5 px-6"
               >
                 Get Started
               </Button>

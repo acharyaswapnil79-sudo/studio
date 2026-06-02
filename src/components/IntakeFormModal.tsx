@@ -14,7 +14,7 @@ interface IntakeFormModalProps {
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
-const INDUSTRIES = ["Manufacturing", "Real Estate", "Retail", "Logistics", "Food & Beverage", "SaaS", "Financial Services", "Healthcare", "Construction", "Other"];
+const INDUSTRIES = ["Manufacturing", "Real Estate", "Logistics", "Healthcare", "Professional Services", "Other"];
 const COUNTRIES = ["India", "United States", "Germany", "France", "Spain", "Ireland", "UK", "UAE", "Singapore", "Australia", "Canada", "Other"];
 const SIZES = ["10–50 employees", "50–200 employees", "200–1000 employees", "1000+"];
 const PROCESSES = ["Lead operations", "Sales follow-up", "Hiring & candidate screening", "Accounts receivable", "Financial reporting", "Procurement & vendor coordination", "Customer query resolution", "Contract/document management", "Compliance tracking", "Other"];
@@ -64,20 +64,6 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
       default: return 'USD';
     }
   }, [formData.country]);
-
-  const revenueRanges = useMemo(() => {
-    if (currency === 'INR') return ["₹10 Cr – ₹50 Cr", "₹50 Cr – ₹200 Cr", "₹200 Cr – ₹500 Cr", "₹500 Cr+"];
-    if (currency === 'USD') return ["$5M – $25M", "$25M – $100M", "$100M – $250M", "$250M+"];
-    if (currency === 'EUR') return ["€5M – €25M", "€25M – €100M", "€100M – €250M", "€250M+"];
-    return ["$5M – $25M", "$25M – $100M", "$100M+"];
-  }, [currency]);
-
-  const budgetRanges = useMemo(() => {
-    if (currency === 'INR') return ["₹5L – ₹15L", "₹15L – ₹30L", "₹30L – ₹75L", "₹75L+"];
-    if (currency === 'USD') return ["$15K – $30K", "$30K – $75K", "$75K – $150K", "$150K+"];
-    if (currency === 'EUR') return ["€15K – €30K", "€30K – €75K", "€75K – €150K", "€150K+"];
-    return ["$15K – $30K", "$30K – $75K", "$75K – $150K", "$150K+"];
-  }, [currency]);
 
   useEffect(() => {
     if (isOpen) {
@@ -166,14 +152,14 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
             <div className="flex-1 overflow-y-auto p-8 bg-[#0A0A0A]">
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center text-center h-full space-y-6">
-                  <div className="w-12 h-12 rounded-full border border-[#4DFFB4] flex items-center justify-center">
-                    <CheckCircle2 className="w-6 h-6 text-[#4DFFB4]" />
+                  <div className="w-12 h-12 rounded-full border border-[#0445a4] flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 text-[#0445a4]" />
                   </div>
                   <h3 className="text-2xl text-[#F5F5F5] font-display">Diagnostic Recorded.</h3>
                   <p className="text-[#888] max-w-sm leading-relaxed">
                     Our team will review your operational data and provide a diagnostic proposal within 48 hours.
                   </p>
-                  <button onClick={onClose} className="bg-[#111] border border-[#222] text-[#F5F5F5] px-8 py-3 rounded-[2px] text-xs font-bold uppercase tracking-widest hover:border-[#4DFFB4]/30 transition-all">
+                  <button onClick={onClose} className="bg-[#111] border border-[#222] text-[#F5F5F5] px-8 py-3 rounded-[2px] text-xs font-bold uppercase tracking-widest hover:border-[#0445a4]/30 transition-all">
                     Return to Commander
                   </button>
                 </div>
@@ -184,7 +170,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${(step / 5) * 100}%` }}
-                      className="h-full bg-[#4DFFB4] mint-glow"
+                      className="h-full bg-[#0445a4] accent-glow"
                     />
                   </div>
 
@@ -197,7 +183,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                           <input
                             type="text"
                             placeholder="Official name"
-                            className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] placeholder:text-[#444] focus:outline-none focus:border-[#4DFFB4] transition-all"
+                            className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] placeholder:text-[#444] focus:outline-none focus:border-[#0445a4] transition-all"
                             value={formData.companyName}
                             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                           />
@@ -206,7 +192,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                           <div className="space-y-2">
                             <label className="text-[11px] text-[#888] uppercase tracking-widest">Industry</label>
                             <select
-                              className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#4DFFB4] appearance-none"
+                              className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#0445a4] appearance-none"
                               value={formData.industry}
                               onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
                             >
@@ -217,7 +203,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                           <div className="space-y-2">
                             <label className="text-[11px] text-[#888] uppercase tracking-widest">Country</label>
                             <select
-                              className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#4DFFB4] appearance-none"
+                              className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#0445a4] appearance-none"
                               value={formData.country}
                               onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                             >
@@ -237,7 +223,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                         <div className="space-y-2">
                           <label className="text-[11px] text-[#888] uppercase tracking-widest">Critical Process</label>
                           <select
-                            className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#4DFFB4] appearance-none"
+                            className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#0445a4] appearance-none"
                             value={formData.operationalProcess}
                             onChange={(e) => setFormData({ ...formData, operationalProcess: e.target.value })}
                           >
@@ -248,7 +234,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                         <div className="space-y-2">
                           <label className="text-[11px] text-[#888] uppercase tracking-widest">Weekly Manual Latency</label>
                           <select
-                            className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#4DFFB4] appearance-none"
+                            className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] focus:outline-none focus:border-[#0445a4] appearance-none"
                             value={formData.weeklyTimeSpent}
                             onChange={(e) => setFormData({ ...formData, weeklyTimeSpent: e.target.value })}
                           >
@@ -260,22 +246,21 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                     </div>
                   )}
 
-                  {/* Other steps styled similarly... keeping it concise */}
                   {step > 2 && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
-                       <p className="text-[#888] italic text-sm">Step {step} content continuation... (rendering identical field styles as above)</p>
+                       <p className="text-[#888] italic text-sm">Step {step} content continuation... </p>
                        <div className="space-y-4">
                         <input
                           type="text"
                           placeholder="Contact information"
-                          className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] placeholder:text-[#444] focus:outline-none focus:border-[#4DFFB4]"
+                          className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] placeholder:text-[#444] focus:outline-none focus:border-[#0445a4]"
                           value={formData.fullName}
                           onChange={(e) => setFormData({...formData, fullName: e.target.value})}
                         />
                         <input
                           type="email"
                           placeholder="Professional email"
-                          className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] placeholder:text-[#444] focus:outline-none focus:border-[#4DFFB4]"
+                          className="w-full bg-[#111] border border-[#222] rounded-[2px] px-4 py-4 text-[#F5F5F5] placeholder:text-[#444] focus:outline-none focus:border-[#0445a4]"
                           value={formData.businessEmail}
                           onChange={(e) => setFormData({...formData, businessEmail: e.target.value})}
                         />
@@ -283,7 +268,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                           <input 
                             type="checkbox" 
                             id="confirm"
-                            className="accent-[#4DFFB4]"
+                            className="accent-[#0445a4]"
                             checked={formData.confirmationOfPilotInterest}
                             onChange={(e) => setFormData({...formData, confirmationOfPilotInterest: e.target.checked})}
                           />
@@ -313,7 +298,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                       disabled={!currentStepValid()}
                       className={cn(
                         "flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-widest rounded-[2px] transition-all",
-                        currentStepValid() ? "bg-[#F5F5F5] text-[#0A0A0A] hover:bg-[#4DFFB4]" : "bg-[#222] text-[#444] cursor-not-allowed"
+                        currentStepValid() ? "bg-[#F5F5F5] text-[#0A0A0A] hover:bg-[#0445a4] hover:text-white" : "bg-[#222] text-[#444] cursor-not-allowed"
                       )}
                     >
                       Next Window <ChevronRight className="w-4 h-4" />
@@ -324,7 +309,7 @@ export function IntakeFormModal({ isOpen, onClose }: IntakeFormModalProps) {
                       disabled={!currentStepValid() || isSubmitting}
                       className={cn(
                         "flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-widest rounded-[2px] transition-all",
-                        currentStepValid() && !isSubmitting ? "bg-[#4DFFB4] text-[#0A0A0A] mint-glow" : "bg-[#222] text-[#444] cursor-not-allowed"
+                        currentStepValid() && !isSubmitting ? "bg-[#0445a4] text-white accent-glow" : "bg-[#222] text-[#444] cursor-not-allowed"
                       )}
                     >
                       {isSubmitting ? "Recording..." : "Finalize Diagnostic"}

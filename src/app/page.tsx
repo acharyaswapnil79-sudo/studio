@@ -33,7 +33,10 @@ import {
   Phone,
   MessageCircle,
   CreditCard,
-  Wallet
+  Wallet,
+  Infinity,
+  Layout,
+  LineChart
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -118,7 +121,7 @@ export default function GreyShacksHome() {
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] selection:bg-[#E8FF47]/30 overflow-hidden">
+    <div className="relative min-h-screen bg-[#0A0A0A] selection:bg-[#0445a4]/30 overflow-hidden">
       <Navbar onOpenIntake={() => setIsIntakeOpen(true)} />
       
       <main>
@@ -136,7 +139,7 @@ export default function GreyShacksHome() {
                   className="text-[40px] md:text-[64px] font-bold text-[#F5F5F5] tracking-tighter leading-[1.1] max-w-[640px]"
                 >
                   Operational Intelligence. <br />
-                  <span className="text-[#E8FF47]">Built to Deploy.</span>
+                  <span className="text-[#0445a4]">Built to Deploy.</span>
                 </motion.h1>
                 
                 <motion.p 
@@ -156,7 +159,7 @@ export default function GreyShacksHome() {
                 >
                   <Button 
                     onClick={() => setIsIntakeOpen(true)}
-                    className="bg-[#E8FF47] text-[#0A0A0A] hover:bg-[#E8FF47]/90 px-8 py-6 text-sm font-semibold tracking-wider uppercase w-full sm:w-auto min-h-[56px]"
+                    className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 px-8 py-6 text-sm font-semibold tracking-wider uppercase w-full sm:w-auto min-h-[56px]"
                   >
                     Request a Diagnostic
                     <ArrowRight className="ml-2 w-4 h-4" />
@@ -164,7 +167,7 @@ export default function GreyShacksHome() {
                   <Button 
                     variant="outline"
                     asChild
-                    className="border-[#333333] text-[#F5F5F5] hover:border-[#E8FF47] hover:text-[#E8FF47] px-8 py-6 text-sm font-semibold tracking-wider uppercase w-full sm:w-auto min-h-[56px]"
+                    className="border-[#333333] text-[#F5F5F5] hover:border-[#0445a4] hover:text-[#0445a4] px-8 py-6 text-sm font-semibold tracking-wider uppercase w-full sm:w-auto min-h-[56px]"
                   >
                     <Link href="/about">See How It Works</Link>
                   </Button>
@@ -189,23 +192,75 @@ export default function GreyShacksHome() {
                       animate={{ pathLength: 1 }}
                       transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
                       d="M50 150H150V250H350" 
-                      stroke="#E8FF47" 
+                      stroke="#0445a4" 
                       strokeWidth="2" 
                       strokeDasharray="4 4"
                     />
-                    <circle cx="50" cy="150" r="4" fill="#E8FF47" />
+                    <circle cx="50" cy="150" r="4" fill="#0445a4" />
                     <circle cx="150" cy="150" r="4" fill="#333333" />
-                    <circle cx="150" cy="250" r="4" fill="#E8FF47" />
+                    <circle cx="150" cy="250" r="4" fill="#0445a4" />
                     <circle cx="250" cy="250" r="4" fill="#333333" />
-                    <circle cx="350" cy="250" r="4" fill="#E8FF47" />
+                    <circle cx="350" cy="250" r="4" fill="#0445a4" />
                     <motion.circle 
                       animate={{ r: [4, 8, 4], opacity: [1, 0, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      cx="150" cy="250" r="4" stroke="#E8FF47" strokeWidth="1" fill="none" 
+                      cx="150" cy="250" r="4" stroke="#0445a4" strokeWidth="1" fill="none" 
                     />
                   </svg>
                 </motion.div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* THE PLATFORM SECTION */}
+        <section className="py-24 bg-[#0A0A0A] border-t border-[#1A1A1A]">
+          <div className="container mx-auto px-6 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <span className="text-[11px] font-bold tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">THE PLATFORM</span>
+              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1] mb-6">
+                Every operation. Every platform.<br />
+                <span className="text-white">One place.</span>
+              </h2>
+              <p className="text-[16px] md:text-[17px] text-[#888888] leading-relaxed max-w-[720px] mx-auto">
+                You've spent years switching between platforms, chasing approvals in inboxes, and reconciling data across tools that don't talk to each other. GreyShacks ends that. Every workflow, every alert, every decision — surfaced, prioritised, and actioned from a single intelligent layer.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16">
+              {[
+                { icon: Infinity, t: "Always On", d: "GreyShacks monitors your operations 24/7, not just when you remember to check." },
+                { icon: Layout, t: "Zero Platform Switching", d: "Every approval, alert, and action lives in one interface. Your 12 open tabs become one." },
+                { icon: ShieldCheck, t: "Nothing Slips Through", d: "Priority scoring ensures critical items — approvals, escalations, deadlines — are never buried." },
+                { icon: LineChart, t: "Gets Smarter Over Time", d: "The longer GreyShacks runs, the better it understands your operation's patterns and priorities." }
+              ].map((item, i) => (
+                <Card key={i} className="p-10 flex flex-col items-center text-center group">
+                  <item.icon className="w-8 h-8 text-[#0445a4] mb-6 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-xl font-bold text-[#F5F5F5] mb-3">{item.t}</h3>
+                  <p className="text-sm text-[#888888] leading-relaxed">{item.d}</p>
+                </Card>
+              ))}
+            </div>
+
+            <div className="max-w-4xl mx-auto p-12 bg-[#0445a4]/5 border border-[#0445a4]/20 rounded-xl">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
+                You're not adding another tool. You're replacing the chaos.
+              </h3>
+              <p className="text-[#888888] text-sm md:text-base mb-10">
+                The first platform that treats operational intelligence as a product — not a consulting engagement.
+                Once in a lifetime opportunity to use the magic to solve your every problem without moving from the platform.
+              </p>
+              <Button 
+                onClick={() => setIsIntakeOpen(true)}
+                className="bg-transparent border border-white/10 hover:border-[#0445a4] text-white hover:text-[#0445a4] px-10 py-6 text-sm font-bold uppercase tracking-widest"
+              >
+                See It In Action
+              </Button>
             </div>
           </div>
         </section>
@@ -219,7 +274,7 @@ export default function GreyShacksHome() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-4 block">WHAT WE DO</span>
+              <span className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">WHAT WE DO</span>
               <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] max-w-[600px] tracking-[-0.02em] leading-[1.1]">One system. Every operational bottleneck.</h2>
               <p className="text-[17px] text-[#888888] leading-[1.65] max-w-[560px] mt-6">GreyShacks maps your operations, identifies the highest-friction workflows, and deploys intelligent systems that run without manual oversight.</p>
             </motion.div>
@@ -227,7 +282,7 @@ export default function GreyShacksHome() {
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {FEATURES.map((feature, i) => (
                 <Card key={i} className="group p-8">
-                  <feature.icon className="w-6 h-6 text-[#E8FF47] mb-6 group-hover:scale-110 transition-transform" />
+                  <feature.icon className="w-6 h-6 text-[#0445a4] mb-6 group-hover:scale-110 transition-transform" />
                   <h3 className="text-[20px] font-semibold text-[#F5F5F5] mb-4 tracking-tight">{feature.title}</h3>
                   <p className="text-[14px] text-[#888888] leading-relaxed">{feature.desc}</p>
                 </Card>
@@ -246,7 +301,7 @@ export default function GreyShacksHome() {
               transition={{ duration: 0.6 }}
               className="mb-20"
             >
-              <span className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-4 block">HOW IT WORKS</span>
+              <span className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">HOW IT WORKS</span>
               <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-[-0.02em] leading-[1.1]">From diagnostic to deployment in weeks, not quarters.</h2>
             </motion.div>
 
@@ -267,13 +322,13 @@ export default function GreyShacksHome() {
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                   className="relative z-10 flex flex-col"
                 >
-                  <div className="text-[48px] font-bold text-[#E8FF47] opacity-40 leading-none mb-6 font-display">
+                  <div className="text-[48px] font-bold text-[#0445a4] opacity-40 leading-none mb-6 font-display">
                     {step.n}
                   </div>
                   <h3 className="text-[20px] font-semibold text-[#F5F5F5] mb-4 tracking-tight">{step.t}</h3>
                   <p className="text-[15px] text-[#888888] leading-relaxed mb-6">{step.d}</p>
                   <div className="mt-auto">
-                    <span className="inline-block bg-[#111111] text-[#E8FF47] text-[12px] font-bold px-3 py-1 rounded-full border border-[#222222]">
+                    <span className="inline-block bg-[#111111] text-[#0445a4] text-[12px] font-bold px-3 py-1 rounded-full border border-[#222222]">
                       {step.dur}
                     </span>
                   </div>
@@ -285,7 +340,7 @@ export default function GreyShacksHome() {
           {/* Assurance Strip */}
           <div className="mt-24 bg-[#111111] border-y border-[#1E1E1E] py-8">
             <div className="container mx-auto px-6 flex items-center justify-center gap-3">
-              <ShieldCheck className="w-5 h-5 text-[#E8FF47] shrink-0" />
+              <ShieldCheck className="w-5 h-5 text-[#0445a4] shrink-0" />
               <p className="text-[14px] md:text-[15px] italic text-[#888888] text-center max-w-[480px]">
                 No pilot is approved without a defined measurement framework. If we can't measure it, we don't deploy it.
               </p>
@@ -353,7 +408,7 @@ export default function GreyShacksHome() {
                 { t: "Professional Services", d: "Contract intelligence, billing operations, and reporting" }
               ].map((ind, i) => (
                 <div key={i} className="bg-[#0A0A0A] border border-[#1E1E1E] p-8 rounded-xl hover:border-[#2A2A2A] transition-all group">
-                  <h3 className="text-lg font-bold text-[#F5F5F5] mb-2 group-hover:text-[#E8FF47] transition-colors">{ind.t}</h3>
+                  <h3 className="text-lg font-bold text-[#F5F5F5] mb-2 group-hover:text-[#0445a4] transition-colors">{ind.t}</h3>
                   <p className="text-[14px] text-[#888888] leading-relaxed">{ind.d}</p>
                 </div>
               ))}
@@ -371,7 +426,7 @@ export default function GreyShacksHome() {
               transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <span className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-4 block">INTEGRATIONS</span>
+              <span className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">INTEGRATIONS</span>
               <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1]">Works inside the stack you already run.</h2>
               <p className="text-[16px] md:text-[17px] text-[#888888] leading-relaxed max-w-[640px] mx-auto mt-6">
                 GreyShacks connects to your CRM, ERP, finance, and communication tools. No rip-and-replace. No new software to learn.
@@ -396,12 +451,12 @@ export default function GreyShacksHome() {
 
             <div className="mt-12 text-center space-y-8">
               <p className="text-[14px] text-[#888888]">
-                Don't see your stack? We've integrated with <span className="text-[#E8FF47] font-bold">40+ platforms</span>.
+                Don't see your stack? We've integrated with <span className="text-[#0445a4] font-bold">40+ platforms</span>.
               </p>
               <Button 
                 variant="outline"
                 onClick={() => setIsIntakeOpen(true)}
-                className="px-10 py-6 text-sm font-semibold tracking-wider uppercase border-[#333333] hover:border-[#E8FF47] w-full sm:w-auto min-h-[56px]"
+                className="px-10 py-6 text-sm font-semibold tracking-wider uppercase border-[#333333] hover:border-[#0445a4] w-full sm:w-auto min-h-[56px]"
               >
                 Talk to an Integration Specialist
               </Button>

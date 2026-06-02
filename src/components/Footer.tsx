@@ -105,7 +105,7 @@ export function Footer({ onOpenIntake }: FooterProps) {
             <p className="text-[12px] text-[#888888] font-medium">Ready to start?</p>
             <Button
               onClick={onOpenIntake}
-              className="w-full bg-[#E8FF47] text-[#0A0A0A] font-bold text-[13px] uppercase tracking-widest py-6 rounded-[6px] min-h-[48px]"
+              className="w-full bg-[#0445a4] text-white font-bold text-[13px] uppercase tracking-widest py-6 rounded-[6px] min-h-[48px]"
             >
               Request a Diagnostic
             </Button>

@@ -17,7 +17,7 @@ export function DiagnosticCTA({ onOpenIntake }: DiagnosticCTAProps) {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-6 block"
+          className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-6 block"
         >
           START HERE
         </motion.span>
@@ -50,7 +50,7 @@ export function DiagnosticCTA({ onOpenIntake }: DiagnosticCTAProps) {
         >
           <Button 
             onClick={onOpenIntake}
-            className="bg-[#E8FF47] text-[#0A0A0A] hover:bg-[#E8FF47]/90 px-10 py-6 text-sm font-semibold tracking-wider uppercase rounded-[6px] w-full sm:w-auto min-h-[56px]"
+            className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 px-10 py-6 text-sm font-semibold tracking-wider uppercase rounded-[6px] w-full sm:w-auto min-h-[56px]"
           >
             Request an Operational Diagnostic
             <ArrowRight className="ml-2 w-4 h-4" />
