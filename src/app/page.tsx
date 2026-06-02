@@ -39,7 +39,11 @@ import {
   Layout,
   LineChart,
   Plus,
-  X
+  X,
+  Sparkles,
+  Search,
+  Mic,
+  Volume2
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -48,37 +52,37 @@ const FEATURES = [
     icon: Cpu,
     title: "Workflow Automation",
     desc: "We identify manual, recurring processes and replace them with agentic workflows that execute without human touchpoints.",
-    gradient: "radial-gradient(circle at 0% 0%, #0445a4 0%, #7000ff 50%, #ff0055 100%)"
+    gradient: "radial-gradient(circle at 0% 0%, #0445a4 0%, #022b5e 50%, #01162e 100%)"
   },
   {
     icon: BarChart3,
     title: "Operational Intelligence",
     desc: "Every deployment comes with a measurement layer — so you know exactly what changed, by how much, and why it matters.",
-    gradient: "radial-gradient(circle at 100% 0%, #0445a4 0%, #00d2ff 50%, #3a7bd5 100%)"
+    gradient: "radial-gradient(circle at 100% 0%, #0445a4 0%, #033a6b 50%, #011d33 100%)"
   },
   {
     icon: ShieldCheck,
     title: "Audit-Ready Governance",
     desc: "Full traceability on every automated decision. Built for finance, compliance, and ops teams that need defensible outcomes.",
-    gradient: "radial-gradient(circle at 50% 50%, #0445a4 0%, #1a1a1a 100%)"
+    gradient: "radial-gradient(circle at 50% 50%, #0445a4 0%, #0A0A0A 100%)"
   },
   {
     icon: Plug,
     title: "Systems Integration",
     desc: "GreyShacks connects to your existing stack — CRMs, ERPs, finance tools — without ripping and replacing what works.",
-    gradient: "radial-gradient(circle at 0% 100%, #0445a4 0%, #4b6cb7 50%, #182848 100%)"
+    gradient: "radial-gradient(circle at 0% 100%, #0445a4 0%, #023682 50%, #011b40 100%)"
   },
   {
     icon: Clock,
     title: "Rapid Time-to-Value",
     desc: "Most clients see measurable impact within 8–14 weeks. We pilot before we scale — no long commitments upfront.",
-    gradient: "radial-gradient(circle at 100% 100%, #0445a4 0%, #8e2de2 50%, #4a00e0 100%)"
+    gradient: "radial-gradient(circle at 100% 100%, #0445a4 0%, #0550c0 50%, #022a60 100%)"
   },
   {
     icon: Layers,
     title: "Production-First Deployment",
     desc: "We don't deliver prototypes. Every system goes into live operations — tested, monitored, and maintained.",
-    gradient: "radial-gradient(circle at 50% 0%, #0445a4 0%, #2c3e50 100%)"
+    gradient: "radial-gradient(circle at 50% 0%, #0445a4 0%, #061e3a 100%)"
   }
 ];
 
@@ -222,54 +226,109 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
-        {/* THE PLATFORM SECTION */}
-        <section className="py-24 bg-[#0A0A0A] border-t border-[#1A1A1A]">
-          <div className="container mx-auto px-6 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <span className="text-[11px] font-bold tracking-[0.12em] text-[#0445a4] uppercase mb-4 block">THE PLATFORM</span>
-              <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1] mb-6">
-                Every operation. Every platform.<br />
-                <span className="text-white">One place.</span>
-              </h2>
-              <p className="text-[16px] md:text-[17px] text-[#888888] leading-relaxed max-w-[720px] mx-auto">
-                You've spent years switching between platforms, chasing approvals in inboxes, and reconciling data across tools that don't talk to each other. GreyShacks ends that. Every workflow, every alert, every decision — surfaced, prioritised, and actioned from a single intelligent layer.
-              </p>
-            </motion.div>
+        {/* COMMAND CENTER SECTION — REDESIGNED PLATFORM SECTION */}
+        <section className="py-32 bg-[#0A0A0A] border-t border-[#1A1A1A]">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+              {/* Left Column: Narrative */}
+              <div className="lg:col-span-7 space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="flex items-center gap-2 text-[#0445a4]"
+                >
+                  <Sparkles className="w-4 h-4 fill-current" />
+                  <span className="text-[11px] font-bold tracking-[0.2em] uppercase">Command Center</span>
+                </motion.div>
+                
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-[40px] md:text-[56px] font-bold text-white tracking-tight leading-[1.05]"
+                >
+                  Query your operations. <br />
+                  Get the work done.
+                </motion.h2>
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-[18px] md:text-[20px] text-[#888888] leading-relaxed max-w-[580px]"
+                >
+                  GreyShacks analyzes your entire stack in real-time. It identifies urgent approvals, surfaces critical alerts, and ensures no important email or decision slips through. A once-in-a-lifetime opportunity to unify your operations into a single intelligent layer.
+                </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16">
-              {[
-                { icon: Infinity, t: "Always On", d: "GreyShacks monitors your operations 24/7, not just when you remember to check." },
-                { icon: Layout, t: "Zero Platform Switching", d: "Every approval, alert, and action lives in one interface. Your 12 open tabs become one." },
-                { icon: ShieldCheck, t: "Nothing Slips Through", d: "Priority scoring ensures critical items — approvals, escalations, deadlines — are never buried." },
-                { icon: LineChart, t: "Gets Smarter Over Time", d: "The longer GreyShacks runs, the better it understands your operation's patterns and priorities." }
-              ].map((item, i) => (
-                <Card key={i} className="p-10 flex flex-col items-center text-center group">
-                  <item.icon className="w-8 h-8 text-[#0445a4] mb-6 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-bold text-[#F5F5F5] mb-3">{item.t}</h3>
-                  <p className="text-sm text-[#888888] leading-relaxed">{item.d}</p>
-                </Card>
-              ))}
-            </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Button 
+                    onClick={() => setIsIntakeOpen(true)}
+                    className="bg-[#1A1A1A] text-white border border-white/10 hover:border-[#0445a4] rounded-full px-10 py-7 text-sm font-semibold tracking-wide"
+                  >
+                    Get started
+                  </Button>
+                </motion.div>
+              </div>
 
-            <div className="max-w-4xl mx-auto p-12 bg-[#0445a4]/5 border border-[#0445a4]/20 rounded-xl">
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
-                You're not adding another tool. You're replacing the chaos.
-              </h3>
-              <p className="text-[#888888] text-sm md:text-base mb-10">
-                The first platform that treats operational intelligence as a product — not a consulting engagement.
-                Once in a lifetime opportunity to use the magic to solve your every problem without moving from the platform.
-              </p>
-              <Button 
-                onClick={() => setIsIntakeOpen(true)}
-                className="bg-transparent border border-white/10 hover:border-[#0445a4] text-white hover:text-[#0445a4] px-10 py-6 text-sm font-bold uppercase tracking-widest"
-              >
-                See It In Action
-              </Button>
+              {/* Right Column: Visual Mockup */}
+              <div className="lg:col-span-5 relative">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="relative w-full aspect-square rounded-[40px] overflow-hidden shadow-2xl border border-white/5"
+                >
+                  {/* Mesh Gradient Background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0445a4] via-[#021d3a] to-[#0A0A0A]" />
+                  <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#0445a4] rounded-full blur-[100px] opacity-40 animate-pulse" />
+                  
+                  {/* UI Mockup Overlay */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
+                    <div className="w-full bg-[#111111]/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 shadow-2xl space-y-6">
+                      {/* Top Chips */}
+                      <div className="flex gap-2">
+                        <div className="bg-white/10 px-3 py-2 rounded-lg flex items-center gap-2 text-white/80 text-xs font-medium">
+                          <CheckSquare className="w-3.5 h-3.5" />
+                          Approve Invoices
+                        </div>
+                        <div className="bg-white/10 px-3 py-2 rounded-lg flex items-center gap-2 text-white/80 text-xs font-medium">
+                          <FileText className="w-3.5 h-3.5" />
+                          Summarize CRM
+                        </div>
+                      </div>
+                      
+                      {/* Search Bar */}
+                      <div className="relative">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-3">
+                          <Plus className="w-4 h-4 text-white/40" />
+                          <span className="text-white/60 text-sm">Ask anything...</span>
+                        </div>
+                        <div className="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 flex items-center justify-end gap-3">
+                          <Mic className="w-4 h-4 text-white/40" />
+                          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                            <Volume2 className="w-4 h-4 text-black" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* Floating Labels */}
+                <div className="absolute -right-8 top-1/4 bg-white text-black text-[11px] font-bold px-4 py-2 rounded-lg shadow-xl hidden md:block">
+                  Get template
+                </div>
+                <div className="absolute -right-8 top-[35%] bg-white text-black text-[11px] font-bold px-4 py-2 rounded-lg shadow-xl hidden md:block">
+                  Made with GreyShacks
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -462,7 +521,7 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
-        {/* INTEGRATIONS SECTION — NEW SPLIT LAYOUT */}
+        {/* INTEGRATIONS SECTION — SPLIT LAYOUT */}
         <section className="py-32 bg-black overflow-hidden">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
