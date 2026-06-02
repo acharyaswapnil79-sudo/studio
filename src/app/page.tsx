@@ -1,200 +1,170 @@
+
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
-import { ArrowRight, ChevronRight, Activity, Zap, Shield, BarChart3, Database } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 
 export default function GreyShacksHome() {
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
 
   return (
-    <div className="relative min-h-screen selection:bg-[#4DFFB4]/30">
-      <Navbar onOpenIntake={() => setIsIntakeOpen(true)} activeSection={activeSection} />
+    <div className="relative min-h-screen bg-[#0A0A0A] selection:bg-[#E8FF47]/30 overflow-hidden">
+      <Navbar onOpenIntake={() => setIsIntakeOpen(true)} />
       
       <main>
-        {/* HERO */}
-        <section id="hero" className="relative flex flex-col items-center justify-center overflow-hidden min-h-[90vh] border-b border-[#222]">
-          <div className="absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent)]" />
-          <div className="absolute inset-0 noise-bg" />
+        {/* HERO SECTION */}
+        <section className="relative min-h-screen flex flex-col justify-center pt-20">
+          {/* Subtle noise texture */}
+          <div className="absolute inset-0 noise-bg opacity-[0.03] pointer-events-none" />
           
-          <div className="container relative z-10 px-6 mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-[11px] font-medium tracking-widest uppercase border rounded-full border-[#222] bg-[#111] text-[#888]"
-            >
-              <div className="w-1 h-1 rounded-full bg-[#4DFFB4]" />
-              Operational Intelligence v2.0
-            </motion.div>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-display text-5xl md:text-8xl lg:text-[100px] leading-[0.9] mb-8 text-[#F5F5F5] max-w-5xl mx-auto"
-            >
-              Eliminate Manual Latency.
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[#888] text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
-            >
-              GreyShacks builds production-grade agentic systems that replace manual process bottlenecks with measurable operational cores.
-            </motion.p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <button
-                onClick={() => setIsIntakeOpen(true)}
-                className="group relative flex items-center justify-center gap-2 bg-[#4DFFB4] text-[#0A0A0A] font-bold text-[15px] px-10 py-5 rounded-[4px] hover:scale-[1.02] transition-all mint-glow"
-              >
-                Request an Operational Diagnostic
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
-            </motion.div>
-          </div>
-          
-          {/* Abstract Ops Diagram */}
-          <div className="mt-20 container px-6 mx-auto">
-            <div className="h-[1px] w-full bg-[#222]" />
-            <div className="grid grid-cols-4 h-24 border-x border-[#222]">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className={cn("border-r border-[#222] relative overflow-hidden", i === 3 && "border-r-0")}>
-                  <motion.div 
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "100%" }}
-                    transition={{ duration: 3, repeat: Infinity, delay: i * 0.5, ease: "linear" }}
-                    className="absolute top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-[#4DFFB4]/5 to-transparent"
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="h-[1px] w-full bg-[#222]" />
-          </div>
-        </section>
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Left: Text Content */}
+              <div className="lg:col-span-7">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-[40px] md:text-[64px] font-bold text-[#F5F5F5] tracking-tighter leading-[1.1] max-w-[640px]"
+                >
+                  Operational Intelligence. <br />
+                  <span className="text-[#E8FF47]">Built to Deploy.</span>
+                </motion.h1>
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="mt-6 text-[18px] text-[#888888] leading-relaxed max-w-[520px]"
+                >
+                  GreyShacks gives mid-market operations teams a structured system to eliminate manual work, track what matters, and scale what works — without the guesswork.
+                </motion.p>
+                
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="mt-10 flex flex-wrap gap-4"
+                >
+                  <Button 
+                    onClick={() => setIsIntakeOpen(true)}
+                    className="bg-[#E8FF47] text-[#0A0A0A] hover:bg-[#E8FF47]/90 px-8 py-6 text-sm font-semibold tracking-wider uppercase"
+                  >
+                    Request a Diagnostic
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    asChild
+                    className="border-[#333333] text-[#F5F5F5] hover:border-[#E8FF47] hover:text-[#E8FF47] px-8 py-6 text-sm font-semibold tracking-wider uppercase"
+                  >
+                    <Link href="/about">See How It Works</Link>
+                  </Button>
+                </motion.div>
+              </div>
 
-        {/* METRICS */}
-        <section id="operational-impact" className="border-b border-[#222] bg-[#0A0A0A]">
-          <div className="container px-6 mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              {/* Right: Abstract Visual */}
+              <div className="lg:col-span-5 hidden lg:block">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="relative w-full aspect-square flex items-center justify-center"
+                >
+                  <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* Grid Lines */}
+                    <path d="M50 50H350V350H50V50Z" stroke="#222222" strokeWidth="1" />
+                    <path d="M50 150H350" stroke="#222222" strokeWidth="1" />
+                    <path d="M50 250H350" stroke="#222222" strokeWidth="1" />
+                    <path d="M150 50V350" stroke="#222222" strokeWidth="1" />
+                    <path d="M250 50V350" stroke="#222222" strokeWidth="1" />
+                    
+                    {/* Flow Lines */}
+                    <motion.path 
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                      d="M50 150H150V250H350" 
+                      stroke="#E8FF47" 
+                      strokeWidth="2" 
+                      strokeDasharray="4 4"
+                    />
+                    
+                    {/* Nodes */}
+                    <circle cx="50" cy="150" r="4" fill="#E8FF47" />
+                    <circle cx="150" cy="150" r="4" fill="#333333" />
+                    <circle cx="150" cy="250" r="4" fill="#E8FF47" />
+                    <circle cx="250" cy="250" r="4" fill="#333333" />
+                    <circle cx="350" cy="250" r="4" fill="#E8FF47" />
+                    
+                    {/* Active Pulse */}
+                    <motion.circle 
+                      animate={{ r: [4, 8, 4], opacity: [1, 0, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      cx="150" cy="250" r="4" stroke="#E8FF47" strokeWidth="1" fill="none" 
+                    />
+                  </svg>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Bottom Stats */}
+            <div className="mt-24 lg:mt-32 pt-8 border-t border-[#1A1A1A] flex flex-wrap gap-4">
               {[
-                { label: "Workflows Automated", value: "190+", sub: "Verified production deployments" },
-                { label: "Annualized Savings", value: "$8M+", sub: "Conservative client median" },
-                { label: "ROI Period", value: "3–6 Mo.", sub: "Observed payback window" }
+                { n: "190+", t: "Workflows Automated" },
+                { n: "$8M+", t: "Annual Savings Tracked" },
+                { n: "8–14 Week", t: "ROI" },
+                { n: "30+", t: "Production Deployments" }
               ].map((stat, i) => (
-                <div key={i} className="group p-8 border border-[#222] bg-[#111] rounded-[4px] hover:border-[#4DFFB4]/30 transition-all">
-                  <div className="text-[#888] text-[10px] uppercase tracking-widest mb-2">{stat.label}</div>
-                  <div className="text-4xl md:text-5xl font-display text-[#F5F5F5] mb-4">{stat.value}</div>
-                  <div className="text-[#888] text-sm">{stat.sub}</div>
+                <div 
+                  key={i} 
+                  className="bg-[#111111] border border-[#222222] rounded-full px-6 py-2 flex items-center gap-2"
+                >
+                  <span className="text-[#E8FF47] font-bold text-[13px]">{stat.n}</span>
+                  <span className="text-[#888888] text-[13px]">{stat.t}</span>
                 </div>
               ))}
-            </div>
-            <div className="mt-12 text-center">
-              <Link href="/intelligence" className="text-[11px] font-bold text-[#888] hover:text-[#4DFFB4] transition-colors flex items-center justify-center gap-2">
-                READ MEASUREMENT METHODOLOGY <ArrowRight className="w-3 h-3" />
-              </Link>
             </div>
           </div>
         </section>
 
-        {/* CORE CAPABILITIES */}
-        <section id="capabilities" className="bg-[#111] border-b border-[#222]">
-          <div className="container px-6 mx-auto">
-            <div className="max-w-3xl mb-24">
-              <h2 className="text-4xl md:text-6xl text-[#F5F5F5] mb-8 font-display">Systematic Efficiency.</h2>
-              <p className="text-[#888] text-xl leading-relaxed">
-                We design systems that observe, reason, and act across your operations stack. Minimal human intervention, audit-ready by design.
-              </p>
+        {/* REST OF PAGE SECTIONS */}
+        <section className="bg-[#111111] py-24 border-y border-[#222222]">
+          <div className="container mx-auto px-6">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] tracking-tight">Industries We Operate In</h2>
+              <p className="mt-4 text-[#888888] text-lg">We deploy production-grade systems across core business verticals.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#222] border border-[#222]">
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: Database, t: "AR Operations", b: "End-to-end collections, reconciliation and escalation managed by the system." },
-                { icon: Activity, t: "Lead Intelligence", b: "Intelligent triage, enrichment, and assignment with sub-5 minute response times." },
-                { icon: Zap, t: "Close Cycles", b: "Automated data ingestion and reconciliation for month-end financial compression." },
-                { icon: Shield, t: "Compliance", b: "Automated obligation monitoring and audit trail generation across all actions." }
-              ].map((cap, i) => (
-                <div key={i} className="bg-[#0A0A0A] p-10 hover:bg-[#111] transition-all">
-                  <cap.icon className="w-6 h-6 text-[#4DFFB4] mb-6" />
-                  <h3 className="text-xl text-[#F5F5F5] mb-4">{cap.t}</h3>
-                  <p className="text-[#888] text-sm leading-relaxed">{cap.b}</p>
+                { t: "Manufacturing", d: "Production quality, procurement, and vendor operations" },
+                { t: "Real Estate", d: "Lead operations, sales follow-up, and documentation workflows" },
+                { t: "Logistics", d: "Exception management, PO tracking, and delivery reconciliation" },
+                { t: "Financial Services", d: "AR automation, compliance monitoring, and close cycle compression" },
+                { t: "Healthcare", d: "Scheduling, claims pre-processing, and patient communications" },
+                { t: "Professional Services", d: "Contract intelligence, billing operations, and reporting" },
+                { t: "Retail", d: "Customer query resolution, refund workflows, and inventory ops" },
+                { t: "SaaS", d: "Lead operations, onboarding automation, and access provisioning" }
+              ].map((ind, i) => (
+                <div key={i} className="bg-[#0A0A0A] border border-[#1E1E1E] p-8 rounded-xl hover:border-[#2A2A2A] transition-all group">
+                  <h3 className="text-lg font-bold text-[#F5F5F5] mb-2 group-hover:text-[#E8FF47] transition-colors">{ind.t}</h3>
+                  <p className="text-sm text-[#888888] leading-relaxed">{ind.d}</p>
                 </div>
               ))}
-            </div>
-            
-            <div className="mt-20 flex justify-center">
-              <Link href="/capabilities">
-                <button className="flex items-center gap-2 text-[13px] font-bold py-4 px-8 border border-[#222] rounded-[4px] text-[#F5F5F5] hover:bg-[#1A1A1A] transition-all">
-                  Full Capabilities Catalog <ChevronRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* METHODOLOGY */}
-        <section id="how-we-work" className="bg-[#0A0A0A]">
-          <div className="container px-6 mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-              <div>
-                <h2 className="text-4xl md:text-6xl text-[#F5F5F5] mb-10 font-display">Baseline-First<br />Deployment.</h2>
-                <div className="space-y-12">
-                  {[
-                    { step: "01", t: "Mapping & Measurement", b: "We capture 4 weeks of operational data before proposing a single system change. We don't guess impact." },
-                    { step: "02", t: "Parallel Pilot", b: "A 4-8 week production-safe parallel run. We only proceed if the pilot delta matches projections." },
-                    { step: "03", t: "Sustained Scale", b: "Continuous monitoring, anomaly detection, and quarterly logic calibration to prevent drift." }
-                  ].map((p, i) => (
-                    <div key={i} className="flex gap-8">
-                      <div className="text-[12px] font-bold text-[#4DFFB4] font-mono mt-1">{p.step}</div>
-                      <div>
-                        <h3 className="text-xl text-[#F5F5F5] mb-2">{p.t}</h3>
-                        <p className="text-[#888] leading-relaxed">{p.b}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Abstract Visual Geometry */}
-              <div className="relative aspect-square border border-[#222] p-12 overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 noise-bg opacity-5" />
-                <div className="w-full h-full border border-[#222] rounded-full flex items-center justify-center">
-                  <div className="w-[80%] h-[80%] border border-[#222] rounded-full flex items-center justify-center">
-                    <div className="w-[60%] h-[60%] border border-[#4DFFB4]/20 rounded-full flex items-center justify-center relative">
-                      <motion.div 
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-[-2px] border-t-2 border-[#4DFFB4] rounded-full"
-                      />
-                      <div className="text-[#4DFFB4] font-mono text-[10px] tracking-tighter">OPERATING_SYSTEM_STABLE</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-      
-      <IntakeFormModal
-        isOpen={isIntakeOpen}
-        onClose={() => setIsIntakeOpen(false)}
-      />
+      <IntakeFormModal isOpen={isIntakeOpen} onClose={() => setIsIntakeOpen(false)} />
     </div>
   );
 }
