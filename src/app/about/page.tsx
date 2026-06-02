@@ -71,6 +71,60 @@ export default function AboutPage() {
             ))}
           </div>
 
+          {/* Operating Principles Section */}
+          <section className="mt-40">
+            <div className="max-w-4xl">
+              <motion.span 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-[11px] font-medium tracking-[0.12em] text-[#E8FF47] uppercase mb-6 block"
+              >
+                NON-NEGOTIABLES
+              </motion.span>
+              
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-[32px] md:text-[40px] font-bold text-[#F5F5F5] tracking-tight leading-[1.2] mb-16"
+              >
+                Four things we will never compromise on.
+              </motion.h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
+                {[
+                  { n: "01", t: "Measurement before deployment", d: "We define success metrics before we write a single line of automation. If we can't baseline it, we don't touch it." },
+                  { n: "02", t: "Pilot before scale", d: "Every engagement starts small. No client commits to production until they've seen results in their own environment." },
+                  { n: "03", t: "Governance by default", d: "Every deployed system has a full audit trail, exception handling, and a rollback plan. Compliance isn't optional." },
+                  { n: "04", t: "Honesty over revenue", d: "If your process isn't ready for automation, we'll tell you. We'd rather lose a deal than set up a deployment to fail." }
+                ].map((item, idx) => (
+                  <motion.div 
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 + idx * 0.1 }}
+                    className="flex gap-6"
+                  >
+                    <div className="text-[32px] font-bold text-[#E8FF47] opacity-30 leading-none shrink-0">
+                      {item.n}
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="text-[18px] font-semibold text-[#F5F5F5] leading-tight">
+                        {item.t}
+                      </h3>
+                      <p className="text-[15px] text-[#888888] leading-relaxed">
+                        {item.d}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* Engagement CTA */}
           <div className="mt-40 border-t border-[#222] pt-24 text-center">
             <h2 className="text-[32px] md:text-[48px] font-bold text-[#F5F5F5] mb-12 tracking-tight">Let's audit your latency.</h2>
