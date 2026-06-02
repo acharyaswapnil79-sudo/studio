@@ -1,10 +1,14 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase';
+import { Inter, DM_Sans } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-display' });
 
 export const metadata: Metadata = {
-  title: 'GreyShacks | Agentic Systems for Mid-Market Operations',
-  description: 'The Architecture of Autonomous Operations. GreyShacks designs intelligent systems that eliminate manual workflows.',
+  title: 'GreyShacks | Operational Intelligence',
+  description: 'Eliminate manual workflows with production-grade agentic systems.',
 };
 
 export default function RootLayout({
@@ -13,13 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-sans antialiased bg-[#0A0A0A] text-white selection:bg-blue-900/30">
+    <html lang="en" className="dark">
+      <body className={`${inter.variable} ${dmSans.variable} font-sans bg-[#0A0A0A]`}>
         <FirebaseClientProvider>
           {children}
         </FirebaseClientProvider>

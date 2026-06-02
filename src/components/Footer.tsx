@@ -1,9 +1,8 @@
-
 "use client"
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Linkedin, Instagram } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface FooterProps {
   onOpenIntake: () => void;
@@ -11,109 +10,62 @@ interface FooterProps {
 
 export function Footer({ onOpenIntake }: FooterProps) {
   return (
-    <footer className="bg-[#050505] border-t border-white/5 pt-20 pb-10 px-6 md:px-10 font-body">
-      <div className="max-w-[1240px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
-          {/* Left - Brand + Positioning */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="space-y-2">
-              <Link href="/" className="font-headline font-bold text-2xl text-white">GreyShacks</Link>
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#0047AB]">
-                Operational Intelligence for Agentic Systems
-              </div>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-sm">
-                We design and deploy production-grade agentic systems across finance, logistics, sales, and operations — with measurable outcomes and audit-ready governance.
-              </p>
-              <p className="text-[#A0A0A0] text-[11px] leading-relaxed max-w-sm">
-                Headquartered in India. Serving mid-market businesses across APAC, MENA, and NAMER.
-              </p>
-            </div>
-            <div className="space-y-6">
-              <div className="text-[#A0A0A0] text-xs font-medium">
-                No fluff. No buzzwords.
-              </div>
-              <div className="flex items-center gap-5">
-                <a 
-                  href="https://www.linkedin.com/company/greyshacks" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-[#606060] hover:text-white transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a 
-                  href="https://www.instagram.com/greyshacks?igsh=MWg1NHlsMjlqbWl5ag%3D%3D&utm_source=qr" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-[#606060] hover:text-white transition-colors"
-                  aria-label="Instagram"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-              </div>
+    <footer className="bg-[#0A0A0A] border-t border-[#222] pt-24 pb-12 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-24">
+          <div className="md:col-span-4 space-y-6">
+            <Link href="/" className="font-display font-bold text-2xl text-[#F5F5F5]">GreyShacks</Link>
+            <p className="text-[#888] text-sm leading-relaxed max-w-xs">
+              Eliminating manual operational latency through production-grade agentic systems. Headquartered in India, serving APAC, MENA, and NAMER.
+            </p>
+            <div className="text-[11px] font-bold text-[#F5F5F5]/60 uppercase tracking-widest">
+              No fluff. No buzzwords.
             </div>
           </div>
 
-          {/* Middle - Navigation */}
-          <div className="lg:col-span-4 grid grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <h4 className="text-white font-bold text-xs uppercase tracking-widest">Explore</h4>
-              <ul className="space-y-4">
-                <li><Link href="/#hero" className="text-[#606060] hover:text-white transition-colors text-sm">Command Center</Link></li>
-                <li><Link href="/#operational-impact" className="text-[#606060] hover:text-white transition-colors text-sm">Operational Impact</Link></li>
-                <li><Link href="/capabilities" className="text-[#606060] hover:text-white transition-colors text-sm">Capabilities</Link></li>
-                <li><Link href="/deployments" className="text-[#606060] hover:text-white transition-colors text-sm">Deployment Library</Link></li>
-                <li><Link href="/intelligence" className="text-[#606060] hover:text-white transition-colors text-sm">Field Intelligence</Link></li>
-              </ul>
-            </div>
-            <div className="space-y-6">
-              <h4 className="text-white font-bold text-xs uppercase tracking-widest">Resources</h4>
-              <ul className="space-y-4">
-                <li><Link href="/about" className="text-[#606060] hover:text-white transition-colors text-sm">About</Link></li>
-                <li><Link href="/intelligence" className="text-[#606060] hover:text-white transition-colors text-sm">Frameworks</Link></li>
-                <li><Link href="/deployments" className="text-[#606060] hover:text-white transition-colors text-sm">Case Studies</Link></li>
-                <li><Link href="/intelligence" className="text-[#606060] hover:text-white transition-colors text-sm">Measurement Methodology</Link></li>
-              </ul>
-            </div>
+          <div className="md:col-span-2 space-y-6">
+            <h4 className="text-[#F5F5F5] text-xs font-bold uppercase tracking-widest">Explore</h4>
+            <ul className="space-y-4 text-sm">
+              <li><Link href="/" className="text-[#888] hover:text-[#4DFFB4] transition-colors">Command Center</Link></li>
+              <li><Link href="/capabilities" className="text-[#888] hover:text-[#4DFFB4] transition-colors">Capabilities</Link></li>
+              <li><Link href="/deployments" className="text-[#888] hover:text-[#4DFFB4] transition-colors">Library</Link></li>
+              <li><Link href="/intelligence" className="text-[#888] hover:text-[#4DFFB4] transition-colors">Intelligence</Link></li>
+            </ul>
           </div>
 
-          {/* Right - Action */}
-          <div className="lg:col-span-4 bg-[#0A0A0A] border border-white/5 p-8 rounded-xl space-y-6">
+          <div className="md:col-span-2 space-y-6">
+            <h4 className="text-[#F5F5F5] text-xs font-bold uppercase tracking-widest">Legal</h4>
+            <ul className="space-y-4 text-sm">
+              <li><Link href="/privacy" className="text-[#888] hover:text-[#4DFFB4] transition-colors">Privacy</Link></li>
+              <li><Link href="/terms" className="text-[#888] hover:text-[#4DFFB4] transition-colors">Terms</Link></li>
+              <li><Link href="/about" className="text-[#888] hover:text-[#4DFFB4] transition-colors">About Firm</Link></li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-4 bg-[#111] border border-[#222] p-8 rounded-[4px] flex flex-col justify-between">
             <div className="space-y-2">
-              <h4 className="text-white font-bold text-lg">Start a Pilot</h4>
-              <p className="text-[#A0A0A0] text-sm leading-relaxed">
+              <h4 className="text-[#F5F5F5] font-bold">Scope an Operational Diagnostic</h4>
+              <p className="text-[#888] text-sm leading-relaxed">
                 Short, measured deployments on your data. No long-term commitment.
               </p>
             </div>
             <button
               onClick={onOpenIntake}
-              className="w-full bg-[#0047AB] text-white font-bold text-sm py-4 rounded-lg shadow-lg hover:bg-[#0047AB]/90 transition-all flex items-center justify-center gap-2"
+              className="mt-6 flex items-center justify-center gap-2 w-full py-4 bg-[#4DFFB4] text-[#0A0A0A] font-bold text-[13px] uppercase tracking-widest rounded-[2px] transition-transform active:scale-[0.98]"
             >
-              Request an Operational Diagnostic
+              Start Diagnostic Assessment
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Bottom Strip */}
-        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[#404040] text-[11px]">
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <span>&copy; 2026 GreyShacks. All rights reserved.</span>
-            <span className="hidden md:inline text-white/10">|</span>
-            <span className="text-[#606060]">Built for operational teams — not demos.</span>
+        <div className="pt-12 border-t border-[#222] flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-[#444] font-medium uppercase tracking-widest">
+          <div>© 2026 GreyShacks. All rights reserved.</div>
+          <div className="flex gap-8">
+            <a href="https://linkedin.com/company/greyshacks" target="_blank" className="hover:text-[#4DFFB4] transition-colors">LinkedIn</a>
+            <a href="https://instagram.com/greyshacks" target="_blank" className="hover:text-[#4DFFB4] transition-colors">Instagram</a>
           </div>
-          
-          <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
-          </div>
-        </div>
-        
-        <div className="mt-8 text-center text-[10px] font-mono uppercase tracking-[0.2em] text-white">
-          No generic AI solutions. Only deployment-backed systems.
+          <div className="text-[#888]">Built for teams — not demos.</div>
         </div>
       </div>
     </footer>
