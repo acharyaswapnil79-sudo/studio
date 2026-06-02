@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 interface NavLink {
   name: string;
@@ -16,70 +17,71 @@ interface MobileMenuOverlayProps {
   onClose: () => void;
   navLinks: NavLink[];
   activeSection: string;
-  handleNavClick: (e: React.MouseEvent, href: string) => void;
   onOpenIntake: () => void;
 }
 
-export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, handleNavClick, onOpenIntake }: MobileMenuOverlayProps) {
+export function MobileMenuOverlay({ isOpen, onClose, navLinks, activeSection, onOpenIntake }: MobileMenuOverlayProps) {
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.32, ease: "easeOut" }}
-          className="fixed inset-0 z-[200] bg-[rgba(8,8,8,0.97)] backdrop-blur-[20px] flex flex-col items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[200] bg-[#0A0A0A] flex flex-col p-6"
         >
-          <button 
-            onClick={onClose}
-            className="absolute top-6 right-6 w-11 h-11 flex items-center justify-center text-white/70"
-            aria-label="Close mobile menu"
-          >
-            <X className="w-6 h-6" />
-          </button>
+          <div className="flex justify-between items-center mb-12">
+            <span className="text-[18px] font-semibold tracking-tighter text-[#F5F5F5] font-display">
+              GreyShacks
+            </span>
+            <button 
+              onClick={onClose}
+              className="p-2 text-[#888888]"
+              aria-label="Close mobile menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
           
-          <div className="flex flex-col items-center w-full px-8">
+          <div className="flex flex-col gap-8 mb-12">
             {navLinks.map((link, i) => (
-              <React.Fragment key={link.href}>
-                {link.href.startsWith('/#') || link.href.startsWith('#') ? (
-                  <motion.a
-                    href={link.href}
-                    initial={{ y: 18, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.06 + i * 0.08 }}
-                    className={cn(
-                      "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
-                      activeSection === link.href.replace('/#', '').replace('#', '') ? "text-white" : "text-white/80 hover:text-white"
-                    )}
-                    onClick={(e) => {
-                      handleNavClick(e, link.href);
-                      onClose();
-                    }}
-                  >
-                    {link.name}
-                  </motion.a>
-                ) : (
-                  <Link
-                    href={link.href}
-                    className={cn(
-                      "w-full text-center py-[18px] border-b border-white/5 font-headline font-medium text-[28px] transition-colors",
-                      (activeSection === link.href.replace('/', '') || (activeSection === 'intelligence' && link.href.includes('intelligence'))) ? "text-white" : "text-white/80 hover:text-white"
-                    )}
-                    onClick={onClose}
-                  >
-                    <motion.span
-                      initial={{ y: 18, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.06 + i * 0.08 }}
-                    >
-                      {link.name}
-                    </motion.span>
-                  </Link>
-                )}
-              </React.Fragment>
+              <motion.div
+                key={link.name}
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.1 + i * 0.05 }}
+              >
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "text-[32px] font-semibold font-display tracking-tight",
+                    activeSection === link.name.toLowerCase() ? "text-[#E8FF47]" : "text-[#F5F5F5]"
+                  )}
+                  onClick={onClose}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mt-auto"
+          >
+            <Button 
+              onClick={() => {
+                onClose();
+                onOpenIntake();
+              }}
+              className="w-full h-14 bg-[#E8FF47] text-[#0A0A0A] font-semibold text-lg"
+            >
+              Get Started
+            </Button>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
