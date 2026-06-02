@@ -1,10 +1,11 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { MobileMenuOverlay } from './MobileMenuOverlay';
 
 interface NavbarProps {
@@ -13,11 +14,11 @@ interface NavbarProps {
 }
 
 const navLinks = [
-  { name: "What We Do", href: "/capabilities" },
-  { name: "How It Works", href: "/about#how-we-work" },
+  { name: "About", href: "/about" },
+  { name: "Capabilities", href: "/capabilities" },
   { name: "Results", href: "/deployments" },
   { name: "Integrations", href: "/capabilities#integrations" },
-  { name: "About", href: "/about" }
+  { name: "Contact", href: "/contact" }
 ];
 
 export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
@@ -36,32 +37,37 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
     <>
       <nav 
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] h-16 flex items-center transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-[100] h-20 flex items-center transition-all duration-300 px-6",
           isScrolled 
-            ? "bg-[#0A0A0A]/85 backdrop-blur-md border-b border-[#1A1A1A]" 
+            ? "bg-[#0A0A0A]/85 backdrop-blur-md border-b border-white/5" 
             : "bg-transparent border-b border-transparent"
         )}
       >
-        <div className="container mx-auto px-6 flex items-center justify-between">
+        <div className="container mx-auto flex items-center justify-between">
           {/* Wordmark */}
           <Link 
             href="/" 
-            className="text-[18px] font-semibold tracking-tighter text-[#F5F5F5] font-display"
+            className="flex items-center gap-2 group"
           >
-            GreyShacks
+            <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full bg-black group-hover:bg-[#0445a4] transition-colors" />
+            </div>
+            <span className="text-[18px] font-bold tracking-tighter text-[#F5F5F5] font-display">
+              GreyShacks
+            </span>
           </Link>
 
           {/* Desktop Center Links */}
-          <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+          <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-[14px] font-normal transition-colors",
+                  "text-[13px] font-medium tracking-wide transition-colors",
                   activeSection === link.name.toLowerCase() 
                     ? "text-[#F5F5F5]" 
-                    : "text-[#888888] hover:text-[#F5F5F5]"
+                    : "text-white/50 hover:text-white"
                 )}
               >
                 {link.name}
@@ -74,9 +80,9 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
             <div className="hidden md:block">
               <Button 
                 onClick={onOpenIntake}
-                className="bg-[#0445a4] text-white font-semibold text-[14px] py-2.5 px-6"
+                className="bg-transparent border border-white/20 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-6 py-2 h-10 text-[13px] font-bold tracking-wide transition-all"
               >
-                Get Started
+                Get started
               </Button>
             </div>
             
