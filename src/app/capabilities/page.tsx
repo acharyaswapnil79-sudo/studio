@@ -76,7 +76,7 @@ export default function CapabilitiesPage() {
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-8xl font-bold text-[#F5F5F5] tracking-tighter leading-[1] mb-8"
+              className="text-5xl md:text-8xl font-bold text-white tracking-tighter leading-[1] mb-8"
             >
               Two integrated capabilities. <br />
               <span className="text-white/40 italic">One powerful foundation.</span>
@@ -166,11 +166,48 @@ export default function CapabilitiesPage() {
                 </div>
               </div>
             </motion.section>
+
+            {/* Integration Logic: Data + Agents */}
+            <motion.section 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="py-24 text-center"
+            >
+              <div className="max-w-3xl mx-auto mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+                  Data + Agents = Reliable Autonomy
+                </h2>
+                <p className="text-[#888] text-lg leading-relaxed">
+                  The two capabilities are deeply integrated. Clean data makes agents more accurate. Reliable agents improve data quality over time.
+                </p>
+              </div>
+
+              <div className="bg-[#0D0D0D] border border-white/5 p-10 md:p-16 rounded-[40px] text-left shadow-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20">
+                  <div className="space-y-4">
+                    <span className="text-[#0445a4] text-[10px] font-bold tracking-[0.25em] uppercase">01 — FOUNDATION</span>
+                    <h3 className="text-white font-bold text-xl tracking-tight">Organized Data Layer</h3>
+                    <p className="text-sm text-[#666] leading-relaxed">The single source of truth that agents can trust.</p>
+                  </div>
+                  <div className="space-y-4">
+                    <span className="text-[#0445a4] text-[10px] font-bold tracking-[0.25em] uppercase">02 — EXECUTION</span>
+                    <h3 className="text-white font-bold text-xl tracking-tight">Deep Agent Core</h3>
+                    <p className="text-sm text-[#666] leading-relaxed">Autonomous execution with governance and exception routing.</p>
+                  </div>
+                  <div className="space-y-4">
+                    <span className="text-[#0445a4] text-[10px] font-bold tracking-[0.25em] uppercase">03 — FEEDBACK</span>
+                    <h3 className="text-white font-bold text-xl tracking-tight">Continuous Improvement</h3>
+                    <p className="text-sm text-[#666] leading-relaxed">Outcomes feed back into data quality and agent refinement.</p>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
           </div>
 
           <div className="mt-40 border-t border-white/5 py-24 grid grid-cols-1 lg:grid-cols-2 gap-24">
             <div>
-              <h2 className="text-3xl text-[#F5F5F5] font-bold mb-8 tracking-tight">Production Stability.</h2>
+              <h2 className="text-3xl text-white font-bold mb-8 tracking-tight">Production Stability.</h2>
               <p className="text-[#888] text-lg leading-relaxed mb-12">
                 GreyShacks systems are designed for high-uptime, high-integrity environments. Every decision is logged, and exception handling is explicit.
               </p>
@@ -181,7 +218,7 @@ export default function CapabilitiesPage() {
                   "SOC2-compliant audit trail architecture",
                   "Weekly performance reporting vs baseline"
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 text-[#F5F5F5] text-sm font-medium">
+                  <div key={i} className="flex items-center gap-4 text-white text-sm font-medium">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#0445a4]" />
                     {item}
                   </div>
@@ -190,7 +227,7 @@ export default function CapabilitiesPage() {
             </div>
             
             <div className="bg-[#0D0D0D] border border-white/5 p-12 rounded-[20px]">
-              <h3 className="text-[#F5F5F5] text-2xl font-bold mb-6 tracking-tight">Request Diagnostic</h3>
+              <h3 className="text-white text-2xl font-bold mb-6 tracking-tight">Request Diagnostic</h3>
               <p className="text-[#888] text-sm leading-relaxed mb-10">
                 We take a limited number of diagnostic engagements each quarter. Start with a structured audit of your manual latency.
               </p>
