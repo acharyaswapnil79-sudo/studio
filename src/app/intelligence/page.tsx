@@ -1,17 +1,71 @@
 "use client"
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
-import { INSIGHTS, Insight } from '@/lib/intelligence-data';
-import { ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { FrameworkCard } from '@/components/intelligence/FrameworkCard';
+
+const FRAMEWORKS = [
+  {
+    title: "Data Organization Readiness Assessment",
+    description: "Evaluates whether your operational data is structured enough to support reliable agents.",
+    bullets: [
+      "Assess data consistency across systems",
+      "Identify ownership and lineage gaps",
+      "Highlight workflows blocked by fragmented data"
+    ]
+  },
+  {
+    title: "Operational Baseline Framework",
+    description: "A structured approach to capture the current state of operations before any agent deployment.",
+    bullets: [
+      "Define clear metrics over a fixed period",
+      "Capture volume, errors, and cost",
+      "Create a defendable reference point for measurement"
+    ]
+  },
+  {
+    title: "Deep Agent Scope Definition Framework",
+    description: "Clarifies what separates shallow automation from actual deep agents in operational environments.",
+    bullets: [
+      "Define decision-making boundaries",
+      "Identify required system integrations",
+      "Establish exception handling scope"
+    ]
+  },
+  {
+    title: "Exception Handling & Governance Model",
+    description: "Designs how agents and humans should collaborate with proper control and visibility.",
+    bullets: [
+      "Classify exception types",
+      "Set clear escalation thresholds",
+      "Maintain full audit trails of actions"
+    ]
+  },
+  {
+    title: "Success Criteria & Measurement Framework",
+    description: "Helps define what success looks like before building or deploying any agent.",
+    bullets: [
+      "Set primary and secondary metrics",
+      "Define acceptable exception rates",
+      "Create objective evaluation criteria"
+    ]
+  },
+  {
+    title: "Pilot-to-Production Decision Framework",
+    description: "Provides clear criteria to decide whether to scale from pilot to full production.",
+    bullets: [
+      "Compare outcomes against baseline",
+      "Assess internal ownership readiness",
+      "Evaluate measurable ROI from pilot data"
+    ]
+  }
+];
 
 export default function PractitionerFrameworksPage() {
-  const router = useRouter();
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
 
   return (
@@ -67,25 +121,18 @@ export default function PractitionerFrameworksPage() {
           </div>
         </section>
 
-        {/* Content Grid */}
-        <section className="max-w-[1240px] mx-auto px-6 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-xl overflow-hidden">
-            <AnimatePresence mode="popLayout">
-              {INSIGHTS.map((item) => (
-                <InsightCard 
-                  key={item.id} 
-                  item={item} 
-                  onClick={() => router.push(`/intelligence/framework/${item.id}`)}
-                />
-              ))}
-            </AnimatePresence>
+        {/* Framework Grid Section */}
+        <section className="max-w-[1240px] mx-auto px-6 py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+            {FRAMEWORKS.map((framework, index) => (
+              <FrameworkCard 
+                key={index}
+                title={framework.title}
+                description={framework.description}
+                bullets={framework.bullets}
+              />
+            ))}
           </div>
-
-          {INSIGHTS.length === 0 && (
-            <div className="py-32 text-center text-white/20 font-bold text-xs uppercase tracking-widest">
-              No publications found.
-            </div>
-          )}
         </section>
 
         <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
@@ -94,40 +141,5 @@ export default function PractitionerFrameworksPage() {
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
       <IntakeFormModal isOpen={isIntakeOpen} onClose={() => setIsIntakeOpen(false)} />
     </div>
-  );
-}
-
-function InsightCard({ item, onClick }: { item: Insight; onClick: () => void }) {
-  return (
-    <motion.article
-      layout
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="group bg-[#0A0A0A] p-10 flex flex-col h-full hover:bg-[#0D0D0D] transition-colors cursor-pointer"
-      onClick={onClick}
-    >
-      <div className="flex justify-between items-start mb-10">
-        <div className="text-[10px] font-bold uppercase tracking-widest text-[#0445a4]">
-          {item.category}
-        </div>
-        <div className="text-[10px] font-bold text-white/20 uppercase tracking-widest">
-          {item.date}
-        </div>
-      </div>
-      
-      <h3 className="text-2xl font-bold mb-4 leading-tight text-white/90 group-hover:text-white transition-colors">
-        {item.title}
-      </h3>
-      
-      <p className="text-[#888] text-[15px] leading-relaxed mb-12 flex-1 line-clamp-4">
-        {item.summary}
-      </p>
-
-      <div className="pt-8 border-t border-white/5 flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-white/40 group-hover:text-[#0445a4] transition-colors">
-        <span>View Framework</span>
-        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-      </div>
-    </motion.article>
   );
 }
