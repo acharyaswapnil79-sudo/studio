@@ -293,10 +293,10 @@ export default function GreyShacksHome() {
             >
               <span className="text-[10px] md:text-[11px] font-medium tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">WHAT WE DO</span>
               <h2 className="text-[32px] md:text-[64px] font-bold text-[#F5F5F5] tracking-tight leading-[1] mb-8">
-                Next-gen operational <br /> intelligence features.
+                Two things. <br /> Done exceptionally well.
               </h2>
               <p className="text-[17px] md:text-[20px] text-[#888888] leading-relaxed max-w-[600px]">
-                GreyShacks maps your operations, identifies the highest-friction workflows, and deploys systems that run without manual oversight.
+                Everything we build serves these two capabilities.
               </p>
             </motion.div>
 
