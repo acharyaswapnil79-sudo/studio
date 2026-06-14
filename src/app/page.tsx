@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -176,20 +175,6 @@ export default function GreyShacksHome() {
                 >
                   GreyShacks analyzes your entire stack in real-time. It identifies urgent approvals, surfaces critical alerts, and ensures no important email or decision slips through. A single layer of truth for your operations.
                 </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <Button 
-                    onClick={() => setIsIntakeOpen(true)}
-                    className="bg-transparent border border-white/20 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-10 py-7 text-sm font-semibold tracking-wide transition-all w-full sm:w-auto"
-                  >
-                    Get started
-                  </Button>
-                </motion.div>
               </div>
 
               <div className="lg:col-span-5 relative">
@@ -499,20 +484,6 @@ export default function GreyShacksHome() {
                     GreyShacks connects to your CRM, ERP, finance, and communication tools. No rip-and-replace. No new software to learn.
                   </motion.p>
                 </div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <Button 
-                    onClick={() => setIsIntakeOpen(true)}
-                    className="bg-transparent border border-white/20 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-10 py-7 text-sm font-semibold tracking-wide transition-all w-full sm:w-auto"
-                  >
-                    Get started
-                  </Button>
-                </motion.div>
               </div>
 
               <div className="lg:col-span-5 relative">
@@ -545,13 +516,6 @@ export default function GreyShacksHome() {
               <p className="text-[13px] md:text-[14px] text-[#555555] text-center md:text-left">
                 Don't see your stack? We've integrated with <span className="text-white font-semibold">40+ platforms</span>.
               </p>
-              <button 
-                onClick={() => setIsIntakeOpen(true)}
-                className="text-white/40 hover:text-white text-[12px] md:text-[13px] font-medium tracking-wide flex items-center gap-2 transition-colors"
-              >
-                Talk to an Integration Specialist
-                <ArrowRight className="w-3 h-3" />
-              </button>
             </div>
           </div>
         </section>
