@@ -11,16 +11,21 @@ import { MobileMenuOverlay } from './MobileMenuOverlay';
 interface NavbarProps {
   onOpenIntake: () => void;
   activeSection?: string;
+  // Optional navLinks if a page wants to override defaults
+  navLinks?: { name: string; href: string }[];
 }
 
-const navLinks = [
+const defaultNavLinks = [
   { name: "About", href: "/about" },
-  { name: "Capabilities", href: "/capabilities" }
+  { name: "Capabilities", href: "/capabilities" },
+  { name: "Practitioner Framework", href: "/intelligence" }
 ];
 
-export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
+export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const links = customNavLinks || defaultNavLinks;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,12 +61,12 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
 
           {/* Desktop Center Links */}
           <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link) => (
+            {links.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-[13px] font-semibold tracking-wide transition-all hover:text-[#0445a4]",
+                  "text-[13px] font-semibold tracking-wide transition-all hover:text-[#0445a4] whitespace-nowrap",
                   activeSection === link.name.toLowerCase() 
                     ? "text-[#F5F5F5]" 
                     : "text-white/40 hover:text-white"
@@ -98,7 +103,7 @@ export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {
       <MobileMenuOverlay 
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
-        navLinks={navLinks}
+        navLinks={links}
         activeSection={activeSection || ""}
         onOpenIntake={onOpenIntake}
       />

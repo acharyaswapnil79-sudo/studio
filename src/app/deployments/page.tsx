@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -81,25 +82,17 @@ export default function DeploymentLibraryPage() {
   ]);
 
   const navLinks = [
-    { name: "Command Center", href: "/#hero" },
-    { name: "Operational Impact", href: "/#operational-impact" },
     { name: "About", href: "/about" },
     { name: "Capabilities", href: "/capabilities" },
-    { name: "Engagement", href: "/#engagement-model" },
-    { name: "Deployment Library", href: "/deployments" },
-    { name: "Field Intelligence", href: "/intelligence" }
+    { name: "Practitioner Framework", href: "/intelligence" }
   ];
 
   return (
     <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#0445a4]/30">
       <Navbar 
-        isScrolled={isScrolled} 
-        navLinks={navLinks} 
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
         activeSection="deployments"
-        handleNavClick={() => {}}
         onOpenIntake={() => setIsIntakeOpen(true)}
+        navLinks={navLinks}
       />
 
       <main className="pt-32 pb-0 px-6 md:px-10">
@@ -324,15 +317,6 @@ export default function DeploymentLibraryPage() {
       </main>
 
       <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-
-      <MobileMenuOverlay 
-        isOpen={mobileMenuOpen} 
-        onClose={() => setMobileMenuOpen(false)} 
-        navLinks={navLinks} 
-        activeSection="deployments"
-        handleNavClick={() => {}}
-        onOpenIntake={() => setIsIntakeOpen(true)}
-      />
 
       <MethodologyModal 
         isOpen={isMethodologyOpen} 
