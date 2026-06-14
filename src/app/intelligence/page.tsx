@@ -1,24 +1,18 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
-import { INSIGHTS, CATEGORY_NAMES, Category, Insight } from '@/lib/intelligence-data';
+import { INSIGHTS, Insight } from '@/lib/intelligence-data';
 import { ArrowRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 export default function PractitionerFrameworksPage() {
   const router = useRouter();
-  const [activeCategory, setActiveCategory] = useState<Category>('All');
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-
-  const filteredInsights = INSIGHTS.filter(item => 
-    activeCategory === 'All' || item.category === activeCategory
-  );
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#0445a4]/30 font-sans">
@@ -75,30 +69,9 @@ export default function PractitionerFrameworksPage() {
 
         {/* Content Grid */}
         <section className="max-w-[1240px] mx-auto px-6 py-20">
-          <div className="flex gap-10 overflow-x-auto scrollbar-hide py-4 mb-16 border-b border-white/5">
-            {CATEGORY_NAMES.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={cn(
-                  "text-[11px] font-bold uppercase tracking-[0.2em] transition-all relative py-3 whitespace-nowrap",
-                  activeCategory === category ? "text-white" : "text-white/30 hover:text-white"
-                )}
-              >
-                {category}
-                {activeCategory === category && (
-                  <motion.div 
-                    layoutId="framework-cat-indicator" 
-                    className="absolute bottom-0 left-0 right-0 h-px bg-[#0445a4]" 
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-xl overflow-hidden">
             <AnimatePresence mode="popLayout">
-              {filteredInsights.map((item) => (
+              {INSIGHTS.map((item) => (
                 <InsightCard 
                   key={item.id} 
                   item={item} 
@@ -108,9 +81,9 @@ export default function PractitionerFrameworksPage() {
             </AnimatePresence>
           </div>
 
-          {filteredInsights.length === 0 && (
+          {INSIGHTS.length === 0 && (
             <div className="py-32 text-center text-white/20 font-bold text-xs uppercase tracking-widest">
-              No publications found in this category.
+              No publications found.
             </div>
           )}
         </section>
