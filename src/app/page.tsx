@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -36,48 +37,10 @@ import {
   Plus,
   Sparkles,
   Mic,
-  Volume2
+  Volume2,
+  Check
 } from 'lucide-react';
 import Link from 'next/link';
-
-const FEATURES = [
-  {
-    icon: Cpu,
-    title: "Workflow Automation",
-    desc: "We identify manual, recurring processes and replace them with agentic workflows that execute without human touchpoints.",
-    gradient: "radial-gradient(circle at 0% 0%, #0445a4 0%, #022b5e 50%, #01162e 100%)"
-  },
-  {
-    icon: BarChart3,
-    title: "Operational Intelligence",
-    desc: "Every deployment comes with a measurement layer — so you know exactly what changed, by how much, and why it matters.",
-    gradient: "radial-gradient(circle at 100% 0%, #0445a4 0%, #033a6b 50%, #011d33 100%)"
-  },
-  {
-    icon: ShieldCheck,
-    title: "Audit-Ready Governance",
-    desc: "Full traceability on every automated decision. Built for finance, compliance, and ops teams that need defensible outcomes.",
-    gradient: "radial-gradient(circle at 50% 50%, #0445a4 0%, #0A0A0A 100%)"
-  },
-  {
-    icon: Plug,
-    title: "Systems Integration",
-    desc: "GreyShacks connects to your existing stack — CRMs, ERPs, finance tools — without ripping and replacing what works.",
-    gradient: "radial-gradient(circle at 0% 100%, #0445a4 0%, #023682 50%, #011b40 100%)"
-  },
-  {
-    icon: Clock,
-    title: "Rapid Time-to-Value",
-    desc: "Most clients see measurable impact within 8–14 weeks. We pilot before we scale — no long commitments upfront.",
-    gradient: "radial-gradient(circle at 100% 100%, #0445a4 0%, #0550c0 50%, #022a60 100%)"
-  },
-  {
-    icon: Layers,
-    title: "Production-First Deployment",
-    desc: "We don't deliver prototypes. Every system goes into live operations — tested, monitored, and maintained.",
-    gradient: "radial-gradient(circle at 50% 0%, #0445a4 0%, #061e3a 100%)"
-  }
-];
 
 const INTEGRATIONS = [
   { name: "Salesforce", icon: Database },
@@ -282,59 +245,79 @@ export default function GreyShacksHome() {
         </section>
 
         {/* WHAT WE DO SECTION */}
-        <section className="py-24 md:py-32 border-t border-white/5 bg-black">
+        <section className="py-24 md:py-40 border-t border-white/5 bg-black">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="mb-16 md:mb-20"
+              className="mb-24"
             >
               <span className="text-[10px] md:text-[11px] font-medium tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">WHAT WE DO</span>
-              <h2 className="text-[32px] md:text-[64px] font-bold text-[#F5F5F5] tracking-tight leading-[1] mb-8">
+              <h2 className="text-[32px] md:text-[64px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1] mb-8">
                 Two things. <br /> Done exceptionally well.
               </h2>
-              <p className="text-[17px] md:text-[20px] text-[#888888] leading-relaxed max-w-[600px]">
+              <p className="text-[17px] md:text-[21px] text-[#888888] leading-relaxed max-w-[600px]">
                 Everything we build serves these two capabilities.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {FEATURES.map((feature, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  className="group relative aspect-[4/5] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-end p-8 md:p-10 cursor-pointer"
-                >
-                  <div 
-                    className="absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity duration-700"
-                    style={{ background: feature.gradient }}
-                  />
-                  <div className="absolute inset-0 bg-black/20" />
-                  <div className="absolute inset-0 backdrop-blur-[80px]" />
-                  <div className="absolute inset-0 noise-bg opacity-[0.05] pointer-events-none" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+              {/* Pillar 1: Organizing Data */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="space-y-10"
+              >
+                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Organizing Data</h3>
+                <p className="text-[17px] md:text-[20px] text-[#888888] leading-relaxed max-w-[540px]">
+                  We transform fragmented, messy operational data into clean, structured, query-ready foundations with full lineage and governance.
+                </p>
+                <ul className="space-y-6">
+                  {[
+                    "Ingestion, enrichment & reconciliation at scale",
+                    "Canonical data models & semantic structure",
+                    "Complete audit trails and data lineage"
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-4 text-white font-medium group">
+                      <div className="w-6 h-6 rounded-full bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#0445a4] transition-colors duration-300">
+                        <Check className="w-3.5 h-3.5 text-[#0445a4] group-hover:text-white transition-colors" />
+                      </div>
+                      <span className="text-base md:text-lg opacity-90">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
 
-                  <div className="absolute top-6 md:top-8 right-6 md:right-8">
-                    <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-white/20 transition-colors">
-                      <Plus className="w-4 h-4 text-white" />
-                    </div>
-                  </div>
-
-                  <div className="relative z-10">
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 tracking-tight">
-                      {feature.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-white/70 leading-relaxed max-w-[280px] group-hover:text-white transition-colors duration-300">
-                      {feature.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+              {/* Pillar 2: Deploying Systems */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="space-y-10"
+              >
+                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Deploying Systems</h3>
+                <p className="text-[17px] md:text-[20px] text-[#888888] leading-relaxed max-w-[540px]">
+                  We build and deploy agentic systems that operate across your entire tech stack to manage approvals, surface alerts, and execute workflows.
+                </p>
+                <ul className="space-y-6">
+                  {[
+                    "Multi-platform approval orchestration",
+                    "Cross-functional alert prioritization",
+                    "Production-grade maintenance & stability"
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-4 text-white font-medium group">
+                      <div className="w-6 h-6 rounded-full bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#0445a4] transition-colors duration-300">
+                        <Check className="w-3.5 h-3.5 text-[#0445a4] group-hover:text-white transition-colors" />
+                      </div>
+                      <span className="text-base md:text-lg opacity-90">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             </div>
           </div>
         </section>
