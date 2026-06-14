@@ -126,8 +126,8 @@ export default function GreyShacksHome() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="text-[40px] md:text-[84px] font-bold text-white tracking-tighter leading-[1.05] mb-8"
             >
-              Operational Intelligence. <br />
-              <span className="text-white/40 italic">Built to Deploy.</span>
+              Organized Data. <br />
+              <span className="text-white/40 italic">Autonomous Agents.</span>
             </motion.h1>
             
             <motion.p 

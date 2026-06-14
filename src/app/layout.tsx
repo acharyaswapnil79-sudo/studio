@@ -10,7 +10,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'GreyShacks | Operational Intelligence',
+  title: 'GreyShacks | Organized Data. Autonomous Agents.',
   description: 'Eliminate manual workflows with production-grade agentic systems.',
 };
 
