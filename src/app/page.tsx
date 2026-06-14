@@ -332,16 +332,38 @@ export default function GreyShacksHome() {
               className="mb-20 md:mb-24"
             >
               <span className="text-[10px] md:text-[11px] font-medium tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">HOW IT WORKS</span>
-              <h2 className="text-[32px] md:text-[56px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1]">From diagnostic to deployment <br className="hidden md:block" /> in weeks, not quarters.</h2>
+              <h2 className="text-[32px] md:text-[56px] font-bold text-[#F5F5F5] tracking-tight leading-[1.1]">We don’t guess. <br className="hidden md:block" /> We measure. Then we build.</h2>
             </motion.div>
 
             <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 lg:gap-24">
               <div className="hidden md:block absolute top-12 left-0 right-0 h-px border-t border-dashed border-white/10 z-0" />
               
               {[
-                { n: "01", t: "Operational Diagnostic", d: "We spend 2 weeks inside your operations — mapping workflows, measuring friction, and identifying high-ROI targets.", dur: "2 Weeks" },
-                { n: "02", t: "Pilot Deployment", d: "We deploy a scoped system against one priority workflow. You see results in your real environment before scaling.", dur: "4–6 Weeks" },
-                { n: "03", t: "Production Rollout", d: "Once the pilot validates ROI, we systematically expand to adjacent workflows with full governance built in.", dur: "Ongoing" }
+                { 
+                  n: "01", 
+                  t: "Operational Diagnostic", 
+                  d: "We spend 4 weeks deeply understanding your current operations. We establish precise baselines across the workflows that matter most to you.", 
+                  metadata: [
+                    { label: "Outcome", val: "A clear diagnostic report with quantified opportunities, success criteria, and a recommended pilot scope." }
+                  ]
+                },
+                { 
+                  n: "02", 
+                  t: "Focused Pilot", 
+                  d: "We deploy a targeted set of agents against one or two high-impact workflows. Progress is measured live against the baseline you approved.", 
+                  metadata: [
+                    { label: "Duration", val: "Typically 6–10 weeks" },
+                    { label: "Review cadence", val: "Weekly dashboards + bi-weekly reviews" }
+                  ]
+                },
+                { 
+                  n: "03", 
+                  t: "Production Deployment", 
+                  d: "Only after the pilot delivers verified results do we discuss scaling. The same measurement infrastructure and governance model carries forward.", 
+                  metadata: [
+                    { label: "Status", val: "Production only when outcomes are proven" }
+                  ]
+                }
               ].map((step, i) => (
                 <motion.div
                   key={i}
@@ -355,12 +377,39 @@ export default function GreyShacksHome() {
                     {step.n}
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-4 tracking-tight">{step.t}</h3>
-                  <p className="text-[15px] md:text-[16px] text-[#888888] leading-relaxed mb-8 max-w-[320px]">{step.d}</p>
-                  <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/5 bg-white/5 text-[10px] font-bold uppercase tracking-widest text-[#0445a4]">
-                    {step.dur}
+                  <p className="text-[15px] md:text-[16px] text-[#888888] leading-relaxed mb-8">{step.d}</p>
+                  
+                  <div className="space-y-4">
+                    {step.metadata.map((m, idx) => (
+                      <div key={idx} className="space-y-1.5">
+                        <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#0445a4] opacity-60">
+                          {m.label}
+                        </div>
+                        <div className="text-[12px] text-white/80 font-medium leading-relaxed bg-white/5 border border-white/5 px-4 py-3 rounded-lg">
+                          {m.val}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Credibility Footer */}
+            <div className="mt-32 pt-16 border-t border-white/5">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-12 tracking-tight">Why our approach builds real credibility</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                {[
+                  "You stay in control. Every decision is data-driven and reversible.",
+                  "Risk is front-loaded and minimized. The diagnostic is the lowest-risk, highest-insight step.",
+                  "Your team builds ownership. They see the numbers and participate in validation."
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 group">
+                    <ArrowRight className="w-5 h-5 text-[#0445a4] shrink-0 group-hover:translate-x-1 transition-transform mt-0.5" />
+                    <p className="text-[15px] md:text-[16px] text-[#888888] leading-relaxed">{item}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
