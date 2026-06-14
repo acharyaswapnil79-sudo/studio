@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -14,9 +15,7 @@ interface NavbarProps {
 
 const navLinks = [
   { name: "About", href: "/about" },
-  { name: "Capabilities", href: "/capabilities" },
-  { name: "Results", href: "/deployments" },
-  { name: "Contact", href: "/contact" }
+  { name: "Capabilities", href: "/capabilities" }
 ];
 
 export function Navbar({ onOpenIntake, activeSection }: NavbarProps) {

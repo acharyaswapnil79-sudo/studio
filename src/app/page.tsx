@@ -121,15 +121,6 @@ export default function GreyShacksHome() {
           </div>
 
           <div className="container relative z-10 max-w-4xl mx-auto px-4 md:px-0">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full mb-8"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#0445a4] fill-current" />
-              <span className="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-white/80">Updated for Q1 2026</span>
-            </motion.div>
-
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

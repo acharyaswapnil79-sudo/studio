@@ -215,7 +215,6 @@ export default function CapabilitiesPage() {
                 {[
                   "No generic 'wrappers' or prototypes",
                   "Native API integrations for zero-lag data",
-                  "SOC2-compliant audit trail architecture",
                   "Weekly performance reporting vs baseline"
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4 text-white text-sm font-medium">

@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -29,41 +30,26 @@ export function Footer({ onOpenIntake }: FooterProps) {
           </div>
 
           {/* Column 2 — Product */}
-          <div className="md:col-span-2 space-y-8">
-            <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Product</h4>
+          <div className="md:col-span-4 space-y-8">
+            <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Menu</h4>
             <ul className="space-y-4">
               <li>
                 <Link href="/capabilities" className="text-[13px] text-[#666] hover:text-white transition-colors">
-                  What We Do
+                  Capabilities
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-[13px] text-[#666] hover:text-white transition-colors">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="/deployments" className="text-[13px] text-[#666] hover:text-white transition-colors">
-                  Results
-                </Link>
-              </li>
-              <li>
-                <Link href="/capabilities#integrations" className="text-[13px] text-[#666] hover:text-white transition-colors">
-                  Integrations
+                  About
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Column 3 — Company */}
-          <div className="md:col-span-3 space-y-8">
-            <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Company</h4>
+          <div className="md:col-span-4 space-y-8">
+            <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Legals</h4>
             <ul className="space-y-4">
-              <li>
-                <Link href="/about" className="text-[13px] text-[#666] hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
               <li>
                 <Link href="/privacy" className="text-[13px] text-[#666] hover:text-white transition-colors">
                   Privacy Policy
@@ -75,17 +61,6 @@ export function Footer({ onOpenIntake }: FooterProps) {
                 </Link>
               </li>
             </ul>
-          </div>
-
-          {/* Column 4 — Action */}
-          <div className="md:col-span-3 space-y-6 pt-4 md:pt-0">
-            <p className="text-[12px] text-[#555] font-bold uppercase tracking-widest">Ready to start?</p>
-            <Button
-              onClick={onOpenIntake}
-              className="w-full bg-[#0445a4] text-white font-bold text-[12px] md:text-[13px] uppercase tracking-[0.15em] py-7 rounded-full hover:bg-[#0445a4]/90 transition-all shadow-xl shadow-[#0445a4]/10"
-            >
-              Request a Diagnostic
-            </Button>
           </div>
         </div>
 
