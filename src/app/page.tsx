@@ -181,31 +181,10 @@ export default function GreyShacksHome() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[16px] md:text-[21px] text-[#888888] leading-relaxed max-w-2xl mx-auto mb-12"
+              className="text-[16px] md:text-[21px] text-[#888888] leading-relaxed max-w-2xl mx-auto"
             >
               GreyShacks gives mid-market operations teams a structured system to eliminate manual work, track what matters, and scale what works.
             </motion.p>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0"
-            >
-              <Button 
-                onClick={() => setIsIntakeOpen(true)}
-                className="bg-transparent border border-white/20 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all duration-300 w-full sm:w-auto"
-              >
-                Get started
-              </Button>
-              <Button 
-                variant="outline"
-                asChild
-                className="bg-transparent border border-white/10 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all duration-300 w-full sm:w-auto"
-              >
-                <Link href="/about">Learn more</Link>
-              </Button>
-            </motion.div>
           </div>
         </section>
 
