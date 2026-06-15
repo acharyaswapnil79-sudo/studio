@@ -52,78 +52,81 @@ export default function GreyShacksHome() {
       
       <main>
         {/* HERO SECTION */}
-        <section className="relative min-h-screen flex flex-col justify-center pt-32 px-6">
+        <section className="relative pt-40 md:pt-56 pb-20 px-6">
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0445a4]/10 blur-[120px] rounded-full opacity-50" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#021d3a]/20 blur-[100px] rounded-full opacity-30" />
           </div>
 
           <div className="container relative z-10 max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-              <div className="lg:col-span-7">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 text-[#0445a4] mb-8"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#0445a4] animate-pulse" />
-                  <span className="text-[11px] font-bold tracking-[0.3em] uppercase">SYSTEMS FOR MID-MARKET OPS</span>
-                </motion.div>
-                
-                <motion.h1 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-[48px] md:text-[88px] font-bold text-white tracking-tighter leading-[0.95] mb-10"
-                >
-                  Organized Data. <br />
-                  <span className="text-white/40 italic">Autonomous Agents.</span>
-                </motion.h1>
-                
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-xl mb-12"
-                >
-                  GreyShacks gives operations teams a high-integrity system to eliminate manual work and scale what works.
-                </motion.p>
+            <div className="text-center max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center justify-center gap-2 text-[#0445a4] mb-8"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-[#0445a4] animate-pulse" />
+                <span className="text-[11px] font-bold tracking-[0.3em] uppercase">SYSTEMS FOR MID-MARKET OPS</span>
+              </motion.div>
+              
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[48px] md:text-[88px] font-bold text-white tracking-tighter leading-[0.95] mb-10"
+              >
+                Organized Data. <br />
+                <span className="text-white/40 italic">Autonomous Agents.</span>
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-xl mx-auto mb-12"
+              >
+                GreyShacks gives operations teams a high-integrity system to eliminate manual work and scale what works.
+              </motion.p>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="flex flex-col sm:flex-row gap-4"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <Button 
+                  onClick={() => setIsIntakeOpen(true)}
+                  className="bg-[#0445a4] hover:bg-[#0445a4]/90 text-white rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all"
                 >
-                  <Button 
-                    onClick={() => setIsIntakeOpen(true)}
-                    className="bg-[#0445a4] hover:bg-[#0445a4]/90 text-white rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all"
-                  >
-                    Request Diagnostic
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    className="border-white/10 text-white hover:bg-white/5 rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all"
-                  >
-                    View Deployments
-                  </Button>
-                </motion.div>
-              </div>
-
-              <div className="lg:col-span-5 relative">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
+                  Request Diagnostic
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="border-white/10 text-white hover:bg-white/5 rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all"
                 >
-                  <VideoPlayer 
-                    posterUrl="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2078&auto=format&fit=crop"
-                    label="GreyShacks Intro: 10 Seconds" 
-                    className="shadow-[#0445a4]/10"
-                  />
-                </motion.div>
-              </div>
+                  View Deployments
+                </Button>
+              </motion.div>
             </div>
+
+            {/* ENLARGED VIDEO SECTION BELOW HERO */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-24 md:mt-32 max-w-5xl mx-auto relative group"
+            >
+              {/* Subtle ambient glow behind video */}
+              <div className="absolute inset-0 bg-[#0445a4]/5 blur-[80px] rounded-full scale-90 group-hover:scale-100 transition-transform duration-1000" />
+              
+              <div className="relative z-10">
+                <VideoPlayer 
+                  posterUrl="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2078&auto=format&fit=crop"
+                  label="GreyShacks Intro: 10 Seconds" 
+                  className="shadow-2xl shadow-black/50 border-white/5"
+                />
+              </div>
+            </motion.div>
           </div>
         </section>
 
