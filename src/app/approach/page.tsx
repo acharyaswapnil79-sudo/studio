@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -10,15 +9,13 @@ import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { PrincipleCard } from '@/components/approach/PrincipleCard';
 import { PhaseCard } from '@/components/approach/PhaseCard';
 import { PerformanceSimulator } from '@/components/approach/PerformanceSimulator';
-import { MediaPlaceholder } from '@/components/shared/MediaPlaceholder';
+import { AnimatedProcessFlow } from '@/components/approach/AnimatedProcessFlow';
 import { 
   ShieldCheck, 
   Target, 
   Zap, 
   LineChart, 
-  CheckSquare, 
-  ArrowRight,
-  Plus
+  ArrowRight
 } from 'lucide-react';
 
 const PRINCIPLES = [
@@ -83,7 +80,7 @@ export default function ApproachPage() {
 
         {/* Core Principles Grid */}
         <section className="container mx-auto px-6 mb-32 md:mb-60">
-          <div className="mb-16">
+          <div className="mb-16 text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Core Design Principles</h2>
             <p className="text-[#666] max-w-xl">Four non-negotiable architectural rules that guide every system we deploy.</p>
           </div>
@@ -97,7 +94,7 @@ export default function ApproachPage() {
         {/* 3-Phase Engagement Model */}
         <section className="bg-black py-24 md:py-40 border-y border-white/5">
           <div className="container mx-auto px-6">
-            <div className="max-w-3xl mb-24">
+            <div className="max-w-3xl mb-24 text-center md:text-left">
               <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">The Engagement Model</h2>
               <p className="text-[#888] text-lg leading-relaxed">
                 Short, measured milestones. We prove value before we ask for commitment.
@@ -138,11 +135,7 @@ export default function ApproachPage() {
             </div>
 
             <div className="mt-20">
-              <MediaPlaceholder 
-                type="flow" 
-                label="Process Flow: From Diagnostic Handoff to Production Stability" 
-                className="h-[300px]"
-              />
+              <AnimatedProcessFlow />
             </div>
           </div>
         </section>
