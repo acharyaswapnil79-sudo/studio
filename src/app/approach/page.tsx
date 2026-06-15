@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -8,6 +9,7 @@ import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { PrincipleCard } from '@/components/approach/PrincipleCard';
 import { PhaseCard } from '@/components/approach/PhaseCard';
+import { PerformanceSimulator } from '@/components/approach/PerformanceSimulator';
 import { MediaPlaceholder } from '@/components/shared/MediaPlaceholder';
 import { 
   ShieldCheck, 
@@ -15,11 +17,8 @@ import {
   Zap, 
   LineChart, 
   CheckSquare, 
-  MessageSquare,
   ArrowRight,
-  Plus,
-  Mic,
-  Volume2
+  Plus
 } from 'lucide-react';
 
 const PRINCIPLES = [
@@ -148,10 +147,10 @@ export default function ApproachPage() {
           </div>
         </section>
 
-        {/* How It Looks in Practice (UI Mockups) */}
+        {/* How It Looks in Practice (Interactive Simulator) */}
         <section className="container mx-auto px-6 py-24 md:py-40">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            <div className="lg:col-span-5 space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">How It Looks in Practice</h2>
               <p className="text-[#888] text-lg leading-relaxed">
                 Our systems don't just 'suggest' actions. They execute them inside your stack, with a clean layer of oversight for your team.
@@ -168,64 +167,21 @@ export default function ApproachPage() {
                   </div>
                 ))}
               </div>
+              <div className="pt-8">
+                <button 
+                  onClick={() => setIsIntakeOpen(true)}
+                  className="flex items-center gap-2 text-[#0445a4] text-xs font-bold uppercase tracking-[0.2em] group"
+                >
+                  Request diagnostic briefing
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
             </div>
 
             <div className="lg:col-span-7">
-              <div className="bg-[#111] border border-white/10 rounded-[32px] p-8 md:p-12 shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#0445a4]/10 blur-[100px] rounded-full" />
-                
-                {/* Simulated UI Mockup */}
-                <div className="space-y-8 relative z-10">
-                  <div className="flex gap-3">
-                    <div className="bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl flex items-center gap-2 text-xs font-bold text-white/40">
-                      <CheckSquare className="w-3.5 h-3.5" /> Approve P.O.s
-                    </div>
-                    <div className="bg-[#0445a4]/10 border border-[#0445a4]/30 px-4 py-2.5 rounded-xl flex items-center gap-2 text-xs font-bold text-[#0445a4]">
-                      <Plus className="w-3.5 h-3.5" /> Reconcile AR
-                    </div>
-                  </div>
-
-                  <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-8 h-8 rounded-full bg-[#0445a4]/20 flex items-center justify-center">
-                        <Zap className="w-4 h-4 text-[#0445a4]" />
-                      </div>
-                      <div className="text-sm font-bold text-white tracking-tight">System Status: Active</div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-[#0445a4] w-2/3" />
-                      </div>
-                      <div className="flex justify-between text-[10px] font-bold text-[#444] uppercase tracking-widest">
-                        <span>Sync Progress</span>
-                        <span>67% COMPLETE</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
-                      <Mic className="w-4 h-4 text-white/20" />
-                      <span className="text-white/40 text-sm font-medium italic">Ask anything about your operations...</span>
-                    </div>
-                    <div className="w-full h-16 bg-white/5 border border-white/10 rounded-full px-4 flex items-center justify-end">
-                      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center group cursor-pointer hover:bg-[#0445a4] transition-colors">
-                        <Volume2 className="w-4 h-4 text-black group-hover:text-white transition-colors" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <PerformanceSimulator />
             </div>
           </div>
-        </section>
-
-        <section className="container mx-auto px-6 py-12">
-          <MediaPlaceholder 
-            type="graph" 
-            label="Insert Graph: Baseline vs Pilot Performance for N=14 Deployments" 
-            className="h-[400px]"
-          />
         </section>
 
         <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
