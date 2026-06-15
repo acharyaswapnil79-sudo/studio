@@ -2,9 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Check } from 'lucide-react';
 
 interface FrameworkCardProps {
   title: string;
@@ -30,7 +28,7 @@ export function FrameworkCard({ title, description, bullets }: FrameworkCardProp
           {description}
         </p>
 
-        <ul className="space-y-5 mb-12">
+        <ul className="space-y-5">
           {bullets.map((bullet, idx) => (
             <li key={idx} className="flex items-start gap-4 text-white/90 font-medium group/li">
               <div className="w-5 h-5 rounded-full bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center shrink-0 mt-0.5 group-hover/li:bg-[#0445a4] transition-colors duration-300">
@@ -42,18 +40,6 @@ export function FrameworkCard({ title, description, bullets }: FrameworkCardProp
             </li>
           ))}
         </ul>
-      </div>
-
-      <div className="pt-8 border-t border-white/5">
-        <Button 
-          asChild
-          className="w-full bg-[#0445a4] text-white hover:bg-[#0445a4]/90 py-7 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full shadow-xl shadow-[#0445a4]/10 group/btn"
-        >
-          <Link href="/contact" className="flex items-center justify-center gap-2">
-            Get the Framework
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
-          </Link>
-        </Button>
       </div>
     </motion.div>
   );
