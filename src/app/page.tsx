@@ -83,50 +83,11 @@ export default function GreyShacksHome() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-xl mx-auto mb-12"
+                className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-xl mx-auto"
               >
                 GreyShacks gives operations teams a high-integrity system to eliminate manual work and scale what works.
               </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
-              >
-                <Button 
-                  onClick={() => setIsIntakeOpen(true)}
-                  className="bg-[#0445a4] hover:bg-[#0445a4]/90 text-white rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all"
-                >
-                  Request Diagnostic
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="border-white/10 text-white hover:bg-white/5 rounded-full px-10 py-7 text-sm font-bold tracking-wide uppercase transition-all"
-                >
-                  View Deployments
-                </Button>
-              </motion.div>
             </div>
-
-            {/* ENLARGED VIDEO SECTION BELOW HERO */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-24 md:mt-32 max-w-5xl mx-auto relative group"
-            >
-              {/* Subtle ambient glow behind video */}
-              <div className="absolute inset-0 bg-[#0445a4]/5 blur-[80px] rounded-full scale-90 group-hover:scale-100 transition-transform duration-1000" />
-              
-              <div className="relative z-10">
-                <VideoPlayer 
-                  posterUrl="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2078&auto=format&fit=crop"
-                  label="GreyShacks Intro: 10 Seconds" 
-                  className="shadow-2xl shadow-black/50 border-white/5"
-                />
-              </div>
-            </motion.div>
           </div>
         </section>
 
