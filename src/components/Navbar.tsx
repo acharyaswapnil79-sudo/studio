@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -11,13 +10,13 @@ import { MobileMenuOverlay } from './MobileMenuOverlay';
 interface NavbarProps {
   onOpenIntake: () => void;
   activeSection?: string;
-  // Optional navLinks if a page wants to override defaults
   navLinks?: { name: string; href: string }[];
 }
 
 const defaultNavLinks = [
   { name: "About", href: "/about" },
   { name: "Capabilities", href: "/capabilities" },
+  { name: "Approach", href: "/approach" },
   { name: "Practitioner Framework", href: "/intelligence" }
 ];
 
@@ -60,16 +59,16 @@ export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }
           </Link>
 
           {/* Desktop Center Links */}
-          <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+          <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {links.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-[13px] font-semibold tracking-wide transition-all hover:text-[#0445a4] whitespace-nowrap",
+                  "text-[12px] font-bold uppercase tracking-[0.15em] transition-all whitespace-nowrap",
                   activeSection === link.name.toLowerCase() 
                     ? "text-[#F5F5F5]" 
-                    : "text-white/40 hover:text-white"
+                    : "text-white/30 hover:text-white"
                 )}
               >
                 {link.name}
@@ -82,7 +81,7 @@ export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }
             <div className="hidden md:block">
               <Button 
                 onClick={onOpenIntake}
-                className="bg-transparent border border-white/20 text-white hover:bg-[#0445a4] hover:border-[#0445a4] rounded-full px-8 py-2.5 h-11 text-[13px] font-bold tracking-wide transition-all shadow-xl"
+                className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-8 py-2.5 h-11 text-[11px] font-bold uppercase tracking-widest transition-all shadow-xl shadow-[#0445a4]/20"
               >
                 Get started
               </Button>
