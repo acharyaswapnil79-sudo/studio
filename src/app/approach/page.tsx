@@ -9,7 +9,7 @@ import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { PrincipleCard } from '@/components/approach/PrincipleCard';
 import { PhaseCard } from '@/components/approach/PhaseCard';
 import { PerformanceSimulator } from '@/components/approach/PerformanceSimulator';
-import { AnimatedProcessFlow } from '@/components/approach/AnimatedProcessFlow';
+import LiveAutomationDashboard from '@/components/approach/LiveAutomationDashboard';
 import { 
   ShieldCheck, 
   Target, 
@@ -135,7 +135,7 @@ export default function ApproachPage() {
             </div>
 
             <div className="mt-20">
-              <AnimatedProcessFlow />
+              <LiveAutomationDashboard />
             </div>
           </div>
         </section>
