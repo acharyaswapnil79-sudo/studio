@@ -1,26 +1,26 @@
+
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from 'framer-motion';
+import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
-import { VideoPlayer } from '@/components/VideoPlayer';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { 
-  ArrowRight, 
-  BarChart3, 
-  CheckSquare, 
-  FileText, 
-  Plus, 
   Sparkles, 
   Mic, 
   Volume2, 
   Check,
   Zap,
-  Play
+  Plus,
+  FileText,
+  CheckSquare,
+  ArrowRight
 } from 'lucide-react';
+import { useUser } from '@/firebase';
 
 function CountUp({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
   const ref = useRef(null);
@@ -45,6 +45,7 @@ function CountUp({ value, prefix = "", suffix = "" }: { value: number; prefix?: 
 
 export default function GreyShacksHome() {
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
+  const { user } = useUser();
 
   return (
     <div className="relative min-h-screen bg-[#0A0A0A] selection:bg-[#0445a4]/30 overflow-x-hidden">
@@ -83,10 +84,40 @@ export default function GreyShacksHome() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-xl mx-auto"
+                className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-xl mx-auto mb-12"
               >
                 GreyShacks gives operations teams a high-integrity system to eliminate manual work and scale what works.
               </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-4"
+              >
+                {user ? (
+                  <Link href="/dashboard">
+                    <Button className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-10 py-7 text-sm font-bold uppercase tracking-widest transition-all shadow-2xl shadow-[#0445a4]/20 group">
+                      Enter Intelligence Platform
+                      <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <>
+                    <Link href="/signup">
+                      <Button className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-10 py-7 text-sm font-bold uppercase tracking-widest transition-all shadow-2xl shadow-[#0445a4]/20 group">
+                        Start Pilot Deployment
+                        <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </Link>
+                    <Link href="/login">
+                      <Button variant="outline" className="border-white/10 text-white/60 hover:text-white hover:bg-white/5 rounded-full px-10 py-7 text-sm font-bold uppercase tracking-widest">
+                        Institutional Login
+                      </Button>
+                    </Link>
+                  </>
+                )}
+              </motion.div>
             </div>
           </div>
         </section>
