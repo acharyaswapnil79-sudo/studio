@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -31,7 +30,7 @@ export default function SignupPage() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
-      router.push('/dashboard');
+      router.push('/');
     } catch (error: any) {
       toast({
         title: "Registration Failed",
@@ -48,7 +47,7 @@ export default function SignupPage() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      router.push('/dashboard');
+      router.push('/');
     } catch (error: any) {
       toast({
         title: "Google Sign-In Failed",
@@ -148,7 +147,7 @@ export default function SignupPage() {
                 disabled={googleLoading}
                 className="w-full border-white/10 bg-transparent hover:bg-white/5 text-white rounded-xl py-6 font-bold uppercase tracking-widest text-xs"
               >
-                {googleLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Chrome className="w-4 h-4 mr-2" /> Google SSO</>}
+                {googleLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>< Chrome className="w-4 h-4 mr-2" /> Google SSO</>}
               </Button>
             </CardContent>
             <CardFooter className="p-8 bg-black/20">

@@ -1,11 +1,10 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Menu, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { Menu, User, LogOut } from 'lucide-react';
 import { MobileMenuOverlay } from './MobileMenuOverlay';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
@@ -102,12 +101,6 @@ export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }
           <div className="flex items-center gap-4 relative z-10">
             {user ? (
               <div className="flex items-center gap-3">
-                <Link href="/dashboard" className="hidden lg:block">
-                   <Button variant="outline" size="sm" className="rounded-full border-white/10 text-white/60 hover:text-white hover:bg-white/5">
-                      <LayoutDashboard className="w-4 h-4 mr-2" />
-                      Platform
-                   </Button>
-                </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className="outline-none focus:ring-0">
@@ -125,13 +118,6 @@ export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }
                         <p className="text-sm font-medium leading-none text-white/90 truncate">{user.email}</p>
                       </div>
                     </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-white/5" />
-                    <DropdownMenuItem asChild className="focus:bg-[#0445a4]/10 focus:text-white cursor-pointer">
-                      <Link href="/dashboard" className="flex items-center">
-                        <LayoutDashboard className="mr-2 h-4 w-4" />
-                        <span>Intelligence Platform</span>
-                      </Link>
-                    </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-white/5" />
                     <DropdownMenuItem onClick={handleLogout} className="focus:bg-red-500/10 focus:text-red-500 cursor-pointer">
                       <LogOut className="mr-2 h-4 w-4" />
@@ -174,7 +160,10 @@ export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }
         onClose={() => setMobileMenuOpen(false)}
         navLinks={links}
         activeSection={activeSection || ""}
-        onOpenIntake={onOpenIntake}
+        onOpenIntake={() => {
+          setMobileMenuOpen(false);
+          onOpenIntake();
+        }}
       />
     </>
   );

@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -95,27 +94,18 @@ export default function GreyShacksHome() {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col sm:flex-row items-center justify-center gap-4"
               >
-                {user ? (
-                  <Link href="/dashboard">
+                {!user && (
+                  <Link href="/signup">
                     <Button className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-10 py-7 text-sm font-bold uppercase tracking-widest transition-all shadow-2xl shadow-[#0445a4]/20 group">
-                      Enter Intelligence Platform
+                      Start Pilot Deployment
                       <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </Link>
-                ) : (
-                  <>
-                    <Link href="/signup">
-                      <Button className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-10 py-7 text-sm font-bold uppercase tracking-widest transition-all shadow-2xl shadow-[#0445a4]/20 group">
-                        Start Pilot Deployment
-                        <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </Link>
-                    <Link href="/login">
-                      <Button variant="outline" className="border-white/10 text-white/60 hover:text-white hover:bg-white/5 rounded-full px-10 py-7 text-sm font-bold uppercase tracking-widest">
-                        Institutional Login
-                      </Button>
-                    </Link>
-                  </>
+                )}
+                {user && (
+                  <div className="text-[#888888] font-medium italic">
+                    Logged in as <span className="text-white font-bold">{user.email}</span>
+                  </div>
                 )}
               </motion.div>
             </div>
