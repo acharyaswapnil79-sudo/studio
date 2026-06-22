@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { LayoutDashboard, Activity, Database, Bot, ArrowRight, Loader2, BarChart3, Clock, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function DashboardPage() {
   const { user, isUserLoading } = useUser();
