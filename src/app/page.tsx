@@ -18,7 +18,8 @@ import {
   ShieldCheck,
   Search,
   History,
-  Link as LinkIcon
+  Link as LinkIcon,
+  MessageSquare
 } from 'lucide-react';
 import { useUser } from '@/firebase';
 
@@ -282,30 +283,30 @@ export default function GreyShacksHome() {
               className="mb-24"
             >
               <span className="text-[11px] font-bold tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">WORKFLOW</span>
-              <h2 className="text-[36px] md:text-[64px] font-bold text-white tracking-tight leading-[1]">Connect your stack. <br className="hidden md:block" /> See your company.</h2>
+              <h2 className="text-[36px] md:text-[64px] font-bold text-white tracking-tight leading-[1]">How GreyShacks Works</h2>
             </motion.div>
 
-            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 lg:gap-24 mb-32">
+            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 lg:gap-24 mb-12">
               <div className="hidden md:block absolute top-12 left-0 right-0 h-px border-t border-dashed border-white/10 z-0" />
               
               {[
                 { 
                   n: "01", 
-                  t: "Connect (MCP)", 
-                  d: "Integrate your existing tools via MCP in minutes. Data starts flowing into your private memory layer immediately.", 
+                  t: "Connect Your Tools", 
+                  d: "Connect Gmail, Drive, Sheets, and WhatsApp in minutes. GreyShacks starts understanding your operations immediately.", 
                   icon: Plug
                 },
                 { 
                   n: "02", 
-                  t: "Map (Ontology)", 
-                  d: "GreyShacks automatically maps the entities and relationships across your disparate data sources.", 
+                  t: "Build Your Memory & Ontology", 
+                  d: "GreyShacks automatically builds memory and a knowledge graph of your customers, processes, and decisions.", 
                   icon: Network
                 },
                 { 
                   n: "03", 
-                  t: "Execute (Action)", 
-                  d: "Use the command center to query, automate, and resolve operational bottlenecks in real-time.", 
-                  icon: Zap
+                  t: "Ask & Act", 
+                  d: "Use the Chat Interface to query anything and trigger actions across your tools — all from one place.", 
+                  icon: MessageSquare
                 }
               ].map((step, i) => (
                 <motion.div
@@ -324,6 +325,18 @@ export default function GreyShacksHome() {
                 </motion.div>
               ))}
             </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="mt-24 text-center"
+            >
+              <p className="text-[#555] text-lg font-medium italic">
+                "Start in under 60 seconds. No long onboarding required."
+              </p>
+            </motion.div>
           </div>
         </section>
 
