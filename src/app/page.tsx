@@ -1,32 +1,87 @@
 
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ProductCTA } from '@/components/ProductCTA';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { 
-  Sparkles, 
-  Database,
-  Network,
-  Plug,
   ArrowRight,
-  Zap,
-  ShieldCheck,
   Search,
   History,
+  Network,
   Link as LinkIcon,
   MessageSquare,
+  Plug,
+  Shield,
+  ShieldCheck,
   Lock,
-  Shield
+  CheckCircle2
 } from 'lucide-react';
 import { useUser } from '@/firebase';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+
+type FeatureKey = 'memory' | 'ontology' | 'connectors' | 'query';
+
+const FEATURE_DETAILS: Record<FeatureKey, { title: string; description: string; benefits: string[]; icon: any }> = {
+  memory: {
+    title: "Persistent Memory",
+    icon: History,
+    description: "GreyShacks automatically captures and organizes context from emails, documents, sheets, and chats. It creates a seamless record of institutional knowledge, ensuring that critical information is never lost when people move or tools change.",
+    benefits: [
+      "Unified context across all communication channels.",
+      "Zero information loss during team transitions.",
+      "Instant retrieval of historical decision-making logic.",
+      "Automatic categorization of unstructured data."
+    ]
+  },
+  ontology: {
+    title: "Ontology & Knowledge Graph",
+    icon: Network,
+    description: "Beyond simple data storage, GreyShacks builds a dynamic, living map of your organization. It understands the relationships between customers, processes, projects, and decisions, creating a 'shared brain' for your team.",
+    benefits: [
+      "Deep understanding of cross-functional dependencies.",
+      "Semantic search that understands business context.",
+      "Continuous learning as your operations evolve.",
+      "Maps informal processes to formal institutional memory."
+    ]
+  },
+  connectors: {
+    title: "Universal Connectors",
+    icon: LinkIcon,
+    description: "Securely bridge the gap between your existing stack and GreyShacks. Our connectors allow the platform to read data from and execute actions directly within Gmail, Google Workspace, WhatsApp Business, and industry-standard CRM/ERP systems.",
+    benefits: [
+      "Native API integrations for real-time data sync.",
+      "Read/Write capabilities across your entire tool-stack.",
+      "Institutional-grade security and encryption.",
+      "Rapid setup with zero-code connection logic."
+    ]
+  },
+  query: {
+    title: "Query & Command Center",
+    icon: Search,
+    description: "Interact with your company's operational memory using natural language. The Command Center allows you to ask complex questions and trigger multi-step workflows across different tools without leaving the interface.",
+    benefits: [
+      "Natural language operational intelligence.",
+      "One-click action triggers across multiple systems.",
+      "Drastic reduction in manual 'tab-switching'.",
+      "Real-time visibility into process bottlenecks."
+    ]
+  }
+};
 
 export default function GreyShacksHome() {
   const { user } = useUser();
+  const [activeFeature, setActiveFeature] = useState<FeatureKey | null>(null);
 
   return (
     <div className="relative min-h-screen bg-[#0A0A0A] selection:bg-[#0445a4]/30 overflow-x-hidden">
@@ -194,9 +249,12 @@ export default function GreyShacksHome() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/5">
-                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => setActiveFeature('memory')}
+                    className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors"
+                  >
                     Learn more <ArrowRight className="w-3 h-3" />
-                  </Link>
+                  </button>
                 </div>
               </motion.div>
 
@@ -218,9 +276,12 @@ export default function GreyShacksHome() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/5">
-                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => setActiveFeature('ontology')}
+                    className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors"
+                  >
                     Learn more <ArrowRight className="w-3 h-3" />
-                  </Link>
+                  </button>
                 </div>
               </motion.div>
 
@@ -242,9 +303,12 @@ export default function GreyShacksHome() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/5">
-                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => setActiveFeature('connectors')}
+                    className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors"
+                  >
                     Learn more <ArrowRight className="w-3 h-3" />
-                  </Link>
+                  </button>
                 </div>
               </motion.div>
 
@@ -266,9 +330,12 @@ export default function GreyShacksHome() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/5">
-                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => setActiveFeature('query')}
+                    className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors"
+                  >
                     Learn more <ArrowRight className="w-3 h-3" />
-                  </Link>
+                  </button>
                 </div>
               </motion.div>
             </div>
@@ -453,6 +520,46 @@ export default function GreyShacksHome() {
       </main>
 
       <Footer onOpenIntake={() => {}} />
+
+      {/* Feature Modals */}
+      <Dialog open={activeFeature !== null} onOpenChange={() => setActiveFeature(null)}>
+        <DialogContent className="bg-[#0D0D0D] border-white/10 text-white max-w-2xl rounded-[32px] p-0 overflow-hidden shadow-2xl">
+          {activeFeature && (
+            <div className="p-8 md:p-12">
+              <DialogHeader className="mb-10">
+                <div className="w-14 h-14 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center mb-8">
+                  {React.createElement(FEATURE_DETAILS[activeFeature].icon, { className: "w-7 h-7 text-[#0445a4]" })}
+                </div>
+                <DialogTitle className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-6">
+                  {FEATURE_DETAILS[activeFeature].title}
+                </DialogTitle>
+                <DialogDescription className="text-[#888] text-lg leading-relaxed">
+                  {FEATURE_DETAILS[activeFeature].description}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {FEATURE_DETAILS[activeFeature].benefits.map((benefit, i) => (
+                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+                    <CheckCircle2 className="w-5 h-5 text-[#0445a4] shrink-0 mt-0.5" />
+                    <span className="text-sm text-[#AAAAAA] font-medium leading-tight">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-12 pt-8 border-t border-white/5 flex justify-end">
+                <Button 
+                  onClick={() => setActiveFeature(null)} 
+                  variant="outline" 
+                  className="rounded-full px-10 py-6 font-bold uppercase tracking-widest text-[10px] border-white/10 hover:bg-white/5 transition-all"
+                >
+                  Close Detail
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
