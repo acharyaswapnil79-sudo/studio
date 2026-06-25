@@ -3,13 +3,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
 interface FooterProps {
   onOpenIntake: () => void;
 }
 
-export function Footer({ onOpenIntake }: FooterProps) {
+export function Footer() {
   return (
     <footer className="bg-[#0A0A0A] border-t border-white/5 pt-20 pb-12 px-6 md:px-10">
       <div className="max-w-[1240px] mx-auto">
@@ -21,21 +20,26 @@ export function Footer({ onOpenIntake }: FooterProps) {
             </Link>
             <div className="space-y-3 max-w-[280px]">
               <p className="text-[13px] md:text-[14px] text-[#555] font-medium leading-tight">
-                Operational Intelligence for Mid-Market Operations
+                The Operational Memory Layer for modern teams.
               </p>
               <p className="text-[11px] md:text-[12px] text-[#444] leading-relaxed uppercase tracking-wider font-bold">
-                Serving APAC · MENA · NAMER
+                Serving globally · Remote-first
               </p>
             </div>
           </div>
 
           {/* Column 2 — Product */}
           <div className="md:col-span-4 space-y-8">
-            <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Menu</h4>
+            <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Platform</h4>
             <ul className="space-y-4">
               <li>
-                <Link href="/capabilities" className="text-[13px] text-[#666] hover:text-white transition-colors">
-                  Capabilities
+                <Link href="/#product" className="text-[13px] text-[#666] hover:text-white transition-colors">
+                  Product
+                </Link>
+              </li>
+              <li>
+                <Link href="/pricing" className="text-[13px] text-[#666] hover:text-white transition-colors">
+                  Pricing
                 </Link>
               </li>
               <li>
@@ -70,7 +74,7 @@ export function Footer({ onOpenIntake }: FooterProps) {
             © 2026 GREYSHACKS. ALL RIGHTS RESERVED.
           </div>
           <div className="text-[11px] text-[#333] italic font-medium tracking-tight text-center md:text-right">
-            No generic AI solutions. Only deployment-backed systems.
+            Self-serve operational intelligence. Built for scale.
           </div>
         </div>
       </div>

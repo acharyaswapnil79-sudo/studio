@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -25,13 +26,12 @@ interface NavbarProps {
 }
 
 const defaultNavLinks = [
-  { name: "About", href: "/about" },
-  { name: "Capabilities", href: "/capabilities" },
-  { name: "Approach", href: "/approach" },
-  { name: "Practitioner Framework", href: "/intelligence" }
+  { name: "Product", href: "/#product" },
+  { name: "Pricing", href: "/pricing" },
+  { name: "About", href: "/about" }
 ];
 
-export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }: NavbarProps) {
+export function Navbar({ activeSection, navLinks: customNavLinks }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user } = useUser();
@@ -137,7 +137,7 @@ export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }
                   <Button 
                     className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-8 py-2.5 h-11 text-[11px] font-bold uppercase tracking-widest transition-all shadow-xl shadow-[#0445a4]/20"
                   >
-                    Get started
+                    Start Free
                   </Button>
                 </Link>
               </div>
@@ -162,7 +162,6 @@ export function Navbar({ onOpenIntake, activeSection, navLinks: customNavLinks }
         activeSection={activeSection || ""}
         onOpenIntake={() => {
           setMobileMenuOpen(false);
-          onOpenIntake();
         }}
       />
     </>
