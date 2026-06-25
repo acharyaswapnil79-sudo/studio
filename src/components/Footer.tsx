@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -28,13 +27,13 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2 — Product */}
+          {/* Column 2 — Platform */}
           <div className="md:col-span-4 space-y-8">
             <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Platform</h4>
             <ul className="space-y-4">
               <li>
                 <Link href="/#product" className="text-[13px] text-[#666] hover:text-white transition-colors">
-                  Product
+                  Features
                 </Link>
               </li>
               <li>
@@ -50,7 +49,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 — Company */}
+          {/* Column 3 — Legals */}
           <div className="md:col-span-4 space-y-8">
             <h4 className="text-[10px] font-bold text-[#333] uppercase tracking-[0.25em]">Legals</h4>
             <ul className="space-y-4">
