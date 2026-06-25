@@ -16,7 +16,9 @@ import {
   ArrowRight,
   Zap,
   ShieldCheck,
-  Search
+  Search,
+  History,
+  Link as LinkIcon
 } from 'lucide-react';
 import { useUser } from '@/firebase';
 
@@ -62,7 +64,7 @@ export default function GreyShacksHome() {
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-2xl mx-auto mb-12"
               >
-                GreyShacks remembers everything across your systems — and turns it into action. One intelligent system for your entire operations.
+                GreyShacks remembers everything across systems — and turns it into action. One intelligent system for your entire operations.
               </motion.p>
 
               <motion.div
@@ -153,7 +155,7 @@ export default function GreyShacksHome() {
           </div>
         </section>
 
-        {/* PRODUCT SECTION */}
+        {/* FEATURES SECTION */}
         <section id="product" className="py-24 md:py-40 border-t border-white/5 bg-black">
           <div className="container mx-auto px-6">
             <motion.div
@@ -162,30 +164,37 @@ export default function GreyShacksHome() {
               viewport={{ once: true }}
               className="mb-24"
             >
-              <span className="text-[11px] font-bold tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">PRODUCT</span>
+              <span className="text-[11px] font-bold tracking-[0.2em] text-[#0445a4] uppercase mb-6 block">FEATURES</span>
               <h2 className="text-[36px] md:text-[72px] font-bold text-white tracking-tight leading-[1] mb-8">
-                The Platform. <br /> Done exceptionally well.
+                The Operating System <br /> for Modern Teams.
               </h2>
               <p className="text-[18px] md:text-[22px] text-[#888888] leading-relaxed max-w-[600px]">
-                Built from the ground up to solve operational fragmentation.
+                Four integrated capabilities designed to eliminate operational fragmentation.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-              {/* Feature 1: Memory System */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Feature 1: Persistent Memory */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="space-y-8 bg-[#111] border border-white/5 p-10 rounded-[32px] hover:border-[#0445a4]/30 transition-all group"
+                className="space-y-8 bg-[#111] border border-white/5 p-10 rounded-[32px] hover:border-[#0445a4]/30 transition-all group flex flex-col h-full"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center group-hover:bg-[#0445a4] transition-colors">
-                  <Database className="w-6 h-6 text-[#0445a4] group-hover:text-white" />
+                <div className="w-12 h-12 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center group-hover:bg-[#0445a4] transition-colors shrink-0">
+                  <History className="w-6 h-6 text-[#0445a4] group-hover:text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white tracking-tight">Memory System</h3>
-                <p className="text-[15px] text-[#888] leading-relaxed">
-                  A persistent, queryable store of every operational event. No more data loss or "where is that file?" moments.
-                </p>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white tracking-tight mb-4">Persistent Memory</h3>
+                  <p className="text-[15px] text-[#888] leading-relaxed">
+                    Automatically captures and organizes context from emails, documents, sheets, and chats so your team never loses information.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/5">
+                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                    Learn more <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
               </motion.div>
 
               {/* Feature 2: Ontology & Knowledge Graph */}
@@ -194,32 +203,70 @@ export default function GreyShacksHome() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="space-y-8 bg-[#111] border border-white/5 p-10 rounded-[32px] hover:border-[#0445a4]/30 transition-all group"
+                className="space-y-8 bg-[#111] border border-white/5 p-10 rounded-[32px] hover:border-[#0445a4]/30 transition-all group flex flex-col h-full"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center group-hover:bg-[#0445a4] transition-colors">
+                <div className="w-12 h-12 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center group-hover:bg-[#0445a4] transition-colors shrink-0">
                   <Network className="w-6 h-6 text-[#0445a4] group-hover:text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white tracking-tight">Institutional Ontology</h3>
-                <p className="text-[15px] text-[#888] leading-relaxed">
-                  We map the relationships between your customers, orders, and vendors automatically, creating a live knowledge graph.
-                </p>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white tracking-tight mb-4">Ontology & Knowledge Graph</h3>
+                  <p className="text-[15px] text-[#888] leading-relaxed">
+                    Builds a living map of your customers, processes, and decisions that gets smarter over time.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/5">
+                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                    Learn more <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
               </motion.div>
 
-              {/* Feature 3: MCP Connectors */}
+              {/* Feature 3: Universal Connectors */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="space-y-8 bg-[#111] border border-white/5 p-10 rounded-[32px] hover:border-[#0445a4]/30 transition-all group"
+                className="space-y-8 bg-[#111] border border-white/5 p-10 rounded-[32px] hover:border-[#0445a4]/30 transition-all group flex flex-col h-full"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center group-hover:bg-[#0445a4] transition-colors">
-                  <Plug className="w-6 h-6 text-[#0445a4] group-hover:text-white" />
+                <div className="w-12 h-12 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center group-hover:bg-[#0445a4] transition-colors shrink-0">
+                  <LinkIcon className="w-6 h-6 text-[#0445a4] group-hover:text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white tracking-tight">MCP Connectors</h3>
-                <p className="text-[15px] text-[#888] leading-relaxed">
-                  Native, high-fidelity integration with your stack using the Model Context Protocol. Zero-lag data availability.
-                </p>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white tracking-tight mb-4">Universal Connectors</h3>
+                  <p className="text-[15px] text-[#888] leading-relaxed">
+                    Securely connects to Gmail, Google Workspace, WhatsApp Business, CRMs, ERPs, Finance tools — read and act across all your tools.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/5">
+                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                    Learn more <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+              </motion.div>
+
+              {/* Feature 4: Query */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="space-y-8 bg-[#111] border border-white/5 p-10 rounded-[32px] hover:border-[#0445a4]/30 transition-all group flex flex-col h-full"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center group-hover:bg-[#0445a4] transition-colors shrink-0">
+                  <Search className="w-6 h-6 text-[#0445a4] group-hover:text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white tracking-tight mb-4">Query</h3>
+                  <p className="text-[15px] text-[#888] leading-relaxed">
+                    Ask questions in natural language and trigger real actions across your operations.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/5">
+                  <Link href="/about" className="text-[#0445a4] text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                    Learn more <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
               </motion.div>
             </div>
           </div>
