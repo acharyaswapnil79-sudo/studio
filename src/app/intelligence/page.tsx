@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
-import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
 import { FrameworkCard } from '@/components/intelligence/FrameworkCard';
@@ -66,11 +65,9 @@ const FRAMEWORKS = [
 ];
 
 export default function PractitionerFrameworksPage() {
-  const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#0445a4]/30 font-sans">
-      <Navbar onOpenIntake={() => setIsIntakeOpen(true)} activeSection="intelligence" />
+      <Navbar onOpenIntake={() => {}} activeSection="intelligence" />
 
       <main className="pt-32 pb-0">
         {/* Header Section */}
@@ -99,9 +96,8 @@ export default function PractitionerFrameworksPage() {
               transition={{ delay: 0.2 }}
               className="mt-8 text-xl text-[#888888] max-w-2xl leading-relaxed font-medium"
             >
-              These are not theoretical models. They are structured approaches we use 
-              during operational diagnostics and pilots — refined through repeated use 
-              across different industries and workflows.
+              These are not theoretical models. They are structured approaches used during 
+              operational scaling — refined through repeated use across different industries and workflows.
             </motion.p>
           </div>
         </section>
@@ -135,11 +131,10 @@ export default function PractitionerFrameworksPage() {
           </div>
         </section>
 
-        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
+        <DiagnosticCTA />
       </main>
 
-      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-      <IntakeFormModal isOpen={isIntakeOpen} onClose={() => setIsIntakeOpen(false)} />
+      <Footer onOpenIntake={() => {}} />
     </div>
   );
 }

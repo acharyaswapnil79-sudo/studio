@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface EngagementModelProps {
   onOpenIntake: () => void;
@@ -46,7 +47,7 @@ const STEPS = [
   }
 ];
 
-export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementModelProps) {
+export function EngagementModel({ onOpenMethodology }: EngagementModelProps) {
   return (
     <section 
       id="engagement-model" 
@@ -55,13 +56,13 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
       <div className="max-w-[1240px] mx-auto">
         <header className="mb-16">
           <div className="inline-block bg-[#0445a4]/10 border border-[#0445a4]/20 px-3 py-1 rounded-full mb-4">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#0445a4] font-bold">Engagement Model</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#0445a4] font-bold">Product Workflow</span>
           </div>
           <h2 className="font-headline text-3xl md:text-5xl font-bold text-white mb-6">
-            How Engagements Begin
+            Rapid Platform Onboarding
           </h2>
           <p className="text-[#A0A0A0] text-lg max-w-2xl leading-relaxed">
-            Short, measured pilots built on your data. No commitment beyond the pilot — we prove value first.
+            Connect your systems in minutes. We handle the complexity of mapping and memory, while you maintain full control.
           </p>
         </header>
 
@@ -114,27 +115,28 @@ export function EngagementModel({ onOpenIntake, onOpenMethodology }: EngagementM
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
               <p className="text-white font-bold text-lg mb-2">
-                The GreyShacks Assurance
+                Operational Memory, Instantly.
               </p>
               <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                We do not proceed to full deployment unless the pilot delivers measurable outcomes against your baseline. No surprise fees. No hidden lock-ins.
+                Start for free today. No long-term commitments or surprise fees. Build a shared institutional brain in under 60 seconds.
               </p>
             </div>
             <div className="shrink-0 w-full md:w-auto flex flex-col sm:flex-row gap-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={onOpenIntake}
-                className="flex items-center justify-center gap-2 bg-[#0445a4] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0445a4]/90 transition-colors"
-              >
-                Request an Operational Diagnostic
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
+              <Link href="/signup">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0445a4] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0445a4]/90 transition-colors"
+                >
+                  Start Free
+                  <ArrowRight className="w-4 h-4" />
+                </motion.button>
+              </Link>
               <button 
                 onClick={onOpenMethodology}
                 className="bg-transparent border border-white/10 text-white font-bold text-[14px] px-8 py-4 rounded-lg hover:bg-white/5 transition-all"
               >
-                Request Deployment Brief (NDA)
+                View Documentation
               </button>
             </div>
           </div>

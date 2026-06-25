@@ -1,12 +1,8 @@
-
 "use client"
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
-import { MobileMenuOverlay } from '@/components/MobileMenuOverlay';
-import { MethodologyModal } from '@/components/MethodologyModal';
-import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { Footer } from '@/components/Footer';
 import { DEPLOYMENTS } from '@/lib/deployments-data';
@@ -19,30 +15,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Info, Filter, FileText, BarChart, ChevronDown } from 'lucide-react';
+import { ArrowRight, Filter, BarChart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DeploymentLibraryPage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMethodologyOpen, setIsMethodologyOpen] = useState(false);
-  const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-
-  // Initial states set to show all deployments
   const [industryFilter, setIndustryFilter] = useState<string>('all');
   const [functionFilter, setFunctionFilter] = useState<string>('all');
   const [stageFilter, setStageFilter] = useState<string>('all');
   const [teamSizeFilter, setTeamSizeFilter] = useState<string>('all');
   const [methodologyOnly, setMethodologyOnly] = useState(false);
 
-  React.useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const filteredDeployments = useMemo(() => {
-    const filtered = DEPLOYMENTS.filter(d => {
+    return DEPLOYMENTS.filter(d => {
       const industryMatch =
         industryFilter === 'all' ||
         (d.industry && d.industry.toLowerCase() === industryFilter.toLowerCase());
@@ -71,8 +55,6 @@ export default function DeploymentLibraryPage() {
         methodologyMatch
       );
     });
-
-    return filtered;
   }, [
     industryFilter,
     functionFilter,
@@ -91,7 +73,7 @@ export default function DeploymentLibraryPage() {
     <div className="relative min-h-screen bg-[#0A0A0A] font-body text-white selection:bg-[#0445a4]/30">
       <Navbar 
         activeSection="deployments"
-        onOpenIntake={() => setIsIntakeOpen(true)}
+        onOpenIntake={() => {}}
         navLinks={navLinks}
       />
 
@@ -294,12 +276,13 @@ export default function DeploymentLibraryPage() {
                   </div>
 
                   <div className="border-t border-white/5 p-4 flex gap-2">
-                    <button 
-                      onClick={() => setIsIntakeOpen(true)}
-                      className="flex-1 bg-[#0445a4] text-white text-[11px] font-bold py-2.5 rounded-md hover:opacity-90 transition-colors"
-                    >
-                      Request Diagnostic
-                    </button>
+                    <Link href="/signup" className="flex-1">
+                      <button 
+                        className="w-full bg-[#0445a4] text-white text-[11px] font-bold py-2.5 rounded-md hover:opacity-90 transition-colors"
+                      >
+                        Start Free
+                      </button>
+                    </Link>
                     <Link 
                       href={`/deployments/${d.id}`}
                       className="flex-1 bg-white/5 text-center text-white/60 text-[11px] font-bold py-2.5 rounded-md hover:bg-white/10 hover:text-white transition-colors"
@@ -313,21 +296,10 @@ export default function DeploymentLibraryPage() {
           </div>
         </div>
 
-        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
+        <DiagnosticCTA />
       </main>
 
-      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-
-      <MethodologyModal 
-        isOpen={isMethodologyOpen} 
-        onClose={() => setIsMethodologyOpen(false)} 
-        onOpenIntake={() => setIsIntakeOpen(true)}
-      />
-
-      <IntakeFormModal
-        isOpen={isIntakeOpen}
-        onClose={() => setIsIntakeOpen(false)}
-      />
+      <Footer onOpenIntake={() => {}} />
     </div>
   );
 }

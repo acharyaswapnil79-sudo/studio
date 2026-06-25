@@ -4,16 +4,13 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
-  const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-
   return (
     <div className="bg-[#0A0A0A] min-h-screen selection:bg-[#0445a4]/30">
-      <Navbar onOpenIntake={() => setIsIntakeOpen(true)} activeSection="about" />
+      <Navbar onOpenIntake={() => {}} activeSection="about" />
       
       <main className="pt-[160px] pb-0">
         <div className="container px-6 mx-auto">
@@ -43,15 +40,15 @@ export default function AboutPage() {
               className="mt-12 space-y-8 max-w-[640px]"
             >
               <p className="text-[17px] text-[#888888] leading-[1.7]">
-                GreyShacks was founded in 2023 with a single belief: that mid-market operations teams are systematically underserved. They're too large for manual processes, and too lean to absorb a 12-month enterprise implementation. We built the gap layer.
+                GreyShacks was founded with a single belief: that operations teams are systematically underserved. They're too large for manual processes, and too lean to absorb complex enterprise implementations. We built the software layer to fill that gap.
               </p>
               
               <p className="text-[17px] text-[#888888] leading-[1.7]">
-                Every system we deploy is production-grade — running in live environments, measured against real baselines, and governed by audit-ready frameworks. We don't ship prototypes. We don't sell outcomes we can't measure.
+                Every system we deploy is production-grade — running in live environments, measured against real baselines, and governed by audit-ready frameworks. We don't ship prototypes. We ship institutional memory.
               </p>
               
               <p className="text-[17px] text-[#888888] leading-[1.7]">
-                Three years in, we've automated over 190 workflows and deployed across finance, logistics, real estate, and professional services. The work speaks. The numbers are public.
+                Today, GreyShacks provides the intelligent backbone for teams across finance, logistics, real estate, and professional services. The work speaks. The outcomes are measurable.
               </p>
             </motion.div>
           </div>
@@ -59,8 +56,8 @@ export default function AboutPage() {
           {/* Stats Grid Refined */}
           <div className="mt-32 grid grid-cols-1 md:grid-cols-2 gap-px bg-[#222] border border-[#222]">
             {[
-              { val: "30+", l: "Operational Deployments", s: "Across 14 operational environments since 2023" },
-              { val: "14 Wks", l: "Time to Maturity", s: "From diagnostic to full production stability" }
+              { val: "190+", l: "Automated Workflows", s: "Across 14 operational environments since 2023" },
+              { val: "60 Sec", l: "Time to Connect", s: "From first login to full system synchronization" }
             ].map((s, i) => (
               <div key={i} className="bg-[#0A0A0A] p-12">
                 <div className="text-4xl font-bold text-[#0445a4] mb-4">{s.val}</div>
@@ -79,7 +76,7 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 className="text-[11px] font-medium tracking-[0.12em] text-[#0445a4] uppercase mb-6 block"
               >
-                NON-NEGOTIABLES
+                OUR CORE PRINCIPLES
               </motion.span>
               
               <motion.h2 
@@ -89,15 +86,15 @@ export default function AboutPage() {
                 transition={{ delay: 0.1 }}
                 className="text-[32px] md:text-[40px] font-bold text-[#F5F5F5] tracking-tight leading-[1.2] mb-16"
               >
-                Four things we will never compromise on.
+                Built on transparency and performance.
               </motion.h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
                 {[
-                  { n: "01", t: "Measurement before deployment", d: "We define success metrics before we write a single line of automation. If we can't baseline it, we don't touch it." },
-                  { n: "02", t: "Pilot before scale", d: "Every engagement starts small. No client commits to production until they've seen results in their own environment." },
-                  { n: "03", t: "Governance by default", d: "Every deployed system has a full audit trail, exception handling, and a rollback plan. Compliance isn't optional." },
-                  { n: "04", t: "Honesty over revenue", d: "If your process isn't ready for automation, we'll tell you. We'd rather lose a deal than set up a deployment to fail." }
+                  { n: "01", t: "Measurement as Standard", d: "We define success metrics within the software. If it can't be baselined, it isn't production-grade." },
+                  { n: "02", t: "User-First Autonomy", d: "The system assists, learns, and executes — but you retain ultimate control and visibility over every decision." },
+                  { n: "03", t: "Governance by Default", d: "Every action has a full audit trail, exception handling, and a rollback plan. Compliance is built in." },
+                  { n: "04", t: "Honesty in Performance", d: "If a process isn't ready for automation, the system flags the data gaps. We don't deploy to fail." }
                 ].map((item, idx) => (
                   <motion.div 
                     key={idx}
@@ -125,11 +122,10 @@ export default function AboutPage() {
           </section>
         </div>
 
-        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
+        <DiagnosticCTA />
       </main>
 
-      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-      <IntakeFormModal isOpen={isIntakeOpen} onClose={() => setIsIntakeOpen(false)} />
+      <Footer onOpenIntake={() => {}} />
     </div>
   );
 }

@@ -1,10 +1,8 @@
-
 "use client"
 
 import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { IntakeFormModal } from '@/components/IntakeFormModal';
 import { DiagnosticCTA } from '@/components/DiagnosticCTA';
 import { 
   Database, 
@@ -19,7 +17,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 const DATA_CAPABILITIES = [
   {
@@ -63,11 +61,9 @@ const AGENT_CAPABILITIES = [
 ];
 
 export default function CapabilitiesPage() {
-  const [isIntakeOpen, setIsIntakeOpen] = useState(false);
-
   return (
     <div className="bg-[#0A0A0A] min-h-screen selection:bg-[#0445a4]/30">
-      <Navbar onOpenIntake={() => setIsIntakeOpen(true)} activeSection="capabilities" />
+      <Navbar onOpenIntake={() => {}} activeSection="capabilities" />
       
       <main className="pt-32 md:pt-48 pb-0">
         <div className="container mx-auto px-6">
@@ -110,13 +106,13 @@ export default function CapabilitiesPage() {
                       The quality of any agent system is limited by the quality of its data foundation. We build that foundation properly.
                     </p>
                   </div>
-                  <button 
-                    onClick={() => setIsIntakeOpen(true)}
+                  <Link 
+                    href="/signup"
                     className="flex items-center gap-2 text-[#0445a4] text-sm font-bold uppercase tracking-widest hover:text-white transition-colors group"
                   >
-                    Discuss your data challenges 
+                    Start Free 
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </button>
+                  </Link>
                 </div>
                 
                 <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -226,25 +222,25 @@ export default function CapabilitiesPage() {
             </div>
             
             <div className="bg-[#0D0D0D] border border-white/5 p-12 rounded-[20px]">
-              <h3 className="text-white text-2xl font-bold mb-6 tracking-tight">Request Diagnostic</h3>
+              <h3 className="text-white text-2xl font-bold mb-6 tracking-tight">Get Started</h3>
               <p className="text-[#888] text-sm leading-relaxed mb-10">
-                We take a limited number of diagnostic engagements each quarter. Start with a structured audit of your manual latency.
+                Deploy your first operational memory layer today. Free forever for small teams.
               </p>
-              <button 
-                onClick={() => setIsIntakeOpen(true)}
-                className="w-full py-5 bg-[#0445a4] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full hover:opacity-90 transition-all shadow-xl shadow-[#0445a4]/10"
-              >
-                Apply for Diagnostic
-              </button>
+              <Link href="/signup">
+                <button 
+                  className="w-full py-5 bg-[#0445a4] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full hover:opacity-90 transition-all shadow-xl shadow-[#0445a4]/10"
+                >
+                  Start Free
+                </button>
+              </Link>
             </div>
           </div>
         </div>
 
-        <DiagnosticCTA onOpenIntake={() => setIsIntakeOpen(true)} />
+        <DiagnosticCTA />
       </main>
 
-      <Footer onOpenIntake={() => setIsIntakeOpen(true)} />
-      <IntakeFormModal isOpen={isIntakeOpen} onClose={() => setIsIntakeOpen(false)} />
+      <Footer onOpenIntake={() => {}} />
     </div>
   );
 }
