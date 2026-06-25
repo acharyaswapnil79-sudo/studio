@@ -19,7 +19,9 @@ import {
   Search,
   History,
   Link as LinkIcon,
-  MessageSquare
+  MessageSquare,
+  Lock,
+  Shield
 } from 'lucide-react';
 import { useUser } from '@/firebase';
 
@@ -337,6 +339,113 @@ export default function GreyShacksHome() {
                 "Start in under 60 seconds. No long onboarding required."
               </p>
             </motion.div>
+          </div>
+        </section>
+
+        {/* TRUST & SECURITY SECTION */}
+        <section className="py-24 md:py-48 border-t border-white/5 bg-[#0A0A0A]">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+              <div className="lg:col-span-6 space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="flex items-center gap-2 text-[#0445a4]"
+                >
+                  <Shield className="w-4 h-4" />
+                  <span className="text-[11px] font-bold tracking-[0.2em] uppercase">Security First</span>
+                </motion.div>
+                
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-[36px] md:text-[64px] font-bold text-white tracking-tight leading-[1] mb-6"
+                >
+                  Your Data, <br />
+                  <span className="text-white/40 italic">Your Control.</span>
+                </motion.h2>
+                
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="space-y-6"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 rounded-full bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center shrink-0 mt-1">
+                      <ShieldCheck className="w-3 h-3 text-[#0445a4]" />
+                    </div>
+                    <p className="text-[17px] text-[#888888] leading-relaxed">
+                      <span className="text-white font-semibold">Your data belongs to you.</span> We never train models on your private data.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 rounded-full bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center shrink-0 mt-1">
+                      <ShieldCheck className="w-3 h-3 text-[#0445a4]" />
+                    </div>
+                    <p className="text-[17px] text-[#888888] leading-relaxed">
+                      <span className="text-white font-semibold">Enterprise-grade encryption</span> in transit and at rest.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 rounded-full bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center shrink-0 mt-1">
+                      <ShieldCheck className="w-3 h-3 text-[#0445a4]" />
+                    </div>
+                    <p className="text-[17px] text-[#888888] leading-relaxed">
+                      <span className="text-white font-semibold">Granular access controls</span> and full audit logs.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 rounded-full bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center shrink-0 mt-1">
+                      <ShieldCheck className="w-3 h-3 text-[#0445a4]" />
+                    </div>
+                    <p className="text-[17px] text-[#888888] leading-relaxed">
+                      We are <span className="text-white font-semibold">transparent about how we handle your data.</span>
+                    </p>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="pt-8"
+                >
+                  <Link href="/privacy" className="inline-flex items-center gap-2 text-[#0445a4] text-xs font-bold uppercase tracking-[0.2em] hover:text-white transition-colors group">
+                    Read our Data & Security principles
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </motion.div>
+              </div>
+
+              <div className="lg:col-span-6">
+                <div className="relative bg-[#111] border border-white/5 rounded-[40px] p-12 overflow-hidden shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0445a4]/5 to-transparent pointer-events-none" />
+                  <div className="relative z-10 flex flex-col items-center justify-center space-y-8">
+                    <div className="w-20 h-20 rounded-3xl bg-[#0445a4]/10 border border-[#0445a4]/20 flex items-center justify-center">
+                      <Lock className="w-10 h-10 text-[#0445a4]" />
+                    </div>
+                    <div className="text-center space-y-2">
+                      <p className="text-[10px] font-bold text-[#0445a4] uppercase tracking-[0.3em]">Institutional Standard</p>
+                      <h3 className="text-2xl font-bold text-white tracking-tight">Isolated Context Architecture</h3>
+                    </div>
+                    <div className="w-full bg-black/40 border border-white/10 rounded-2xl p-6 space-y-4">
+                      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                        <div className="h-full bg-[#0445a4] w-full" />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[10px] text-[#444] font-bold uppercase tracking-widest">Encryption Status</span>
+                        <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest">Active</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
