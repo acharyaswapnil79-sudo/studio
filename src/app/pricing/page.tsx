@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -28,7 +29,7 @@ export default function PricingPage() {
         "Community support & resources",
         "Full access to core features"
       ],
-      cta: "Get Started Free",
+      cta: "START",
       href: "/signup",
       icon: Sparkles
     },

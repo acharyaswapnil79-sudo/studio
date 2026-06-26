@@ -137,7 +137,7 @@ export function Navbar({ activeSection, navLinks: customNavLinks }: NavbarProps)
                   <Button 
                     className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-8 py-2.5 h-11 text-[11px] font-bold uppercase tracking-widest transition-all shadow-xl shadow-[#0445a4]/20"
                   >
-                    Start Free
+                    START
                   </Button>
                 </Link>
               </div>

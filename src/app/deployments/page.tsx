@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useMemo } from 'react';
@@ -280,7 +281,7 @@ export default function DeploymentLibraryPage() {
                       <button 
                         className="w-full bg-[#0445a4] text-white text-[11px] font-bold py-2.5 rounded-md hover:opacity-90 transition-colors"
                       >
-                        Start Free
+                        START
                       </button>
                     </Link>
                     <Link 

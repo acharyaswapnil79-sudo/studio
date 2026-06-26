@@ -50,7 +50,7 @@ export function ProductCTA() {
             <Button 
               className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 px-12 py-8 text-sm font-bold tracking-wider uppercase rounded-full w-full sm:w-auto shadow-2xl shadow-[#0445a4]/20 group transition-all duration-500 hover:scale-105"
             >
-              Get started for free
+              START
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-2" />
             </Button>
           </Link>

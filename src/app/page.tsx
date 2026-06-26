@@ -134,7 +134,7 @@ export default function GreyShacksHome() {
                 {!user ? (
                   <Link href="/signup">
                     <Button className="bg-[#0445a4] text-white hover:bg-[#0445a4]/90 rounded-full px-12 py-8 text-sm font-bold uppercase tracking-widest transition-all shadow-2xl shadow-[#0445a4]/20 group">
-                      Start Free
+                      START
                       <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </Link>

@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -110,7 +111,7 @@ export default function CapabilitiesPage() {
                     href="/signup"
                     className="flex items-center gap-2 text-[#0445a4] text-sm font-bold uppercase tracking-widest hover:text-white transition-colors group"
                   >
-                    Start Free 
+                    START
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
@@ -230,7 +231,7 @@ export default function CapabilitiesPage() {
                 <button 
                   className="w-full py-5 bg-[#0445a4] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full hover:opacity-90 transition-all shadow-xl shadow-[#0445a4]/10"
                 >
-                  Start Free
+                  START
                 </button>
               </Link>
             </div>

@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -128,7 +129,7 @@ export function EngagementModel({ onOpenMethodology }: EngagementModelProps) {
                   whileTap={{ scale: 0.98 }}
                   className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0445a4] text-white font-bold text-[14px] px-8 py-4 rounded-lg shadow-lg hover:bg-[#0445a4]/90 transition-colors"
                 >
-                  Start Free
+                  START
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </Link>
